@@ -22,7 +22,7 @@ class Profile extends React.Component {
 
   componentWillReceiveProps(newProps) {
     const oldId = this.props.user.id;
-    const newId = newProps.match.params.userId;
+    const newId = parseInt(newProps.match.params.userId);
     if (oldId !== newId) this.props.fetchUser(newId);
   }
 
