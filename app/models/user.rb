@@ -17,7 +17,10 @@ class User < ApplicationRecord
 	####################
 
 	has_attached_file :profile_pic, default_url: "avatar.jpg"
-  # validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+  validates_attachment_content_type :profile_pic, content_type: /\Aimage\/.*\Z/
+
+  has_attached_file :cover_photo, default_url: "cover_photo.png"
+  validates_attachment_content_type :cover_photo, content_type: /\Aimage\/.*\z/
 
 	####################
 	# ASSOCIATIONS
