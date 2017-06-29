@@ -29,6 +29,14 @@ header {
 header nav {
   display: flex;
   flex-direction: row;
+  a {
+    display: flex;
+    flex-direction: row;
+    img {
+      height: 25px;
+      width: 25px;
+    }
+  }
 }
 
 .logo::after {
