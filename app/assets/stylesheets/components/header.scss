@@ -29,12 +29,17 @@ header {
 header nav {
   display: flex;
   flex-direction: row;
+  align-items: center;
+
   a {
     display: flex;
     flex-direction: row;
+    align-items: center;
+
     img {
       height: 25px;
-      width: 25px;
+      width: auto;
+      overflow: hidden;
     }
   }
 }
