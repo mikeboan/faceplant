@@ -1,0 +1,9 @@
+.login-header {
+  background-color: $fb-blue;
+  background-image: linear-gradient(#4e69a2, #3b5998 50%);
+  border-bottom: 1px solid $border-blue;
+  height: 82px;
+  padding: 0px 17%;
+  display: flex;
+  justify-content: space-between;
+}

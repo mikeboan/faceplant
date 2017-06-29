@@ -8,10 +8,12 @@ import Profile from './Profile';
 const Main = (props) => (
   <div>
     <Header />
-    <Switch>
-      <Route exact path="/" component={Newsfeed} />
-      <Route path="/profile/:userId" component={Profile} />
-    </Switch>
+    <div className='content'>
+      <Switch>
+        <Route exact path="/" component={Newsfeed} />
+        <Route path="/profile/:userId" component={Profile} />
+      </Switch>
+    </div>
   </div>
 );
 

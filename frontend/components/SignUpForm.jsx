@@ -20,6 +20,7 @@ class SignUpForm extends React.Component {
     };
 
     this.assignHandler = this.assignHandler.bind(this);
+    this.redirectTo = this.redirectTo.bind(this);
   }
 
   assignHandler(field) {
@@ -34,13 +35,15 @@ class SignUpForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    this.props.signup(this.state).then(
-      () => {
-        this.setState({ email: "", password: "" });
-        this.props.history.push('/');
-      },
-      () => this.setState({ password: "" })
-    );
+    this.props.signup(this.state)
+      .then(() => this.redirectTo("/"))
+      .fail(() => this.setState({ password: "" }));
+  }
+
+  redirectTo(path) {
+    if (this.props.history.location.pathname !== path) {
+      this.props.history.push(path);
+    }
   }
 
   render() {
@@ -48,16 +51,37 @@ class SignUpForm extends React.Component {
       <div>
         <LogInHeader />
 
-        <h2>Sign Up</h2>
-        <h3>It's free and always will be</h3>
-        <form onSubmit={ this.handleSubmit.bind(this) }>
-          <input type="text" onChange={ this.assignHandler('first_name') } placeholder="First Name"/>
-          <input type="text" onChange={ this.assignHandler('last_name') } placeholder="Last Name"/>
-          <input type="text" onChange={ this.assignHandler('email') } placeholder="Email Address"/>
-          <input type="password" onChange={ this.assignHandler('password') } placeholder="Password"/>
-          <input type="submit" value="Sign Up" />
-        </form>
-      </div>
+        <div className='main'>
+          <h2>Sign Up</h2>
+          <h3>It's free and always will be</h3>
+          <form onSubmit={ this.handleSubmit.bind(this) }>
+            <input
+              type="text"
+              onChange={ this.assignHandler('first_name') }
+              placeholder="First Name"
+            />
+            <input
+              type="text"
+              onChange={ this.assignHandler('last_name') }
+              placeholder="Last Name"
+            />
+            <input
+              type="text"
+              onChange={ this.assignHandler('email') }
+              placeholder="Email Address"
+            />
+            <input
+              type="password"
+              onChange={ this.assignHandler('password') }
+              placeholder="Password"
+            />
+            <input
+              type="submit"
+              value="Sign Up"
+            />
+          </form>
+        </div>
+        </div>
     );
   }
 }

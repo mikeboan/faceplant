@@ -1,0 +1,36 @@
+header {
+  background-color: $fb-blue;
+  color: white;
+
+  .content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.logo {
+  font-size: 26px;
+  padding: 5px;
+}
+
+.header-left, .header-right{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.searchbar {
+  width: 300px;
+  height: 20px;
+  background: white;
+}
+
+header nav {
+  display: flex;
+  flex-direction: row;
+}
+
+.logo::after {
+  content: 'fp';
+}

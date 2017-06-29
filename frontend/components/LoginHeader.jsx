@@ -16,6 +16,7 @@ class LogInHeader extends React.Component {
       password: ""
     };
     this.assignHandler = this.assignHandler.bind(this);
+    this.redirectTo = this.redirectTo.bind(this);
   }
 
   assignHandler(field) {
@@ -30,27 +31,33 @@ class LogInHeader extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    this.props.login(this.state).then(
-      () => {
-        this.setState({ email: "", password: "" },
-          () => this.props.history.push('/')
-        );
-      },
-      () => this.setState({ password: "" })
-    );
+    this.props.login(this.state)
+      .then(() => this.redirectTo("/"))
+      .fail(() => this.setState({ password: "" }));
+  }
+
+  redirectTo(path) {
+    if (this.props.history.location.pathname !== path) {
+      this.props.history.push(path);
+    }
   }
 
   render() {
     return (
-      <form onSubmit={ this.handleSubmit.bind(this) }>
-        <label>Email
-          <input type="text" onChange={ this.assignHandler('email') } />
-        </label>
-        <label>Password
-          <input type="password" onChange={ this.assignHandler('password') } />
-        </label>
-        <input type="submit" value="Log In"></input>
-      </form>
+      <header className='login-header'>
+        <div className='logo-frame'>
+          LOGO HERE
+        </div>
+        <form onSubmit={ this.handleSubmit.bind(this) }>
+          <label>Email
+            <input type="text" onChange={ this.assignHandler('email') } />
+          </label>
+          <label>Password
+            <input type="password" onChange={ this.assignHandler('password') } />
+          </label>
+          <input type="submit" value="Log In"></input>
+        </form>
+      </header>
     );
   }
 };
