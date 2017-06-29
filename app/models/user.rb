@@ -8,6 +8,18 @@ class User < ApplicationRecord
 	after_initialize :ensure_session_token
 	before_validation :ensure_session_token_uniqueness
 
+	has_many :created_posts,
+		foreign_key: :poster_id,
+		class_name: "Post"
+
+	has_many :received_posts,
+		foreign_key: :postee_id,
+		class_name: "Post"
+
+	####################
+	# AUTH
+	####################
+
 	def password= password
 		self.password_digest = BCrypt::Password.create(password)
 		@password = password
