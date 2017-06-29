@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import Header from './Header';
 import Newsfeed from './Newsfeed';
-import Profile from './Profile';
+import Profile from './profile/Profile';
 
 const Main = (props) => (
   <div>
@@ -11,7 +11,7 @@ const Main = (props) => (
     <div className='content'>
       <Switch>
         <Route exact path="/" component={Newsfeed} />
-        <Route path="/profile/:userId" component={Profile} />
+        <Route path="/user/:userId" component={Profile} />
       </Switch>
     </div>
   </div>
