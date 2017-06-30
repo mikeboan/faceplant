@@ -31,7 +31,7 @@ class Header extends React.Component {
           </div>
           <div className='header-right'>
             <nav>
-              <Link to='/'>
+              <Link to={`/users/${this.props.currentUser.id}`}>
                 <img src={this.props.currentUser.profilePicUrl} />
                 { this.props.currentUser.first_name }
               </Link>

@@ -11,7 +11,7 @@ const Main = (props) => (
     <div className='content'>
       <Switch>
         <Route exact path="/" component={Newsfeed} />
-        <Route path="/user/:userId" component={Profile} />
+        <Route path="/users/:userId" component={Profile} />
       </Switch>
     </div>
   </div>
