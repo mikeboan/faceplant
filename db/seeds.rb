@@ -26,3 +26,8 @@ p1 = Post.create!(content: "But where did the lighter fluid come from!?", poster
     postee_id: users[(i + 1) %users.length].id
   )
 end
+
+
+Friendship.destroy_all
+
+Friendship.create!(friender_id: gob.id, friendee_id: michael.id, status: 1)

@@ -23,7 +23,7 @@ class User < ApplicationRecord
   validates_attachment_content_type :cover_photo, content_type: /\Aimage\/.*\z/
 
 	####################
-	# ASSOCIATIONS
+	# SINGLE ASSOCIATIONS
 	####################
 
 	has_many :created_posts,
@@ -33,6 +33,60 @@ class User < ApplicationRecord
 	has_many :received_posts,
 		foreign_key: :postee_id,
 		class_name: "Post"
+
+  has_many :sent_friend_requests,
+    foreign_key: :friender_id,
+    class_name: "Friendship"
+
+  has_many :received_friend_requests,
+    foreign_key: :friendee_id,
+    class_name: "Friendship"
+
+
+  ####################
+	# THROUGH ASSOCIATIONS
+	####################
+
+  has_many :requested_friends, # friends this user requested
+    through: :sent_friend_requests,
+    source: :friendee
+
+  has_many :received_friends, # friends this user agreed to
+    through: :received_friend_requests,
+    source: :friender
+
+	####################
+	# ACTIVE RECORD
+	####################
+  def friendships
+    Friendship.where(friendee_id: id).or(
+      Friendship.where(friender_id: id)
+    )
+  end
+
+  def friends
+    User
+      .joins(<<-SQL)
+        INNER JOIN
+          friendships
+        ON friender_id = users.id OR friendee_id = users.id
+      SQL
+      .where(<<-SQL, id, id, id)
+        users.id != ? AND (friender_id = ? OR friendee_id = ?)
+      SQL
+  end
+
+  ["sent", "received"].each do |direction|
+    Friendship::STATUSES.each do |status|
+      define_method("#{direction}_#{status}_friend_requests") do
+        send("${direction}_friend_requests").where(status: status)
+      end
+
+      define_method("#{direction}_#{status}_friends") do
+        send("${direction}_friends").where(status: status)
+      end
+    end
+  end
 
 	####################
 	# AUTH
