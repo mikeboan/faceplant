@@ -64,7 +64,7 @@ class User < ApplicationRecord
     )
   end
 
-  def friends
+  def all_friends
     User
       .joins(<<-SQL)
         INNER JOIN
@@ -75,6 +75,14 @@ class User < ApplicationRecord
         users.id != ? AND (friender_id = ? OR friendee_id = ?)
       SQL
   end
+
+  Friendship::STATUSES.each_with_index do |status, index|
+    define_method("#{status}_friends") do
+      all_friends.where("friendships.status = #{index}")
+    end
+  end
+
+  alias_method :friends, :accepted_friends
 
   ["sent", "received"].each do |direction|
     Friendship::STATUSES.each do |status|

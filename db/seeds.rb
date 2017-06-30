@@ -31,3 +31,4 @@ end
 Friendship.destroy_all
 
 Friendship.create!(friender_id: gob.id, friendee_id: michael.id, status: 1)
+Friendship.create!(friender_id: michael.id, friendee_id: mike.id, status: 0)
