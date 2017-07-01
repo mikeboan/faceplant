@@ -39,6 +39,8 @@ lighter_fluid = Post.create!(content: "But where did the lighter fluid come from
 milford_man = Post.create!(content: "You can always tell a Milford Man", user_id: gob.id, profile_id: buster_prof.id)
 milford_man_reverse = Post.create!(content: "You can always tell a Milford Man (reverse)", user_id: buster.id, profile_id: gob_prof.id)
 irrelevant_post = Post.create!(content: "Doesn't matter", user_id: irrelevant1.id, profile_id: irrelevant2_prof.id)
+hey_brother = Post.create!(content: "Hey, brother!", user_id: buster.id, profile_id: michael_prof.id)
+hey_hermano = Post.create!(content: "Hey, hermano!", user_id: buster.id, profile_id: gob_prof.id)
 
 
 # puts "creating profile posts"

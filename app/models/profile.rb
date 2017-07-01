@@ -18,4 +18,9 @@ class Profile < ApplicationRecord
   belongs_to :user
   has_many :posts
 
+  def timeline_posts
+    Post.where(user_id: user.id).or(
+      Post.where(id: posts.select(:id))
+    )
+  end
 end
