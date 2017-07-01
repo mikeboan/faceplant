@@ -49,18 +49,8 @@ class User < ApplicationRecord
 	####################
 
 	has_one :profile
-
-	has_many :authored_posts,
-		foreign_key: :poster_id,
-		class_name: "Post"
-
-	has_many :received_posts,
-		foreign_key: :postee_id,
-		class_name: "Post"
-
-	has_many :self_posts,
-		-> { where(postee_id: nil) },
-		foreign_key: :poster_id,
+	has_many :posts,
+		foreign_key: :user_id,
 		class_name: "Post"
 
   has_many :sent_friend_requests,
@@ -76,6 +66,10 @@ class User < ApplicationRecord
 	# THROUGH ASSOCIATIONS
 	####################
 
+	has_many :profile_posts,
+		through: :profile,
+		source: :posts
+
   has_many :requested_friends, # friends this user requested
     through: :sent_friend_requests,
     source: :friendee
@@ -83,16 +77,6 @@ class User < ApplicationRecord
   has_many :received_friends, # friends this user agreed to
     through: :received_friend_requests,
     source: :friender
-
-	####################
-	# POSTS
-	####################
-
-	def posts
-		Post.where(poster_id: id).or(
-			Post.where(postee_id: id)
-		)
-	end
 
 	####################
 	# FRIENDS

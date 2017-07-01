@@ -21,31 +21,33 @@ puts "destroying profiles"
 Profile.destroy_all
 
 puts "creating profiles"
-Profile.create!(user: mike, workplace: "App Academy", work_title: "Senior TA", hometown: "Garwood, NJ")
-Profile.create!(user: michael, workplace: "Bluth Company", work_title: "CEO", hometown: "Newport Beach, CA")
-Profile.create!(user: buster, workplace: "Milford School", work_title: "Student", hometown: "Newport Beach, CA")
-Profile.create!(user: gob, workplace: "Magic Castle", work_title: "Magician", hometown: "Newport Beach, CA")
+mike_prof = Profile.create!(user: mike, workplace: "App Academy", work_title: "Senior TA", hometown: "Garwood, NJ")
+michael_prof = Profile.create!(user: michael, workplace: "Bluth Company", work_title: "CEO", hometown: "Newport Beach, CA")
+gob_prof = Profile.create!(user: gob, workplace: "Magic Castle", work_title: "Magician", hometown: "Newport Beach, CA")
+buster_prof = Profile.create!(user: buster, workplace: "Milford School", work_title: "Student", hometown: "Newport Beach, CA")
+
+profiles = [mike_prof, michael_prof, gob_prof, buster_prof]
 
 puts "destroying posts"
 Post.destroy_all
-p1 = Post.create!(content: "But where did the lighter fluid come from!?", poster_id: gob.id, postee_id: michael.id)
+p1 = Post.create!(content: "But where did the lighter fluid come from!?", user_id: gob.id, profile_id: michael_prof.id)
 
 
-puts "creating user-user posts"
+puts "creating profile posts"
 50.times do |i|
   Post.create!(
     content: "Post number #{i}",
-    poster_id: users[i % users.length].id,
-    postee_id: users[(i + 1) %users.length].id
+    user_id: users[i % users.length].id,
+    profile_id: profiles[(i + 1) % profiles.length].id
   )
 end
 
-puts "creating self-posts"
+puts "creating selfposts"
 50.times do |i|
   Post.create!(
     content: "Self-post number #{i}",
-    poster_id: users[i % users.length].id,
-    postee_id: nil
+    user_id: users[i % users.length].id,
+    profile_id: profiles[i % profiles.length].id
   )
 end
 

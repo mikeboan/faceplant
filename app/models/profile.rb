@@ -16,4 +16,6 @@ class Profile < ApplicationRecord
   validates :user, presence: true
 
   belongs_to :user
+  has_many :posts
+
 end
