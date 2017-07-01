@@ -56,7 +56,15 @@ class User < ApplicationRecord
     source: :friender
 
 	####################
-	# ACTIVE RECORD
+	# FRIENDS
+	####################
+
+  def self_posts
+    Post.where(poster_id: id).where(postee_id: nil)
+  end
+
+	####################
+	# FRIENDS
 	####################
   def friendships
     Friendship.where(friendee_id: id).or(

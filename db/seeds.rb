@@ -22,7 +22,7 @@ Post.destroy_all
 p1 = Post.create!(content: "But where did the lighter fluid come from!?", poster_id: gob.id, postee_id: michael.id)
 
 
-puts "creating posts"
+puts "creating user-user posts"
 50.times do |i|
   Post.create!(
     content: "Post number #{i}",
@@ -31,6 +31,14 @@ puts "creating posts"
   )
 end
 
+puts "creating self-posts"
+50.times do |i|
+  Post.create!(
+    content: "Self-post number #{i}",
+    poster_id: users[i % users.length].id,
+    postee_id: nil
+  )
+end
 
 puts "destroying friendships"
 Friendship.destroy_all
