@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: friendships
+#
+#  id          :integer          not null, primary key
+#  friendee_id :integer          not null
+#  friender_id :integer          not null
+#  status      :integer          not null
+#
+
 class Friendship < ApplicationRecord
   STATUSES = [:pending, :accepted, :rejected]
 

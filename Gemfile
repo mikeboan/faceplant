@@ -37,6 +37,8 @@ gem "paperclip", '~> 5.0.0'
 gem 'figaro'
 gem 'aws-sdk', '>= 2.0'
 
+gem 'annotate'
+
 group :development, :test do
   gem 'byebug', platform: :mri
 end

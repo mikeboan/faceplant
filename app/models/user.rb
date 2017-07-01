@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                       :integer          not null, primary key
+#  email                    :string           not null
+#  first_name               :string           not null
+#  last_name                :string           not null
+#  password_digest          :string           not null
+#  session_token            :string           not null
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  profile_pic_file_name    :string
+#  profile_pic_content_type :string
+#  profile_pic_file_size    :integer
+#  profile_pic_updated_at   :datetime
+#  cover_photo_file_name    :string
+#  cover_photo_content_type :string
+#  cover_photo_file_size    :integer
+#  cover_photo_updated_at   :datetime
+#
+
 class User < ApplicationRecord
 	attr_reader :password
 
@@ -26,12 +48,19 @@ class User < ApplicationRecord
 	# SINGLE ASSOCIATIONS
 	####################
 
-	has_many :created_posts,
+	has_one :profile
+
+	has_many :authored_posts,
 		foreign_key: :poster_id,
 		class_name: "Post"
 
 	has_many :received_posts,
 		foreign_key: :postee_id,
+		class_name: "Post"
+
+	has_many :self_posts,
+		-> { where(postee_id: nil) },
+		foreign_key: :poster_id,
 		class_name: "Post"
 
   has_many :sent_friend_requests,
@@ -56,16 +85,19 @@ class User < ApplicationRecord
     source: :friender
 
 	####################
+	# POSTS
+	####################
+
+	def posts
+		Post.where(poster_id: id).or(
+			Post.where(postee_id: id)
+		)
+	end
+
+	####################
 	# FRIENDS
 	####################
 
-  def self_posts
-    Post.where(poster_id: id).where(postee_id: nil)
-  end
-
-	####################
-	# FRIENDS
-	####################
   def friendships
     Friendship.where(friendee_id: id).or(
       Friendship.where(friender_id: id)

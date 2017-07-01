@@ -17,6 +17,15 @@ buster = User.create!(first_name: 'Buster', last_name: 'Bluth', email: 'buster@b
 
 users = User.all.to_a
 
+puts "destroying profiles"
+Profile.destroy_all
+
+puts "creating profiles"
+Profile.create!(user: mike, workplace: "App Academy", work_title: "Senior TA", hometown: "Garwood, NJ")
+Profile.create!(user: michael, workplace: "Bluth Company", work_title: "CEO", hometown: "Newport Beach, CA")
+Profile.create!(user: buster, workplace: "Milford School", work_title: "Student", hometown: "Newport Beach, CA")
+Profile.create!(user: gob, workplace: "Magic Castle", work_title: "Magician", hometown: "Newport Beach, CA")
+
 puts "destroying posts"
 Post.destroy_all
 p1 = Post.create!(content: "But where did the lighter fluid come from!?", poster_id: gob.id, postee_id: michael.id)
