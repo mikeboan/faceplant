@@ -9,6 +9,9 @@
 puts "destroying users"
 User.destroy_all
 
+puts "destroying profiles"
+Profile.destroy_all
+
 puts "creating users"
 mike = User.create!(first_name: 'Mike', last_name: 'Fake', email: 'mike@fake.com', password: 'starwars')
 michael = User.create!(first_name: 'Michael', last_name: 'Bluth', email: 'michael@bluth.com', password: 'starwars')
@@ -19,28 +22,23 @@ irrelevant2 = User.create!(first_name: 'Irrelevant', last_name: '2', email: 'DC2
 
 users = User.all.to_a
 
-puts "destroying profiles"
-Profile.destroy_all
-
 puts "creating profiles"
-mike_prof = Profile.create!(user: mike, workplace: "App Academy", work_title: "Senior TA", hometown: "Garwood, NJ")
-michael_prof = Profile.create!(user: michael, workplace: "Bluth Company", work_title: "CEO", hometown: "Newport Beach, CA")
-gob_prof = Profile.create!(user: gob, workplace: "Magic Castle", work_title: "Magician", hometown: "Newport Beach, CA")
-buster_prof = Profile.create!(user: buster, workplace: "Milford School", work_title: "Student", hometown: "Newport Beach, CA")
-irrelevant1_prof = Profile.create!(user: irrelevant1)
-irrelevant2_prof = Profile.create!(user: irrelevant2)
+mike.profile.update!(workplace: "App Academy", work_title: "Senior TA", hometown: "Garwood, NJ")
+michael.profile.update!(workplace: "Bluth Company", work_title: "CEO", hometown: "Newport Beach, CA")
+gob.profile.update!(workplace: "Magic Castle", work_title: "Magician", hometown: "Newport Beach, CA")
+buster.profile.update!(workplace: "Milford School", work_title: "Student", hometown: "Newport Beach, CA")
 
 
 profiles = Profile.all.to_a
 
 puts "destroying posts"
 Post.destroy_all
-lighter_fluid = Post.create!(content: "But where did the lighter fluid come from!?", user_id: gob.id, profile_id: michael_prof.id)
-milford_man = Post.create!(content: "You can always tell a Milford Man", user_id: gob.id, profile_id: buster_prof.id)
-milford_man_reverse = Post.create!(content: "You can always tell a Milford Man (reverse)", user_id: buster.id, profile_id: gob_prof.id)
-irrelevant_post = Post.create!(content: "Doesn't matter", user_id: irrelevant1.id, profile_id: irrelevant2_prof.id)
-hey_brother = Post.create!(content: "Hey, brother!", user_id: buster.id, profile_id: michael_prof.id)
-hey_hermano = Post.create!(content: "Hey, hermano!", user_id: buster.id, profile_id: gob_prof.id)
+lighter_fluid = Post.create!(content: "But where did the lighter fluid come from!?", user_id: gob.id, profile_id: michael.profile.id)
+milford_man = Post.create!(content: "You can always tell a Milford Man", user_id: gob.id, profile_id: buster.profile.id)
+milford_man_reverse = Post.create!(content: "You can always tell a Milford Man (reverse)", user_id: buster.id, profile_id: gob.profile.id)
+irrelevant_post = Post.create!(content: "Doesn't matter", user_id: irrelevant1.id, profile_id: irrelevant2.profile.id)
+hey_brother = Post.create!(content: "Hey, brother!", user_id: buster.id, profile_id: michael.profile.id)
+hey_hermano = Post.create!(content: "Hey, hermano!", user_id: buster.id, profile_id: gob.profile.id)
 
 
 # puts "creating profile posts"
@@ -73,3 +71,7 @@ Friendship.create!(friender_id: buster.id, friendee_id: gob.id, status: 1)
 Friendship.create!(friender_id: irrelevant1.id, friendee_id: irrelevant2.id, status: 1)
 Friendship.create!(friender_id: irrelevant1.id, friendee_id: mike.id, status: 0)
 Friendship.create!(friender_id: irrelevant2.id, friendee_id: mike.id, status: 2)
+
+
+
+User.create!(email: 'alffff222', first_name: 'asdfdffsdfdd', last_name: 'ddassdd', password: 'starwars')

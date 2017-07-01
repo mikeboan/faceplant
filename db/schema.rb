@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170701182922) do
+ActiveRecord::Schema.define(version: 20170701184150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20170701182922) do
     t.string  "relationship_status"
     t.integer "user_id"
     t.string  "work_title"
+    t.integer "cover_photo_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -57,6 +58,7 @@ ActiveRecord::Schema.define(version: 20170701182922) do
     t.string   "session_token",   null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "profile_pic_id"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
 

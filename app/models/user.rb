@@ -2,22 +2,15 @@
 #
 # Table name: users
 #
-#  id                       :integer          not null, primary key
-#  email                    :string           not null
-#  first_name               :string           not null
-#  last_name                :string           not null
-#  password_digest          :string           not null
-#  session_token            :string           not null
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
-#  profile_pic_file_name    :string
-#  profile_pic_content_type :string
-#  profile_pic_file_size    :integer
-#  profile_pic_updated_at   :datetime
-#  cover_photo_file_name    :string
-#  cover_photo_content_type :string
-#  cover_photo_file_size    :integer
-#  cover_photo_updated_at   :datetime
+#  id              :integer          not null, primary key
+#  email           :string           not null
+#  first_name      :string           not null
+#  last_name       :string           not null
+#  password_digest :string           not null
+#  session_token   :string           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  profile_pic_id  :integer
 #
 
 class User < ApplicationRecord
@@ -33,16 +26,7 @@ class User < ApplicationRecord
 
 	after_initialize :ensure_session_token
 	before_validation :ensure_session_token_uniqueness
-
-	####################
-	# PAPERCLIP
-	####################
-
-	# has_attached_file :profile_pic, default_url: "avatar.jpg"
-  # validates_attachment_content_type :profile_pic, content_type: /\Aimage\/.*\Z/
-	#
-  # has_attached_file :cover_photo, default_url: "cover_photo.png"
-  # validates_attachment_content_type :cover_photo, content_type: /\Aimage\/.*\z/
+	after_create :setup!
 
 	####################
 	# SINGLE ASSOCIATIONS
@@ -61,6 +45,10 @@ class User < ApplicationRecord
     foreign_key: :friendee_id,
     class_name: "Friendship"
 
+	belongs_to :profile_pic,
+		foreign_key: :profile_pic_id,
+		class_name: "Photo",
+		optional: true
 
   ####################
 	# THROUGH ASSOCIATIONS
@@ -121,7 +109,7 @@ class User < ApplicationRecord
   end
 
 	####################
-	# AUTH
+	# NEWSFEED
 	####################
 
 	def newsfeed_posts
@@ -132,6 +120,30 @@ class User < ApplicationRecord
 		).or(
 			Post.where(profile_id: Profile.where(user_id: friends))
 		)
+	end
+
+	####################
+	# CALLBACKS
+	####################
+
+	def setup!
+		@profile = Profile.create!(user_id: id)
+		create_profile_pic!
+		create_cover_photo!
+	end
+
+	def create_profile_pic!
+		profile_pic = Photo.new
+		profile_pic.image = open(Photo::DEFAULT_PROFILE_PIC_URL)
+		profile_pic.save!
+		self.update(profile_pic: profile_pic)
+	end
+
+	def create_cover_photo!
+		cover_photo = Photo.new
+		cover_photo.image = open(Photo::DEFAULT_COVER_PHOTO_URL)
+		cover_photo.save!
+		@profile.update(cover_photo: cover_photo)
 	end
 
 	####################
