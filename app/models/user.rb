@@ -38,11 +38,11 @@ class User < ApplicationRecord
 	# PAPERCLIP
 	####################
 
-	has_attached_file :profile_pic, default_url: "avatar.jpg"
-  validates_attachment_content_type :profile_pic, content_type: /\Aimage\/.*\Z/
-
-  has_attached_file :cover_photo, default_url: "cover_photo.png"
-  validates_attachment_content_type :cover_photo, content_type: /\Aimage\/.*\z/
+	# has_attached_file :profile_pic, default_url: "avatar.jpg"
+  # validates_attachment_content_type :profile_pic, content_type: /\Aimage\/.*\Z/
+	#
+  # has_attached_file :cover_photo, default_url: "cover_photo.png"
+  # validates_attachment_content_type :cover_photo, content_type: /\Aimage\/.*\z/
 
 	####################
 	# SINGLE ASSOCIATIONS
