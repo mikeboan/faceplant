@@ -124,6 +124,20 @@ class User < ApplicationRecord
 	# AUTH
 	####################
 
+	def newsfeed_posts
+		Post.where(user_id: id).or(
+			Post.where(profile_id: Profile.where(user_id: id))
+		).or(
+			Post.where(user_id: friends)
+		).or(
+			Post.where(profile_id: Profile.where(user_id: friends))
+		)
+	end
+
+	####################
+	# AUTH
+	####################
+
 	def password= password
 		self.password_digest = BCrypt::Password.create(password)
 		@password = password

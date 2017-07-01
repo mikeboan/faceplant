@@ -17,7 +17,6 @@ buster = User.create!(first_name: 'Buster', last_name: 'Bluth', email: 'buster@b
 irrelevant1 = User.create!(first_name: 'Irrelevant', last_name: '1', email: 'DC@bluth.com', password: 'starwars')
 irrelevant2 = User.create!(first_name: 'Irrelevant', last_name: '2', email: 'DC2@bluth.com', password: 'starwars')
 
-
 users = User.all.to_a
 
 puts "destroying profiles"
@@ -32,7 +31,7 @@ irrelevant1_prof = Profile.create!(user: irrelevant1)
 irrelevant2_prof = Profile.create!(user: irrelevant2)
 
 
-profiles = [mike_prof, michael_prof, gob_prof, buster_prof]
+profiles = Profile.all.to_a
 
 puts "destroying posts"
 Post.destroy_all
