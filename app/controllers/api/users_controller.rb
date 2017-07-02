@@ -1,6 +1,6 @@
 class Api::UsersController < ApplicationController
 	def create
-		@user = User.new(user_params).includes(:posts)
+		@user = User.includes(:profile_pic).includes(:newsfeed_posts).new(user_params)
 
 		if @user.save
 			login(@user)
@@ -11,7 +11,7 @@ class Api::UsersController < ApplicationController
 	end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.includes(:profile_pic).find(params[:id])
 
     if @user
       render :show
