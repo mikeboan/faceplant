@@ -3,6 +3,7 @@ import { createLogger } from 'redux-logger';
 import thunk from './thunk';
 import session from './modules/session';
 import users from './modules/users';
+import profiles from './modules/profiles';
 
 const loggerMiddleware = createLogger(); // initialize logger
 
@@ -10,7 +11,8 @@ const createStoreWithMiddleware = applyMiddleware(thunk, loggerMiddleware)(creat
 
 const rootReducer = combineReducers({
   session,
-  users
+  users,
+  profiles
 });
 
 const configureStore = (preloadedState) => createStoreWithMiddleware(rootReducer, preloadedState);

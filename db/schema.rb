@@ -51,13 +51,21 @@ ActiveRecord::Schema.define(version: 20170701184150) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",           null: false
-    t.string   "first_name",      null: false
-    t.string   "last_name",       null: false
-    t.string   "password_digest", null: false
-    t.string   "session_token",   null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "email",                    null: false
+    t.string   "first_name",               null: false
+    t.string   "last_name",                null: false
+    t.string   "password_digest",          null: false
+    t.string   "session_token",            null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "profile_pic_file_name"
+    t.string   "profile_pic_content_type"
+    t.integer  "profile_pic_file_size"
+    t.datetime "profile_pic_updated_at"
+    t.string   "cover_photo_file_name"
+    t.string   "cover_photo_content_type"
+    t.integer  "cover_photo_file_size"
+    t.datetime "cover_photo_updated_at"
     t.integer  "profile_pic_id"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
