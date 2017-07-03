@@ -27,8 +27,14 @@ const api = {
 const profilesByUserId = (oldState = {}, action) => {
   switch(action.type) {
     case RECEIVE_PROFILE:
-      const {user, ...profile} = action.profile;
-      return Object.assign({}, oldState, { [action.profile.user.id]: action.profile });
+      const {user, timeline_posts, ...profile} = action.profile;
+      profile.timelinePosts = Object.keys(timeline_posts).map(id => id);
+
+      return Object.assign(
+        {},
+        oldState,
+        { [action.profile.user_id]: profile }
+      );
 
     default:
       return oldState;

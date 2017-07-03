@@ -23,7 +23,6 @@ const api = {
   }),
 };
 
-
 // reducer
 const usersById = (oldState = {}, action) => {
   switch(action.type) {
