@@ -4,6 +4,7 @@ import thunk from './thunk';
 import session from './modules/session';
 import users from './modules/users';
 import profiles from './modules/profiles';
+import posts from './modules/posts';
 
 const loggerMiddleware = createLogger(); // initialize logger
 
@@ -12,7 +13,8 @@ const createStoreWithMiddleware = applyMiddleware(thunk, loggerMiddleware)(creat
 const rootReducer = combineReducers({
   session,
   users,
-  profiles
+  profiles,
+  posts
 });
 
 const configureStore = (preloadedState) => createStoreWithMiddleware(rootReducer, preloadedState);

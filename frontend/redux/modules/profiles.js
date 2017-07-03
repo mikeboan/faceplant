@@ -13,10 +13,8 @@ export const receiveProfile = profile => ({
 export const fetchProfile = (userId) => dispatch => (
   api.fetchProfile(userId).then(profile => dispatch(receiveProfile(profile)))
 );
-window.fetchProfile = fetchProfile;
 
 const api = {
-  // user = { email: 'mike@fake.com', password: 'starwars'}
   fetchProfile: (userId) => $.ajax({
     url: `/api/profiles/${userId}`,
     method: 'GET'

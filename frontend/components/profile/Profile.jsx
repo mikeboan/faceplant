@@ -33,7 +33,7 @@ class Profile extends React.Component {
   render() {
     const user = this.props.user || {};
     const profile = this.props.profile || {}
-    debugger
+    
     const profileItems = Object.keys(profile).map(key => (
       <ProfileListItem info={ profile[key] } />
     ));
