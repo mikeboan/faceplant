@@ -26,8 +26,7 @@ const profilesByUserId = (oldState = {}, action) => {
   switch(action.type) {
     case RECEIVE_PROFILE:
       const {user, timeline_posts, ...profile} = action.profile;
-      profile.timelinePosts = Object.keys(timeline_posts).map(id => id);
-
+      profile.timelinePosts = Object.keys(timeline_posts);
       return Object.assign(
         {},
         oldState,

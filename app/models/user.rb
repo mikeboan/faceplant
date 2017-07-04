@@ -147,6 +147,14 @@ class User < ApplicationRecord
 	end
 
 	####################
+	# QUALITY OF LIFE
+	####################
+
+  def name
+    "#{first_name} #{last_name}"
+  end
+
+	####################
 	# AUTH
 	####################
 

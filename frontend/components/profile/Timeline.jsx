@@ -6,15 +6,15 @@ import { selectTimelinePosts } from '../../selectors/selectors';
 import PostItem from '../shared/PostItem';
 import PostsIndex from '../shared/PostsIndex';
 
-const Timeline = ({ posts }) => {return(
+const Timeline = ({ posts }) => (
   <ul className='timeline'>
     {
       posts.map( post => (
-        <PostItem post={post} />
+        <PostItem post={post} key={post.id} />
       ))
     }
   </ul>
-)};
+);
 
 
 const mapStateToProps = (state, ownProps) => {
