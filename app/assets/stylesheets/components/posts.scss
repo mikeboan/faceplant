@@ -11,7 +11,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-bottom: 14px;
+    padding-bottom: 12px;
 
     .profile-pic-thumbnail {
       height: 38px;
@@ -23,11 +23,18 @@
       display: flex;
       flex-direction: column;
       align-content: space-between;
+
+      time {
+        color: $subtle;
+        font-size: 12px;
+        font-weight: 300;
+      }
     }
   }
 
   a {
     color: $link-blue;
-    font-weight: bold;
+    font-weight: 700;
+    margin-bottom: 3px;
   }
 }

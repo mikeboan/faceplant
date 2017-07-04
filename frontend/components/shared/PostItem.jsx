@@ -13,15 +13,17 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const PostItem = ({ post, user }) => {
-  const timeAgo = moment(post.created_at, "YYYYMMDD").fromNow();
+  const timeAgo = moment(post.created_at, "YYYYMMDD").calendar();
 
   return (
   <li className='post-item'>
     <div className='post-header'>
-      <img
-        className='profile-pic-thumbnail'
-        src={user.profilePicUrl}
-        />
+      <a href={`profiles/${user.id}`}>
+        <img
+          className='profile-pic-thumbnail'
+          src={user.profilePicUrl}
+          />
+      </a>
       <div className='metadata'>
         <a href={`profiles/${user.id}`}>{ user.name }</a>
         <time>{ timeAgo }</time>
