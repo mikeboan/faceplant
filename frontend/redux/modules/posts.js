@@ -29,10 +29,15 @@ const postsById = (oldState = {}, action) => {
   switch(action.type) {
     case RECEIVE_PROFILE:
       const { timeline_posts } = action.profile;
+      const newPosts = Object.keys(timeline_posts).map( id => {
+        const { user, ...post } = timeline_posts[id];
+        return { [post.id]: post };
+      });
+
       return Object.assign(
         {},
         oldState,
-        timeline_posts
+        ...newPosts
       );
 
     default:

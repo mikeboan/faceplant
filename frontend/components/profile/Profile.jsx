@@ -3,6 +3,12 @@ import { connect } from 'react-redux';
 import { fetchProfile } from '../../redux/modules/profiles';
 
 import ProfileHeader from './ProfileHeader';
+import Timeline from './Timeline';
+import InfoCard from './InfoCard';
+import FriendsCard from './FriendsCard';
+import PhotosCard from './PhotosCard';
+import PostForm from '../shared/PostForm';
+import PostsIndex from '../shared/PostsIndex';
 
 const mapStateToProps = ({ users, profiles }, ownProps) => {
   const userId = ownProps.match.params.userId;
@@ -32,23 +38,25 @@ class Profile extends React.Component {
 
   render() {
     const user = this.props.user || {};
-    const profile = this.props.profile || {}
-    
-    const profileItems = Object.keys(profile).map(key => (
-      <ProfileListItem info={ profile[key] } />
-    ));
+    const profile = this.props.profile || {};
 
     return (
-      <section>
+      <section className='profile'>
         <ProfileHeader user={ user } />
-        <ul>
-          { profileItems }
-        </ul>
+        <div className='profile-contents'>
+          <div className='left'>
+            <InfoCard />
+            <FriendsCard />
+            <PhotosCard />
+          </div>
+          <div className='right'>
+            <PostForm />
+            <Timeline />
+          </div>
+        </div>
       </section>
     );
   }
 }
-
-const ProfileListItem = ({ info }) => <li>{info}</li>;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
