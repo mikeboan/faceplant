@@ -14,7 +14,7 @@
 
 class Photo < ApplicationRecord
   DEFAULT_PROFILE_PIC_URL = "http://s3.amazonaws.com/faceplant-dev/photos/images/000/000/001/original/avatar.jpg?1498936822"
-  DEFAULT_COVER_PHOTO_URL = "http://s3.amazonaws.com/faceplant-dev/photos/images/000/000/002/original/cover_photo.png?1498936950"
+  DEFAULT_COVER_PHOTO_URL = "http://s3.amazonaws.com/faceplant-dev/photos/images/000/000/016/original/cover_photo.jpg?1499275771"
 
   has_attached_file :image, default_url: "missing.png"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
