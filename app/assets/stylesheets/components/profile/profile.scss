@@ -1,0 +1,18 @@
+.profile {
+
+  .profile-contents {
+    display: flex;
+  }
+
+  .left {
+    margin-right: 16px;
+
+    .card {
+      background: white;
+      width: 320px;
+      border: 1px solid $border-gray;
+      border-radius: 3px;
+      margin-bottom: 16px;
+    }
+  }
+}

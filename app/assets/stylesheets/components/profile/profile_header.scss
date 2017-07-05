@@ -1,13 +1,51 @@
 .profile-header {
-  width: 850px;
-  border: 3px solid white;
+  width: 848px;
+  margin-bottom: 16px;
+  position: relative;
 
   .cover-photo-container {
     height: 315px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+
   }
 
-  .profile-pic {
+  .profile-pic-container {
     height: 170px;
     width: 170px;
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    border: 1px solid black;
+    border-radius: 3px;
+
+    .profile-pic {
+      border: 3px solid white;
+      border-radius: 3px;
+      width: calc(100% - 6px);
+      height: auto;
+    }
+  }
+
+  nav {
+    background: white;
+    border: 1px solid $border-gray;
+    border-top: 0;
+    border-radius: 0px 0px 3px 3px;
+    display: flex;
+    flex-direction: row;
+    padding-left: 200px;
+    font-size: 14px;
+    font-weight: 600;
+
+    a {
+      display: block;
+      padding: 14px;
+      color: $link-blue;
+      border-right: 1px solid $border-gray;
+    }
+
+    a:first-child {
+      border-left: 1px solid $border-gray;
+    }
   }
 }

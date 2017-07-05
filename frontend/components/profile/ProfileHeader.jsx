@@ -7,7 +7,9 @@ class ProfileHeader extends React.Component {
     return (
       <div className='profile-header'>
         <div className='cover-photo-container'>
-          <img className='cover-photo' src={this.props.user.coverPhotoUrl} />
+          <img className='cover-photo' src={this.props.profile.coverPhotoUrl} />
+        </div>
+        <div className="profile-pic-container">
           <img className='profile-pic' src={this.props.user.profilePicUrl} />
         </div>
         <nav>

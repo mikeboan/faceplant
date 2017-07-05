@@ -42,7 +42,7 @@ class Profile extends React.Component {
 
     return (
       <section className='profile'>
-        <ProfileHeader user={ user } />
+        <ProfileHeader user={ user } profile={ profile } />
         <div className='profile-contents'>
           <div className='left'>
             <InfoCard />
