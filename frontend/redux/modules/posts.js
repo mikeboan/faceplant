@@ -3,30 +3,36 @@ import { combineReducers } from 'redux';
 import { RECEIVE_PROFILE } from './profiles';
 
 // action types
-// export const RECEIVE_PROFILE = "RECEIVE_PROFILE";
+export const POST_POST = "POST_POST";
+export const RECEIVE_POST = "RECEIVE_POST";
 
 // sync actions
-// export const receiveProfile = profile => ({
-//   type: RECEIVE_PROFILE,
-//   profile
-// });
+export const receivePost = post => ({
+  type: RECEIVE_POST,
+  post
+});
 
 // async actions
-// export const fetchProfile = (userId) => dispatch => (
-//   api.fetchProfile(userId).then(profile => dispatch(receiveProfile(profile)))
-// );
+export const postPost = (post) => dispatch => (
+  api.postPost(post).then(post => dispatch(receivePost(post)))
+);
 // window.fetchProfile = fetchProfile;
 
-// const api = {
-//   // fetchProfile: (userId) => $.ajax({
-//   //   url: `/api/profiles/${userId}`,
-//   //   method: 'GET'
-//   // }),
-// };
+const api = {
+  postPost: (post) => $.ajax({
+    url: "/api/posts/",
+    method: 'POST',
+    data: { post }
+  }),
+};
 
 // reducer
 const postsById = (oldState = {}, action) => {
   switch(action.type) {
+    case RECEIVE_POST:
+      debugger
+      return oldState;
+
     case RECEIVE_PROFILE:
       const { timeline_posts } = action.profile;
       const newPosts = Object.keys(timeline_posts).map( id => {
