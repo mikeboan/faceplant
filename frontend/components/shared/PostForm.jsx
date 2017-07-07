@@ -14,8 +14,8 @@ class PostForm extends React.Component {
   handleUpdate(fieldType) {
     return (e) => {
       e.preventDefault();
-      this.setState( [fieldType]: e.currenTarget.value );
-    }
+      this.setState({ [fieldType]: e.currenTarget.value });
+    };
   }
 
   handleSubmit(e) {
@@ -32,14 +32,20 @@ class PostForm extends React.Component {
           <div>Photo</div>
         </nav>
 
-        <form onSubmit={ this.handleSubmit }>
-          <img src={ currentUser.profilePicUrl }></img>
-          <textarea
-            placeholder={ `Write something to ${currentUser.name}` }
-            onChange={ this.handleUpdate('contents') }
-          >{ this.state.content }</textarea>
-          <input type='submit'>Post</input>
-        </form>
+        <div>
+          <img
+            className='profile-pic-thumbnail'
+            src={ currentUser.profilePicUrl }>
+          </img>
+
+          <form onSubmit={ this.handleSubmit }>
+            <textarea
+              placeholder={ `Write something to ${currentUser.name}` }
+              onChange={ this.handleUpdate('contents') }
+              >{ this.state.content }</textarea>
+            <input type='submit' value="Post"></input>
+          </form>
+        </div>
       </div>
     );
   }
