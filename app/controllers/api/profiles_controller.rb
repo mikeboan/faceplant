@@ -7,6 +7,7 @@ class Api::ProfilesController < ApplicationController
       .find_by(user_id: params[:user_id])
 
     if @profile
+      @timeline_posts = @profile.timeline_posts.includes(:user)
       render :show
     else
       render @profile.errors.messages, status: 422

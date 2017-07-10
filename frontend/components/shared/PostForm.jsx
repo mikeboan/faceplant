@@ -14,12 +14,19 @@ class PostForm extends React.Component {
   handleUpdate(fieldType) {
     return (e) => {
       e.preventDefault();
-      this.setState({ [fieldType]: e.currenTarget.value });
+      this.setState({ [fieldType]: e.currentTarget.value });
     };
   }
 
   handleSubmit(e) {
     e.preventDefault();
+    const post = Object.assign(
+      {},
+      this.state,
+      { user_id: this.props.currentUser.id }
+    );
+    this.props.postPost(post, this.props.match.params.userId)
+      .then(() => this.setState({ contents: "" }));
   }
 
   render() {
@@ -41,7 +48,7 @@ class PostForm extends React.Component {
           <form onSubmit={ this.handleSubmit }>
             <textarea
               placeholder={ `Write something to ${currentUser.name}` }
-              onChange={ this.handleUpdate('contents') }
+              onChange={ this.handleUpdate('content') }
               >{ this.state.content }</textarea>
             <input type='submit' value="Post"></input>
           </form>

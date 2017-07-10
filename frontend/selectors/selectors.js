@@ -7,3 +7,4 @@ export const selectTimelinePosts = (state, userId) => {
 };
 
 export const selectUser = (state, userId) => state.users.byId[userId] || {};
+export const selectCurrentUser = ({ session }) => session.currentUser || {};

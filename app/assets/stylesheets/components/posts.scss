@@ -1,5 +1,4 @@
 .post-item {
-  width: 486px;
   padding: 12px;
   background-color: white;
   border: 1px solid $border-gray;
@@ -12,12 +11,6 @@
     flex-direction: row;
     align-items: center;
     padding-bottom: 12px;
-
-    .profile-pic-thumbnail {
-      height: 38px;
-      width: 38px;
-      padding-right: 12px;
-    }
 
     .metadata {
       display: flex;

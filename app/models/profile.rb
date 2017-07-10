@@ -25,8 +25,8 @@ class Profile < ApplicationRecord
     optional: true
 
   def timeline_posts
-    Post.includes(:user).where(user_id: user.id).or(
-      Post.includes(:user).where(id: posts.select(:id))
+    Post.where(user_id: user_id).or(
+      Post.where(id: posts.select(:id))
     )
   end
 end

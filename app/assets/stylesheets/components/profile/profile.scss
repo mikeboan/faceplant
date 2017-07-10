@@ -2,17 +2,21 @@
 
   .profile-contents {
     display: flex;
+    justify-content: space-between;
   }
 
   .left {
-    margin-right: 16px;
+    width: 320px;
 
     .card {
+      margin-bottom: 16px;
       background: white;
-      width: 320px;
       border: 1px solid $border-gray;
       border-radius: 3px;
-      margin-bottom: 16px;
     }
+  }
+
+  .right {
+    width: 510px;
   }
 }

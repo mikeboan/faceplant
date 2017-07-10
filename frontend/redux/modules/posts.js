@@ -13,14 +13,14 @@ export const receivePost = post => ({
 });
 
 // async actions
-export const postPost = (post) => dispatch => (
-  api.postPost(post).then(post => dispatch(receivePost(post)))
+export const postPost = (post, profileUserId) => dispatch => (
+  api.postPost(post, profileUserId).then(post => dispatch(receivePost(post)))
 );
 // window.fetchProfile = fetchProfile;
 
 const api = {
-  postPost: (post) => $.ajax({
-    url: "/api/posts/",
+  postPost: (post, profileUserId) => $.ajax({
+    url: `/api/profiles/${profileUserId}/posts/`,
     method: 'POST',
     data: { post }
   }),
@@ -30,8 +30,8 @@ const api = {
 const postsById = (oldState = {}, action) => {
   switch(action.type) {
     case RECEIVE_POST:
-      debugger
-      return oldState;
+      const { user, ...post } = action.post;
+      return Object.assign({}, oldState, { [post.id]: post });
 
     case RECEIVE_PROFILE:
       const { timeline_posts } = action.profile;

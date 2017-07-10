@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { RECEIVE_POST } from './posts';
 
 // action types
 export const RECEIVE_PROFILE = "RECEIVE_PROFILE";
@@ -31,6 +32,22 @@ const profilesByUserId = (oldState = {}, action) => {
         {},
         oldState,
         { [action.profile.user_id]: profile }
+      );
+
+    case RECEIVE_POST:
+      const profileUserId = Object.keys(oldState).find( userId => {
+        return oldState[userId].id === action.post.profile_id;
+      });
+      const updatedProfile = Object.assign(
+        {},
+        oldState[profileUserId]
+      );
+      updatedProfile.timelinePosts = [action.post.id, ...updatedProfile.timelinePosts];
+      debugger
+      return Object.assign(
+        {},
+        oldState,
+        { [updatedProfile.user_id]: updatedProfile }
       );
 
     default:
