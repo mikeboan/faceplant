@@ -7,7 +7,7 @@ class Api::ProfilesController < ApplicationController
       .find_by(user_id: params[:user_id])
 
     if @profile
-      @timeline_posts = @profile.timeline_posts.includes(:user)
+      @timeline_posts = @profile.timeline_posts.order(created_at: "DESC")
       render :show
     else
       render @profile.errors.messages, status: 422

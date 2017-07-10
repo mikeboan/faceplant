@@ -26,8 +26,8 @@ const api = {
 const profilesByUserId = (oldState = {}, action) => {
   switch(action.type) {
     case RECEIVE_PROFILE:
-      const {user, timeline_posts, ...profile} = action.profile;
-      profile.timelinePosts = Object.keys(timeline_posts);
+      const {user, timeline_posts, timeline_post_ids, ...profile} = action.profile;
+      profile.timelinePosts = timeline_post_ids;
       return Object.assign(
         {},
         oldState,
@@ -43,7 +43,6 @@ const profilesByUserId = (oldState = {}, action) => {
         oldState[profileUserId]
       );
       updatedProfile.timelinePosts = [action.post.id, ...updatedProfile.timelinePosts];
-      debugger
       return Object.assign(
         {},
         oldState,

@@ -7,9 +7,11 @@ json.user do
 end
 
 json.timeline_posts do
-  @profile.timeline_posts.each do |post|
+  @timeline_posts.each do |post|
     json.set! post.id do
       json.partial! 'api/posts/post', post: post
     end
   end
 end
+
+json.timeline_post_ids @timeline_posts.map { |post| post.id }
