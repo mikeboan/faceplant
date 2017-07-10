@@ -4,9 +4,11 @@ import { Route, Switch } from 'react-router-dom';
 import Header from './Header';
 import Newsfeed from './Newsfeed';
 import Profile from './profile/Profile';
+import Modal from './Modal';
 
 const Main = (props) => (
   <div>
+    <Modal />
     <Header />
     <div className='content'>
       <Switch>

@@ -5,6 +5,7 @@ import session from './modules/session';
 import users from './modules/users';
 import profiles from './modules/profiles';
 import posts from './modules/posts';
+import modal from './modules/modal';
 
 const loggerMiddleware = createLogger(); // initialize logger
 
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   session,
   users,
   profiles,
-  posts
+  posts,
+  modal
 });
 
 const configureStore = (preloadedState) => createStoreWithMiddleware(rootReducer, preloadedState);

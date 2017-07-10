@@ -32,7 +32,7 @@ class PostForm extends React.Component {
   render() {
     const { currentUser } = this.props;
 
-    return(
+    return (
       <div className='post-form-container'>
         <nav>
           <div>Post</div>
