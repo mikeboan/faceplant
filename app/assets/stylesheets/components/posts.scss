@@ -9,18 +9,43 @@
   .post-header {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    justify-content: space-between;
     padding-bottom: 12px;
 
-    .metadata {
+    .info {
       display: flex;
-      flex-direction: column;
-      align-content: space-between;
+      flex-direction: row;
 
-      time {
-        color: $subtle;
-        font-size: 12px;
-        font-weight: 300;
+      .metadata {
+        display: flex;
+        flex-direction: column;
+        align-content: space-between;
+
+        time {
+          color: $subtle;
+          font-size: 12px;
+          font-weight: 300;
+        }
+      }
+    }
+
+    nav {
+      color: $subtle;
+
+      i {
+        padding: 3px;
+        border-radius: 3px;
+        cursor: pointer;
+        margin-right: 3px;
+      }
+
+      i:hover {
+        color: $link-blue;
+        background-color: $border-gray;
+      }
+
+      i.fa-trash:hover {
+        color: $delete-red
       }
     }
   }
