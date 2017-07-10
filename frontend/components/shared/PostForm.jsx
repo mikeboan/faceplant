@@ -5,7 +5,7 @@ class PostForm extends React.Component {
     super(props);
 
     this.state = {
-      contents: ""
+      content: ""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,7 +26,7 @@ class PostForm extends React.Component {
       { user_id: this.props.currentUser.id }
     );
     this.props.postPost(post, this.props.match.params.userId)
-      .then(() => this.setState({ contents: "" }));
+      .then(() => this.setState({ content: "" }));
   }
 
   render() {
@@ -47,9 +47,10 @@ class PostForm extends React.Component {
 
           <form onSubmit={ this.handleSubmit }>
             <textarea
-              placeholder={ `Write something to ${currentUser.name}` }
+              placeholder={ `Write something to ${currentUser.first_name}` }
               onChange={ this.handleUpdate('content') }
-              >{ this.state.content }</textarea>
+              value={ this.state.content }
+              ></textarea>
             <input type='submit' value="Post"></input>
           </form>
         </div>
