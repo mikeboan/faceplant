@@ -12,6 +12,9 @@ class ProfileHeader extends React.Component {
         <div className="profile-pic-container">
           <img className='profile-pic' src={this.props.user.profilePicUrl} />
         </div>
+        <div className='username'>
+          { this.props.user.name }
+        </div>
         <nav>
           <Link to=''>Timeline</Link>
           <Link to=''>About</Link>
