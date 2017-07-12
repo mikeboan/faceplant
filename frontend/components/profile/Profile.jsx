@@ -7,7 +7,7 @@ import Timeline from './Timeline';
 import InfoCard from './InfoCard';
 import FriendsCard from './FriendsCard';
 import PhotosCard from './PhotosCard';
-import PostForm from '../shared/PostFormContainer';
+import PostFormCreateModal from '../shared/PostFormCreateModal';
 import PostsIndex from '../shared/PostsIndex';
 
 const mapStateToProps = ({ users, profiles }, ownProps) => {
@@ -42,7 +42,7 @@ class Profile extends React.Component {
 
     return (
       <section className='profile'>
-        <ProfileHeader user={ user } profile={ profile } />
+        <ProfileHeader user={ user } profile={ profile} />
         <div className='profile-contents'>
           <div className='left'>
             <InfoCard />
@@ -50,7 +50,7 @@ class Profile extends React.Component {
             <PhotosCard />
           </div>
           <div className='right'>
-            <PostForm />
+            <PostFormCreateModal />
             <Timeline />
           </div>
         </div>
