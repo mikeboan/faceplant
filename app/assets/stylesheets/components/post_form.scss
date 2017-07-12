@@ -38,46 +38,46 @@
     }
   }
 
-
-  div {
+  form {
     display: flex;
-    flex-direction: row;
-    margin-top: 12px;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-top: 12px;
 
-    img {
-      padding-left: 12px;
-    }
-
-    form {
+    div {
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
+      flex-direction: row;
+      border-bottom: 1px solid $border-gray;
+      padding-bottom: 12px;
 
       img {
-        padding: 12px;
+        padding: 0px 12px;
       }
 
       textarea {
+        width: 434px;
         min-height: 38px;
+        margin-right: 12px;
         resize: none;
         display: flex;
         align-items: center;
       }
+    }
 
-      input[type='submit'] {
-        display: inline;
-        color: white;
-        font-size: 14px;
-        font-weight: 500;
-        border-radius: 2px;
-        background: $button-blue;
-        text-align: center;
-        height: 24px;
-        width: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+    input[type='submit'] {
+      display: inline;
+      color: white;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 2px;
+      background: $button-blue;
+      text-align: center;
+      height: 24px;
+      width: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 9px;
     }
   }
 }

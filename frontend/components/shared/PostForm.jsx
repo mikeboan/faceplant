@@ -59,21 +59,21 @@ class PostForm extends React.Component {
           </a>
         </nav>
 
-        <div>
-          <img
-            className='profile-pic-thumbnail'
-            src={ currentUser.profilePicUrl }>
-          </img>
-
-          <form onSubmit={ this.handleSubmit }>
+        <form onSubmit={ this.handleSubmit }>
+          <div>
+            <img
+              className='profile-pic-thumbnail'
+              src={ currentUser.profilePicUrl }>
+            </img>
             <textarea
               placeholder={ `Write something to ${currentUser.first_name}` }
               onChange={ this.handleUpdate('content') }
               value={ this.state.content }
-              ></textarea>
-            <input type='submit' value="Post"></input>
-          </form>
-        </div>
+            ></textarea>
+          </div>
+
+          <input type='submit' value="Post"></input>
+        </form>
       </div>
     );
   }
