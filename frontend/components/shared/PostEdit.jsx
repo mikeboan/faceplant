@@ -1,4 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+
+import PostForm from './PostForm';
+import { selectCurrentUser } from '../../selectors/selectors';
+import { postPost } from '../../redux/modules/posts';
+
+const mapStateToProps = (state) => ({
+  currentUser: selectCurrentUser(state)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  postPost: (post, profileUserId) => dispatch(postPost(post, profileUserId))
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostForm));
+
 
 class PostForm extends React.Component {
   constructor(props) {
@@ -43,14 +60,8 @@ class PostForm extends React.Component {
           onClick={ () => this.setState({ focused: true }) }
         >
           <nav>
-            <a>
-              <img src={window.staticImages.pencil}></img>
-              Post
-            </a>
-            <a>
-              <img src={window.staticImages.camera}></img>
-              Photo
-            </a>
+            <div>Post</div>
+            <div>Photo</div>
           </nav>
 
           <div>

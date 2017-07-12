@@ -3,5 +3,13 @@
   	window.currentUser = <%= render("api/users/user.json.jbuilder",
   		user: current_user).html_safe %>
   <% end %>
+
+  window.staticImages = {
+    pencil: "<%= asset_path('pencil.png') %>",
+    camera: "<%= asset_path('camera.png') %>",
+    friendsBubble: "<%= asset_path('friends-bubble.png') %>",
+    globeBubble: "<%= asset_path('globe-bubble.png') %>",
+    photoBubble: "<%= asset_path('photo-bubble.png') %>",
+  }
 </script>
 <main id="root"></main>

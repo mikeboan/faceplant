@@ -9,6 +9,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
+  // showEditForm: () => dispatch(showModal(<PostFormModal />)),
   showEditForm: () => {},
   showDeleteForm: () => {}
 });

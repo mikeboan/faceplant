@@ -10,54 +10,74 @@
     display: flex;
     flex-direction: row;
 
-    div {
+    a {
+      display: flex;
+      flex-direction: row;
       color: $link-blue;
       margin: 8px 12px;
       font-size: 14px;
       font-weight: 600;
+
+      img {
+        padding-right: 6px;
+      }
     }
 
-    div:hover {
-      cursor: pointer;
-    }
-
-    div:first-child {
+    a:first-child {
       margin-right: 0px;
-      padding-right: 12px;
-      border-right: 1px solid $border-gray;
+    }
+
+    a:first-child:after {
+      content: "|";
+      color: $subtle;
+      padding-left: 6px;
+    }
+
+    a:hover {
+      cursor: pointer;
     }
   }
 
-  form {
-    display: flex;
-    flex-direction: column;
 
-    div {
+  div {
+    display: flex;
+    flex-direction: row;
+    margin-top: 12px;
+
+    img {
+      padding-left: 12px;
+    }
+
+    form {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
+      align-items: flex-end;
 
       img {
         padding: 12px;
       }
 
       textarea {
-        width: 100%;
+        min-height: 38px;
+        resize: none;
+        display: flex;
+        align-items: center;
       }
-    }
 
-    input[type='submit'] {
-      display: inline;
-      color: white;
-      font-size: 14px;
-      font-weight: 500;
-      border-radius: 2px;
-      background: $button-blue;
-      text-align: center;
-      height: 24px;
-      width: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      input[type='submit'] {
+        display: inline;
+        color: white;
+        font-size: 14px;
+        font-weight: 500;
+        border-radius: 2px;
+        background: $button-blue;
+        text-align: center;
+        height: 24px;
+        width: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
   }
 }
