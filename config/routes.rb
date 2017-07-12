@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     resources :profiles, only: [:show], param: :user_id do
       resources :posts, only: [:create]
     end
+
+    resources :posts, only: [:update]
   end
 
 end

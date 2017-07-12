@@ -13,8 +13,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 });
 
 const Modal = ({ component, visible, hideModal }) => (
-  <div className={"modal-screen" + visible ? "" : "hidden"} onClick={hideModal}>
-    <div className="modal-content" onClick={e => e.stopPropagation}>
+  <div className={ visible ? "modal-screen" : "hidden" } onClick={ hideModal }>
+    <div className="modal-content" onClick={ e => e.stopPropagation() }>
       { component }
     </div>
   </div>

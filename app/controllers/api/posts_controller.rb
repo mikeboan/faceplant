@@ -11,6 +11,16 @@ class Api::PostsController < ApplicationController
     end
   end
 
+  def update
+    @post = Post.find(params[:id])
+    
+    if @post.update(post_params)
+      render :show
+    else
+      render @post.errors.messages, status: 422
+    end
+  end
+
   private
 
   def post_params

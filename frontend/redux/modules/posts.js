@@ -5,6 +5,7 @@ import { RECEIVE_PROFILE } from './profiles';
 // action types
 export const POST_POST = "POST_POST";
 export const RECEIVE_POST = "RECEIVE_POST";
+export const UPDATE_POST = "UPDATE_POST";
 
 // sync actions
 export const receivePost = post => ({
@@ -12,11 +13,19 @@ export const receivePost = post => ({
   post
 });
 
+export const updatePost = post => ({
+  type: UPDATE_POST,
+  post
+});
+
 // async actions
 export const postPost = (post, profileUserId) => dispatch => (
   api.postPost(post, profileUserId).then(post => dispatch(receivePost(post)))
 );
-// window.fetchProfile = fetchProfile;
+
+export const editPost = (post) => dispatch => (
+  api.editPost(post).then(post => dispatch(updatePost(post)))
+);
 
 const api = {
   postPost: (post, profileUserId) => $.ajax({
@@ -24,11 +33,18 @@ const api = {
     method: 'POST',
     data: { post }
   }),
+
+  editPost: ({id, ...post}) => $.ajax({
+    url: `/api/posts/${id}`,
+    method: 'PATCH',
+    data: { post }
+  }),
 };
 
 // reducer
 const postsById = (oldState = {}, action) => {
   switch(action.type) {
+    case UPDATE_POST:
     case RECEIVE_POST:
       const { user, ...post } = action.post;
       return Object.assign({}, oldState, { [post.id]: post });

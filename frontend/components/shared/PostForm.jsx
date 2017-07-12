@@ -3,13 +3,19 @@ import React from 'react';
 class PostForm extends React.Component {
   constructor(props) {
     super(props);
+    const { post } = props;
 
     this.state = {
-      content: "",
+      content: post ? post.content : "",
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
 
   handleUpdate(fieldType) {
     return (e) => {
@@ -22,11 +28,19 @@ class PostForm extends React.Component {
     e.preventDefault();
     const post = Object.assign(
       {},
+      this.props.post,
       this.state,
       { user_id: this.props.currentUser.id }
     );
-    this.props.postPost(post, this.props.match.params.userId)
-      .then(() => this.setState({ content: "" }));
+
+    this.props.submitPost(post, this.props.match.params.userId)
+      .then(() => {
+        if (this._isMounted) this.setState({ content: "" });
+      });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {
