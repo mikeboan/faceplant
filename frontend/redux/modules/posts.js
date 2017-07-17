@@ -67,7 +67,6 @@ const postsById = (oldState = {}, action) => {
     case REMOVE_POST:
       const newState = Object.assign({}, oldState);
       delete newState[action.post.id];
-      debugger
       return newState;
 
     case RECEIVE_PROFILE:

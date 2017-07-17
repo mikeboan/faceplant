@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 import { selectUser } from '../../selectors/selectors';
@@ -21,14 +22,14 @@ const PostItem = ({ post, user, currentUser }) => {
     <li className='post-item'>
       <div className='post-header'>
         <div className='info'>
-          <a href={`profiles/${user.id}`}>
+          <Link to={`/profiles/${user.id}`}>
             <img
               className='profile-pic-thumbnail'
               src={user.profilePicUrl}
               />
-          </a>
+          </Link>
           <div className='metadata'>
-            <a href={`profiles/${user.id}`}>{ user.name }</a>
+            <Link to={`/profiles/${user.id}`}>{ user.name }</Link>
             <time>{ timeAgo }</time>
           </div>
         </div>
