@@ -7,16 +7,18 @@ import { selectUser } from '../../selectors/selectors';
 import PostNav from './PostNav';
 
 const mapStateToProps = (state, ownProps) => {
-  const { user_id } = ownProps.post;
+  const { user_id, profileUserId } = ownProps.post;
 
   return {
     user: selectUser(state, user_id),
+    profileUser: selectUser(state, profileUserId),
     currentUser: state.session.currentUser
   };
 };
 
-const PostItem = ({ post, user, currentUser }) => {
+const PostItem = ({ post, user, profileUser, currentUser }) => {
   const timeAgo = moment(post.created_at, "YYYYMMDD").calendar();
+  const x = 5;
 
   return (
     <li className='post-item'>
@@ -29,7 +31,14 @@ const PostItem = ({ post, user, currentUser }) => {
               />
           </Link>
           <div className='metadata'>
-            <Link to={`/profiles/${user.id}`}>{ user.name }</Link>
+            <div className='byline'>
+              <Link to={`/profiles/${user.id}`}>{ user.name }</Link>
+              {
+                profileUser.id === user.id ?
+                  "" :
+                  [<span key='span-1'>{" > "}</span>, <Link key='link-1' to={`/profiles/${profileUser.id}`}>{ profileUser.name }</Link>]
+              }
+            </div>
             <time>{ timeAgo }</time>
           </div>
         </div>

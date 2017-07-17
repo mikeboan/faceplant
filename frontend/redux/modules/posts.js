@@ -61,7 +61,8 @@ const postsById = (oldState = {}, action) => {
   switch(action.type) {
     case UPDATE_POST:
     case RECEIVE_POST:
-      const { user, ...post } = action.post;
+      const { user, profileUser, ...post } = action.post;
+      post.profileUserId = profileUser.id;
       return Object.assign({}, oldState, { [post.id]: post });
 
     case REMOVE_POST:

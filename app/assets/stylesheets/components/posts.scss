@@ -19,7 +19,17 @@
       .metadata {
         display: flex;
         flex-direction: column;
-        align-content: space-between;
+        // align-items:: space-between;
+        justify-content: center;
+
+        .byline {
+          display: flex;
+
+          span {
+            color: $subtle;
+            padding: 0px 5px;
+          }
+        }
 
         time {
           color: $subtle;
