@@ -38,11 +38,11 @@ const updateTimelinePosts = (oldState = [], action) => {
       break;
 
     case REMOVE_POST:
-      newProfile.timelinePosts = newProfile.timelinePosts.filter( (postId) => {
+      updatedProfile.timelinePosts = updatedProfile.timelinePosts.filter( (postId) => {
         return postId !== action.post.id;
       });
       break;
-      
+
     default:
       return oldState;
   }
