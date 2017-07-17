@@ -5,13 +5,16 @@ import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import Header from './Header';
 import SignUpForm from './SignUpForm';
 import Main from './Main';
+import ScrollToTop from './ScrollToTop';
 
 const App = ({ children }) => (
   <section className='app'>
-    <Switch>
-      <AuthRoute path="/signup" component={SignUpForm} />
-      <ProtectedRoute path="/" component={Main} />
-    </Switch>
+    <ScrollToTop>
+      <Switch>
+        <AuthRoute path="/signup" component={SignUpForm} />
+        <ProtectedRoute path="/" component={Main} />
+      </Switch>
+    </ScrollToTop>
   </section>
 );
 
