@@ -16,7 +16,6 @@ class PostForm extends React.Component {
     this._isMounted = true;
   }
 
-
   handleUpdate(fieldType) {
     return (e) => {
       e.preventDefault();

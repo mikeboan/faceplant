@@ -22,51 +22,53 @@ const api = {
   }),
 };
 
-// reducer
+// helpers
+const updateTimelinePosts = (oldState = [], action) => {
+  const profileUserId = Object.keys(oldState).find( userId => {
+    return oldState[userId].id === action.post.profile_id;
+  });
+  const updatedProfile = Object.assign(
+    {},
+    oldState[profileUserId]
+  );
+
+  switch(action.type) {
+    case RECEIVE_POST:
+      updatedProfile.timelinePosts = [action.post.id, ...updatedProfile.timelinePosts];
+      break;
+
+    case REMOVE_POST:
+      newProfile.timelinePosts = newProfile.timelinePosts.filter( (postId) => {
+        return postId !== action.post.id;
+      });
+      break;
+      
+    default:
+      return oldState;
+  }
+
+  return Object.assign(
+    {},
+    oldState,
+    { [updatedProfile.user_id]: updatedProfile }
+  );
+};
+
+// profile reducer
 const profilesByUserId = (oldState = {}, action) => {
   switch(action.type) {
     case RECEIVE_PROFILE:
-      const {user, timeline_posts, timeline_post_ids, ...profile} = action.profile;
+      const { user, timeline_posts, timeline_post_ids, ...profile } = action.profile;
       profile.timelinePosts = timeline_post_ids;
       return Object.assign(
         {},
         oldState,
         { [action.profile.user_id]: profile }
       );
-      //
-      // NESTED COMBINE REDUCERS?
-      //
-    case RECEIVE_POST:
-      const profileUserId = Object.keys(oldState).find( userId => {
-        return oldState[userId].id === action.post.profile_id;
-      });
-      const updatedProfile = Object.assign(
-        {},
-        oldState[profileUserId]
-      );
-      updatedProfile.timelinePosts = [action.post.id, ...updatedProfile.timelinePosts];
-      return Object.assign(
-        {},
-        oldState,
-        { [updatedProfile.user_id]: updatedProfile }
-      );
 
+    case RECEIVE_POST:
     case REMOVE_POST:
-      const profileUID = Object.keys(oldState).find( userId => {
-        return oldState[userId].id === action.post.profile_id;
-      });
-      const newProfile = Object.assign(
-        {},
-        oldState[profileUID]
-      );
-      newProfile.timelinePosts = newProfile.timelinePosts.filter( (postId) => {
-        return postId !== action.post.id;
-      });
-      return Object.assign(
-        {},
-        oldState,
-        { [newProfile.user_id]: newProfile }
-      );
+      return updateTimelinePosts(oldState, action);
 
     default:
       return oldState;
