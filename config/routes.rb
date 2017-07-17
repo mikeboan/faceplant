@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       resources :posts, only: [:create]
     end
 
-    resources :posts, only: [:update]
+    resources :posts, only: [:update, :destroy]
   end
 
 end

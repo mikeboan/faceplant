@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { RECEIVE_POST } from './posts';
+import { RECEIVE_POST, REMOVE_POST } from './posts';
 
 // action types
 export const RECEIVE_PROFILE = "RECEIVE_PROFILE";
@@ -33,7 +33,9 @@ const profilesByUserId = (oldState = {}, action) => {
         oldState,
         { [action.profile.user_id]: profile }
       );
-
+      //
+      // NESTED COMBINE REDUCERS?
+      //
     case RECEIVE_POST:
       const profileUserId = Object.keys(oldState).find( userId => {
         return oldState[userId].id === action.post.profile_id;
@@ -47,6 +49,23 @@ const profilesByUserId = (oldState = {}, action) => {
         {},
         oldState,
         { [updatedProfile.user_id]: updatedProfile }
+      );
+
+    case REMOVE_POST:
+      const profileUID = Object.keys(oldState).find( userId => {
+        return oldState[userId].id === action.post.profile_id;
+      });
+      const newProfile = Object.assign(
+        {},
+        oldState[profileUID]
+      );
+      newProfile.timelinePosts = newProfile.timelinePosts.filter( (postId) => {
+        return postId !== action.post.id;
+      });
+      return Object.assign(
+        {},
+        oldState,
+        { [newProfile.user_id]: newProfile }
       );
 
     default:

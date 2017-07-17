@@ -1,0 +1,58 @@
+.delete-prompt {
+  background: white;
+  border: 1px solid $border-gray;
+  border-radius: 3px;
+  width: 510px;
+
+  h2 {
+    padding: 12px;
+    background-color: $header-gray;
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 1px solid $border-gray;
+  }
+
+  p {
+    margin: 12px 16px;
+    margin-bottom: 0px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid $border-gray;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+
+    .left, .right {
+      display: flex;
+      justify-content: space-between;
+      margin: 12px 16px;
+    }
+
+    .right .button:nth-of-type(1) {
+      margin-right: 9px;
+      background-color: $header-gray;
+      color: black;
+      border: 1px solid $subtle;
+    }
+
+    .button {
+      display: inline;
+      border-radius: 2px;
+      text-align: center;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 10px;
+
+      color: white;
+      font-size: 14px;
+      background: $button-blue;
+    }
+
+    .button:hover {
+      cursor: pointer;
+    }
+  }
+}

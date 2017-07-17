@@ -3,15 +3,16 @@ import { connect } from 'react-redux';
 
 import { showModal } from '../../redux/modules/modal';
 import PostFormEditModalContainer from './PostFormEditModalContainer';
+import DeletePostPrompt from './DeletePostPrompt';
 
 const mapStateToProps = (state, ownProps) => ({
 
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch, { post }) => ({
   // showEditForm: () => dispatch(showModal(<PostFormModal />)),
-  showEditForm: () => dispatch(showModal(<PostFormEditModalContainer post={ownProps.post} />)),
-  showDeleteForm: () => {}
+  showEditForm: () => dispatch(showModal(<PostFormEditModalContainer post={post} />)),
+  showDeletePrompt: () => dispatch(showModal(<DeletePostPrompt post={post} />)),
 });
 
 const PostNav = ({ showEditForm, showDeletePrompt }) => (

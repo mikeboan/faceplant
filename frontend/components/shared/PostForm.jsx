@@ -44,7 +44,7 @@ class PostForm extends React.Component {
   }
 
   render() {
-    const { currentUser } = this.props;
+    const { currentUser, profileOwner } = this.props;
 
     return (
       <div className='post-form-container'>
@@ -66,7 +66,7 @@ class PostForm extends React.Component {
               src={ currentUser.profilePicUrl }>
             </img>
             <textarea
-              placeholder={ `Write something to ${currentUser.first_name}` }
+              placeholder={ `Write something to ${profileOwner.first_name || "..."}` }
               onChange={ this.handleUpdate('content') }
               value={ this.state.content }
             ></textarea>

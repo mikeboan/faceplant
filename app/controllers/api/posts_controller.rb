@@ -13,8 +13,18 @@ class Api::PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-    
+
     if @post.update(post_params)
+      render :show
+    else
+      render @post.errors.messages, status: 422
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+
+    if @post.destroy
       render :show
     else
       render @post.errors.messages, status: 422

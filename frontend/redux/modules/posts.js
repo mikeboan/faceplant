@@ -6,6 +6,7 @@ import { RECEIVE_PROFILE } from './profiles';
 export const POST_POST = "POST_POST";
 export const RECEIVE_POST = "RECEIVE_POST";
 export const UPDATE_POST = "UPDATE_POST";
+export const REMOVE_POST = "REMOVE_POST";
 
 // sync actions
 export const receivePost = post => ({
@@ -18,6 +19,11 @@ export const updatePost = post => ({
   post
 });
 
+export const removePost = post => ({
+  type: REMOVE_POST,
+  post
+});
+
 // async actions
 export const postPost = (post, profileUserId) => dispatch => (
   api.postPost(post, profileUserId).then(post => dispatch(receivePost(post)))
@@ -27,17 +33,26 @@ export const editPost = (post) => dispatch => (
   api.editPost(post).then(post => dispatch(updatePost(post)))
 );
 
+export const deletePost = (id) => dispatch => (
+  api.deletePost(id).then(post => dispatch(removePost(post)))
+);
+
 const api = {
   postPost: (post, profileUserId) => $.ajax({
     url: `/api/profiles/${profileUserId}/posts/`,
     method: 'POST',
-    data: { post }
+    data: { post },
   }),
 
   editPost: ({id, ...post}) => $.ajax({
     url: `/api/posts/${id}`,
     method: 'PATCH',
-    data: { post }
+    data: { post },
+  }),
+
+  deletePost: (id) => $.ajax({
+    url: `/api/posts/${id}`,
+    method: 'DELETE',
   }),
 };
 
@@ -48,6 +63,12 @@ const postsById = (oldState = {}, action) => {
     case RECEIVE_POST:
       const { user, ...post } = action.post;
       return Object.assign({}, oldState, { [post.id]: post });
+
+    case REMOVE_POST:
+      const newState = Object.assign({}, oldState);
+      delete newState[action.post.id];
+      debugger
+      return newState;
 
     case RECEIVE_PROFILE:
       const { timeline_posts, timeline_post_ids } = action.profile;
