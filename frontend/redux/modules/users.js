@@ -35,7 +35,9 @@ const usersById = (oldState = {}, action) => {
       const timelinePosts = Object.keys(timeline_posts).map( id => timeline_posts[id]);
       timelinePosts.forEach( post => {
         const newUser = post.user;
+        const newProfileUser = post.profileUser;
         newUsers[newUser.id] = newUser;
+        newUsers[newProfileUser.id] = newProfileUser;
       });
       return Object.assign({}, oldState, newUsers);
 
