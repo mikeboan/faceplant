@@ -34,10 +34,11 @@ const usersById = (oldState = {}, action) => {
       const { friends } = user;
       const newUsers = {};
       user.friends = Object.keys(friends);
-      
+
       timeline_post_ids.map( id => timeline_posts[id]).forEach( post => {
         const newUser = post.user;
         const newProfileUser = post.profileUser;
+        // allow friends array to be deleted
         newUsers[newUser.id] = newUser;
         newUsers[newProfileUser.id] = newProfileUser;
       });
