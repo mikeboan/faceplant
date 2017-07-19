@@ -6,7 +6,7 @@ import { selectTimelinePosts } from '../../selectors/selectors';
 import PostItem from '../shared/PostItem';
 import PostsIndex from '../shared/PostsIndex';
 
-const Timeline = ({ posts }) => {debugger; return(
+const Timeline = ({ posts }) => (
   <ul className='timeline'>
     {
       posts.map( post => (
@@ -14,8 +14,7 @@ const Timeline = ({ posts }) => {debugger; return(
       ))
     }
   </ul>
-)};
-
+);
 
 const mapStateToProps = (state, ownProps) => {
   const { userId } = ownProps.match.params;
