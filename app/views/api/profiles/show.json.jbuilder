@@ -2,8 +2,13 @@ json.extract! @profile, *@profile.attributes.keys - [:created_at, :updated_at, :
 
 json.coverPhotoUrl @profile.cover_photo.url
 
+user = @profile.user
 json.user do
-  json.partial! 'api/users/user', user: @profile.user
+  json.partial! 'api/users/user', user: user
+
+  json.friends do
+    json.partial! 'api/users/friends', friends: user.friends
+  end
 end
 
 json.timeline_posts do

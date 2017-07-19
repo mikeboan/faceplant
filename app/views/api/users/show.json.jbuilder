@@ -7,3 +7,5 @@ json.newfeedPosts do
     end
   end
 end
+
+json.partial! 'api/users/friends', friends: @user.friends

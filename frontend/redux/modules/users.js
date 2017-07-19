@@ -31,8 +31,10 @@ const usersById = (oldState = {}, action) => {
 
     case RECEIVE_PROFILE:
       const { user, timeline_post_ids, timeline_posts } = action.profile;
-      const newUsers = { [user.id]: user };
-
+      const { friends } = user;
+      const newUsers = {};
+      user.friends = Object.keys(friends);
+      
       timeline_post_ids.map( id => timeline_posts[id]).forEach( post => {
         const newUser = post.user;
         const newProfileUser = post.profileUser;
@@ -40,7 +42,7 @@ const usersById = (oldState = {}, action) => {
         newUsers[newProfileUser.id] = newProfileUser;
       });
 
-      return Object.assign({}, oldState, newUsers);
+      return Object.assign({}, oldState, newUsers, friends, { [user.id]: user });
 
     default:
       return oldState;
