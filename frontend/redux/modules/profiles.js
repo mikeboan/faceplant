@@ -31,7 +31,7 @@ const updateTimelinePosts = (oldState = [], action) => {
     {},
     oldState[profileUserId]
   );
-  debugger
+
   switch(action.type) {
     case RECEIVE_POST:
       updatedProfile.timelinePosts = [action.post.id, ...updatedProfile.timelinePosts];
