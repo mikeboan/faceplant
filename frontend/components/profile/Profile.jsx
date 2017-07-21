@@ -45,8 +45,8 @@ class Profile extends React.Component {
         <ProfileHeader user={ user } profile={ profile} />
         <div className='profile-contents'>
           <div className='left'>
-            <InfoCard />
-            <FriendsCard />
+            <InfoCard user={user} />
+            <FriendsCard user={user} />
             <PhotosCard />
           </div>
           <div className='right'>

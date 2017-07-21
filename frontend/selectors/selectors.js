@@ -8,3 +8,7 @@ export const selectTimelinePosts = (state, userId) => {
 
 export const selectUser = (state, userId) => state.users.byId[userId] || {};
 export const selectCurrentUser = ({ session }) => session.currentUser || {};
+
+export const selectFriends = ({ users }, { friends }) => (
+  friends ? friends.slice(0, 9).map(id => users.byId[id]) : []
+);
