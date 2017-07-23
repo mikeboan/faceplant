@@ -5,7 +5,9 @@ const FriendListItem = ({ friend }) => (
   <div className='friend-item'>
     <Link to={ `/profiles/${friend.id}` }>
       <img src={ friend.profilePicUrl }></img>
-      <span>{ friend.name }</span>
+      <div className="gradient">
+        <span>{ friend.name }</span>
+      </div>
     </Link>
   </div>
 );
