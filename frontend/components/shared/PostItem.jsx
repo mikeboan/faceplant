@@ -21,7 +21,7 @@ const PostItem = ({ post, user, profileUser, currentUser }) => {
   const x = 5;
 
   return (
-    <li className='post-item'>
+    <li className='post-item shadow'>
       <div className='post-header'>
         <div className='info'>
           <Link to={`/profiles/${user.id}`}>

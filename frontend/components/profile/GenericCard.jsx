@@ -1,7 +1,7 @@
 import React from 'react';
 
 const GenericCard = ({ cardIcon, cardName, listItems }) => (
-  <section className={ `${cardName.toLowerCase()}-card card` }>
+  <section className={ `${cardName.toLowerCase()}-card card shadow` }>
     <header>
       <img src={ cardIcon }></img>
       <h2>{ cardName }</h2>

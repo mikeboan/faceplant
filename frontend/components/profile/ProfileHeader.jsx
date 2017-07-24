@@ -5,7 +5,7 @@ class ProfileHeader extends React.Component {
 
   render() {
     return (
-      <div className='profile-header'>
+      <div className='profile-header shadow'>
         <div className='cover-photo-container'>
           <img className='cover-photo' src={this.props.profile.coverPhotoUrl} />
         </div>
