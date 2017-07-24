@@ -61,7 +61,7 @@ const postsById = (oldState = {}, action) => {
   switch(action.type) {
     case UPDATE_POST:
     case RECEIVE_POST:
-      const { user, profileUser, ...post } = action.post;
+      const { user, profileUser, comments, ...post } = action.post;
       post.profileUserId = profileUser.id;
       return Object.assign({}, oldState, { [post.id]: post });
 
@@ -73,7 +73,7 @@ const postsById = (oldState = {}, action) => {
     case RECEIVE_PROFILE:
       const { timeline_posts, timeline_post_ids } = action.profile;
       const newPosts = timeline_post_ids.map( id => {
-        const { user, ...post } = timeline_posts[id];
+        const { user, comments, ...post } = timeline_posts[id];
         return { [post.id]: post };
       });
 
