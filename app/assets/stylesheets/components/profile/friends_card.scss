@@ -4,17 +4,13 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    // justify-content: space-between;
-
     padding-left: 6px;
-
 
     .friend-item {
       position: relative;
       width: calc(33% - 5px);
       padding-right: 6px;
-      // padding-bottom: 7px;
-
+      
       .gradient {
         background: linear-gradient(transparent, rgba(0, 0, 0, .7));
         position: absolute;

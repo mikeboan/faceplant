@@ -1,13 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-class PhotosCard extends React.Component {
-  render() {
-    return(
-      <div className='photos card'>
-        I'm the photos card
-      </div>
-    );
-  }
-}
+import GenericCard from './GenericCard';
 
-export default PhotosCard;
+const mapStateToProps = (state, { user }) => ({
+  cardName: "Photos",
+  cardIcon: window.staticImages.photoBubble,
+  listItems: <li>Coming Soon!</li>
+});
+
+export default connect(mapStateToProps)(GenericCard);

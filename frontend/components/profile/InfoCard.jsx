@@ -1,13 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-class InfoCard extends React.Component {
-  render() {
-    return(
-      <div className='info card'>
-        I'm the info card
-      </div>
-    );
-  }
-}
+import { selectProfileInfo } from '../../selectors/selectors';
+import GenericCard from './GenericCard';
 
-export default InfoCard;
+const mapStateToProps = (state, { user }) => {
+
+  return {
+    cardName: "Intro",
+    cardIcon: window.staticImages.globeBubble,
+    // additionalHeaderContent: friends.length,
+    // listItems:
+  };
+};
+
+const InfoItem = ({category, info}) => (
+  <li>
+
+  </li>
+);
+
+export default connect(mapStateToProps)(GenericCard);
