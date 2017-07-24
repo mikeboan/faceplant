@@ -12,7 +12,7 @@ class Api::PostsController < ApplicationController
   end
 
   def update
-    @post = Post.find(params[:id])
+    @post = Post.includes(comments: :author).find(params[:id])
 
     if @post.update(post_params)
       render :show
@@ -22,7 +22,7 @@ class Api::PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
+    @post = Post.includes(comments: :author).find(params[:id])
 
     if @post.destroy
       render :show

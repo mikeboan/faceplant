@@ -115,6 +115,7 @@ class User < ApplicationRecord
 	####################
 
 	def newsfeed_posts
+    # TODO: includes
 		Post.where(user_id: id).or(
 			Post.where(profile_id: Profile.where(user_id: id))
 		).or(
