@@ -17,6 +17,7 @@ mike = User.create!(first_name: 'Mike', last_name: 'Fake', email: 'mike@fake.com
 michael = User.create!(first_name: 'Michael', last_name: 'Bluth', email: 'michael@bluth.com', password: 'starwars')
 gob = User.create!(first_name: 'GOB', last_name: 'Bluth', email: 'gob@bluth.com', password: 'starwars')
 buster = User.create!(first_name: 'Buster', last_name: 'Bluth', email: 'buster@bluth.com', password: 'starwars')
+annyong = User.create!(first_name: 'Annyong', last_name: 'Bluth', email: 'annyong@bluth.com', password: 'starwars')
 irrelevant1 = User.create!(first_name: 'Irrelevant', last_name: '1', email: 'DC@bluth.com', password: 'starwars')
 irrelevant2 = User.create!(first_name: 'Irrelevant', last_name: '2', email: 'DC2@bluth.com', password: 'starwars')
 
@@ -75,3 +76,11 @@ Friendship.create!(friender_id: irrelevant2.id, friendee_id: mike.id, status: 2)
 
 
 User.create!(email: 'alffff222', first_name: 'asdfdffsdfdd', last_name: 'ddassdd', password: 'starwars')
+
+puts "destroying comments"
+Comment.destroy_all
+
+puts "creating comments"
+Post.all.each do |post|
+  Comment.create!(body: "Annyong!", author_id: annyong.id, commentable_id: post.id, commentable_type: "Post")
+end

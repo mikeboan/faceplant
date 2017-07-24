@@ -50,6 +50,8 @@ class User < ApplicationRecord
 		class_name: "Photo",
 		optional: true
 
+  has_many :comments, foreign_key: :author_id, class_name: "Comment"
+
   ####################
 	# THROUGH ASSOCIATIONS
 	####################

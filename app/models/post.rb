@@ -17,4 +17,6 @@ class Post < ApplicationRecord
   has_one :profile_user,
     through: :profile,
     source: :user
+
+  has_many :comments, as: :commentable
 end
