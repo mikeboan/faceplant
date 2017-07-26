@@ -84,3 +84,7 @@ puts "creating comments"
 Post.all.each do |post|
   Comment.create!(body: "Annyong!", author_id: annyong.id, commentable_id: post.id, commentable_type: "Post")
 end
+
+Comment.create!(body: "Comment1", author_id: michael.id, commentable_id: post.id, commentable_type: "Post")
+Comment.create!(body: "Comment2", author_id: michael.id, commentable_id: post.id, commentable_type: "Post")
+Comment.create!(body: "Comment3", author_id: michael.id, commentable_id: post.id, commentable_type: "Post")

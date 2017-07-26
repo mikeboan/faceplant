@@ -63,5 +63,9 @@
     a:first-child {
       border-left: 1px solid $border-gray;
     }
+
+    a:hover {
+      text-decoration: underline;
+    }
   }
 }

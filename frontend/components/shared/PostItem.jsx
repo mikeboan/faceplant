@@ -5,6 +5,8 @@ import moment from 'moment';
 
 import { selectUser } from '../../selectors/selectors';
 import PostNav from './PostNav';
+import PostComments from './PostComments';
+import CommentForm from './CommentForm';
 
 const mapStateToProps = (state, ownProps) => {
   const { user_id, profileUserId } = ownProps.post;
@@ -18,38 +20,44 @@ const mapStateToProps = (state, ownProps) => {
 
 const PostItem = ({ post, user, profileUser, currentUser }) => {
   const timeAgo = moment(post.created_at, "YYYYMMDD").calendar();
-  const x = 5;
 
   return (
     <li className='post-item shadow'>
-      <div className='post-header'>
-        <div className='info'>
-          <Link to={`/profiles/${user.id}`}>
-            <img
-              className='profile-pic-thumbnail'
-              src={user.profilePicUrl}
-              />
-          </Link>
-          <div className='metadata'>
-            <div className='byline'>
-              <Link to={`/profiles/${user.id}`}>{ user.name }</Link>
-              {
-                profileUser.id === user.id ?
-                  "" :
-                  [<span key='span-1'>{" > "}</span>, <Link key='link-1' to={`/profiles/${profileUser.id}`}>{ profileUser.name }</Link>]
-              }
+      <div className='post-item-contents'>
+        <div className='post-header'>
+          <div className='info'>
+            <Link to={`/profiles/${user.id}`}>
+              <img
+                className='profile-pic-thumbnail'
+                src={user.profilePicUrl}
+                />
+            </Link>
+            <div className='metadata'>
+              <div className='byline'>
+                <Link to={`/profiles/${user.id}`}>{ user.name }</Link>
+                {
+                  profileUser.id === user.id ?
+                    "" :
+                    [<span key='span-1'>{" > "}</span>, <Link key='link-1' to={`/profiles/${profileUser.id}`}>{ profileUser.name }</Link>]
+                }
+              </div>
+              <time>{ timeAgo }</time>
             </div>
-            <time>{ timeAgo }</time>
           </div>
+          {
+            user.id === currentUser.id ?
+              <PostNav post={ post }/> :
+              null
+          }
         </div>
-        {
-          user.id === currentUser.id ?
-            <PostNav post={ post }/> :
-            null
-        }
+        <div className='post-contents'>
+          { post.content }
+        </div>
       </div>
-      <div className='post-contents'>
-        { post.content }
+      <div className='post-bottom'>
+        <div className='post-actions'>Post Actions -- Like, etc.</div>
+        <PostComments postId={ post.id } />
+        <CommentForm postId={ post.id } />
       </div>
     </li>
   );

@@ -1,67 +1,74 @@
 .post-item {
-  padding: 12px;
-  background-color: white;
   border: 1px solid $border-gray;
   border-radius: 3px;
   margin-bottom: 10px;
-  font-size: 14px;
 
-  .post-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding-bottom: 12px;
+  .post-item-contents {
+    padding: 12px;
+    background-color: white;
+    font-size: 14px;
 
-    .info {
+    .post-header {
       display: flex;
       flex-direction: row;
+      justify-content: space-between;
+      padding-bottom: 12px;
 
-      .metadata {
+      .info {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        flex-direction: row;
 
-        .byline {
+        .metadata {
           display: flex;
+          flex-direction: column;
+          justify-content: center;
 
-          span {
+          .byline {
+            display: flex;
+
+            span {
+              color: $subtle;
+              padding: 0px 5px;
+            }
+          }
+
+          time {
             color: $subtle;
-            padding: 0px 5px;
+            font-size: 12px;
+            font-weight: 300;
           }
         }
+      }
 
-        time {
-          color: $subtle;
-          font-size: 12px;
-          font-weight: 300;
+      nav {
+        color: $subtle;
+
+        i {
+          padding: 3px;
+          border-radius: 3px;
+          cursor: pointer;
+          margin-right: 3px;
+        }
+
+        i:hover {
+          color: $link-blue;
+          background-color: $border-gray;
+        }
+
+        i.fa-trash:hover {
+          color: $delete-red
         }
       }
     }
 
-    nav {
-      color: $subtle;
-
-      i {
-        padding: 3px;
-        border-radius: 3px;
-        cursor: pointer;
-        margin-right: 3px;
-      }
-
-      i:hover {
-        color: $link-blue;
-        background-color: $border-gray;
-      }
-
-      i.fa-trash:hover {
-        color: $delete-red
-      }
+    a {
+      color: $link-blue;
+      font-weight: 700;
+      margin-bottom: 3px;
     }
-  }
 
-  a {
-    color: $link-blue;
-    font-weight: 700;
-    margin-bottom: 3px;
+    a:hover {
+      text-decoration: underline;
+    }
   }
 }
