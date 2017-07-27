@@ -1,0 +1,21 @@
+.post-comment-form {
+  display: flex;
+  padding: 12px;
+  padding-top: 0;
+  font-size: 12px;
+
+  img {
+    height: 32px;
+    width: 32px;
+    padding-right: 9px;
+    flex-grow: 0;
+  }
+
+  input {
+    height: 32px;
+    flex-grow: 1;
+    background-color: white;
+    border: 1px solid $border-gray;
+    padding-left: 6px;
+  }
+}
