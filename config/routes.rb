@@ -10,7 +10,8 @@ Rails.application.routes.draw do
       resources :posts, only: [:create]
     end
 
-    resources :posts, only: [:update, :destroy]
+    resources :posts, only: [:update, :destroy] do
+      resources :comments, only: [:create]
+    end
   end
-
 end

@@ -25,10 +25,10 @@ export const removeComment = comment => ({
 });
 
 // async actions
-// export const postPost = (post, profileUserId) => dispatch => (
-//   api.postPost(post, profileUserId).then(post => dispatch(receivePost(post)))
-// );
-//
+export const postComment = (comment, postId) => dispatch => (
+  api.postComment(comment, postId).then(comment => dispatch(receiveComment(comment)))
+);
+
 // export const editPost = (post) => dispatch => (
 //   api.editPost(post).then(post => dispatch(updatePost(post)))
 // );
@@ -38,12 +38,12 @@ export const removeComment = comment => ({
 // );
 
 const api = {
-  // postPost: (post, profileUserId) => $.ajax({
-  //   url: `/api/profiles/${profileUserId}/posts/`,
-  //   method: 'POST',
-  //   data: { post },
-  // }),
-  //
+  postComment: (comment, postId) => $.ajax({
+    url: `/api/posts/${postId}/comments/`,
+    method: 'POST',
+    data: { comment },
+  }),
+
   // editPost: ({id, ...post}) => $.ajax({
   //   url: `/api/posts/${id}`,
   //   method: 'PATCH',
