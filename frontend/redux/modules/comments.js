@@ -69,6 +69,9 @@ const commentsById = (oldState = {}, action) => {
     //   delete newState[action.post.id];
     //   return newState;
 
+    case RECEIVE_COMMENT:
+      return Object.assign({}, oldState, { [action.comment.id]: action.comment });
+
     case RECEIVE_PROFILE:
       const { timeline_posts, timeline_post_ids } = action.profile;
       const newComments = Object.assign({}, oldState);

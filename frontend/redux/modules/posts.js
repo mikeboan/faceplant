@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import { RECEIVE_PROFILE } from './profiles';
+import { RECEIVE_COMMENT } from './comments';
 
 // action types
 export const POST_POST = "POST_POST";
@@ -82,6 +83,14 @@ const postsById = (oldState = {}, action) => {
         oldState,
         ...newPosts
       );
+
+    // case RECEIVE_COMMENT:
+    //   const { comment } = action;
+    //   const commentedPost = oldState[comment.commentable_id];
+    //   debugger
+    //   commentedPost.timeline_post_ids = [comment.id, ...commentedPost.timeline_post_ids];
+    //   return Object.assign({}, { [commentedPost.id]: commentedPost });
+
 
     default:
       return oldState;
