@@ -25,8 +25,12 @@ class Profile < ApplicationRecord
     optional: true
 
   def timeline_posts
-    Post.includes(:user, profile: [user: :profile_pic], comments: :author).where(user_id: user_id).or(
-      Post.includes(:user, profile: [user: :profile_pic], comments: :author).where(id: posts.select(:id))
+    inclusions = [
+      :user, profile: [user: :profile_pic], comments: [:author, :likes]
+    ]
+
+    Post.includes(*inclusions).where(user_id: user_id).or(
+      Post.includes(*inclusions).where(id: posts.select(:id))
     )
   end
 end
