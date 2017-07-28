@@ -11,6 +11,8 @@
 #
 
 class Post < ApplicationRecord
+  include Likeable
+  
   belongs_to :user
   belongs_to :profile
 
