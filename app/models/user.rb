@@ -115,13 +115,17 @@ class User < ApplicationRecord
 	####################
 
 	def newsfeed_posts
-    # TODO: includes
-		Post.where(user_id: id).or(
-			Post.where(profile_id: Profile.where(user_id: id))
+    inclusions = [
+      # TODO!
+      :user
+    ]
+
+		Post.includes(*inclusions).where(user_id: id).or(
+			Post.includes(*inclusions).where(profile_id: Profile.where(user_id: id))
 		).or(
-			Post.where(user_id: friends)
+			Post.includes(*inclusions).where(user_id: friends)
 		).or(
-			Post.where(profile_id: Profile.where(user_id: friends))
+			Post.includes(*inclusions).where(profile_id: Profile.where(user_id: friends))
 		)
 	end
 
