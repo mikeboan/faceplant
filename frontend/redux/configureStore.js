@@ -6,6 +6,7 @@ import users from './modules/users';
 import profiles from './modules/profiles';
 import posts from './modules/posts';
 import comments from './modules/comments';
+import likes from './modules/likes';
 import modal from './modules/modal';
 
 const loggerMiddleware = createLogger(); // initialize logger
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   profiles,
   posts,
   comments,
+  likes,
   modal
 });
 

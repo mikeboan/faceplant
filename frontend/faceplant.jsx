@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const currentUser = window.currentUser || {};
   delete window.currentUser;
   const store = configureStore({ session: { currentUser } });
-  window.store = store;
 
   window.store = store; // debugging purposes only
   ReactDOM.render(

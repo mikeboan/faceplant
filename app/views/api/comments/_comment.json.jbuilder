@@ -6,6 +6,12 @@ end
 
 json.likeCount comment.likers.count
 
+json.likers Hash.new
 json.likers do
   json.partial! 'api/users/users', users: comment.likers
+end
+
+json.likes Hash.new
+json.likes do
+  json.partial! 'api/likes/likes', likes: comment.likes
 end

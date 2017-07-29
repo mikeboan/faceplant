@@ -21,3 +21,12 @@ export const selectPostComments = ({ comments }, postId) => (
       comment.commentable_type === "Post"
     )
 );
+
+export const selectCommentLikers = ({ users, likes }, commentId) => {
+  const allCommentLikes = likes.byType.Comment || {};
+  
+  return Object.keys(allCommentLikes)
+    .map(id => allCommentLikes[id])
+    .filter(like => like.likeable_id === commentId)
+    .map(like => users[like.liker_id]);
+};
