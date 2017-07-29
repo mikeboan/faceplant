@@ -10,6 +10,7 @@ json.profileUser do
   json.partial! 'api/users/user', user: post.profile.user
 end
 
+json.comments Hash.new
 json.comments do
   json.partial! 'api/comments/comments', comments: post.comments
 end

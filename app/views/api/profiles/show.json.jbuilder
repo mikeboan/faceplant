@@ -6,6 +6,7 @@ user = @profile.user
 json.user do
   json.partial! 'api/users/user', user: user
 
+  json.friends Hash.new
   json.friends do
     json.partial! 'api/users/friends', friends: user.friends
   end

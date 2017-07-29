@@ -1,5 +1,5 @@
 if friends.empty?
-  Hash.new
+  return Hash.new
 else
   friends.each do |friend|
     json.set! friend.id do
