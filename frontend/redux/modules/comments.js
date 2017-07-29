@@ -78,7 +78,12 @@ const commentsById = (oldState = {}, action) => {
 
       timeline_post_ids.forEach( id => {
         const { user, comments, ...post } = timeline_posts[id];
-        Object.assign(newComments, comments);
+        Object.keys(comments).forEach( (commentId) => {
+          const comment = comments[commentId];
+          const likers = comment.likers || {};
+          comment.likers = Object.keys(likers);
+          Object.assign(newComments, { [comment.id]: comment });
+        });
       });
 
       return newComments;
