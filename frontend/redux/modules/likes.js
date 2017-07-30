@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import { RECEIVE_PROFILE } from './profiles';
-import { arrayify } from './helpers.js';
+import { normalize } from './helpers.js';
 
 // action types
 export const POST_LIKE = "POST_LIKE";
@@ -75,26 +75,12 @@ const likesByType = (oldState = {}, action) => {
       return newState;
 
     case RECEIVE_PROFILE:
-      const newPostLikes = [];
-      const newCommentLikes = [];
-      const { timeline_posts } = action.profile;
-
-      arrayify(timeline_posts).forEach( post => {
-        newPostLikes.push(
-          ...arrayify(post.likes).map(like => ({ [like.id]: like }))
-        );
-        arrayify(post.comments).forEach( comment => {
-          newCommentLikes.push(
-            ...arrayify(comment.likes).map(like => ({ [like.id]: like }))
-          );
-        });
-      });
+      const likes = normalize(action.profile, 'likes');
 
       return Object.assign(
         {},
         oldState,
-        { Post: Object.assign({}, ...newPostLikes) },
-        { Comment: Object.assign({}, ...newCommentLikes) }
+        likes
       );
 
     default:

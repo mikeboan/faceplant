@@ -41,6 +41,7 @@ const usersById = (oldState = {}, action) => {
         // allow friends array to be deleted
         newUsers[newUser.id] = newUser;
         newUsers[newProfileUser.id] = newProfileUser;
+        
         Object.keys(post.comments).forEach( id => {
           const comment = post.comments[id];
           newUsers[comment.author.id] = comment.author;

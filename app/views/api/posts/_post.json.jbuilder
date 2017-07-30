@@ -16,3 +16,6 @@ json.comments do
 end
 
 json.likes Hash.new
+json.likes do
+  json.partial! 'api/likes/likes', likes: post.likes
+end

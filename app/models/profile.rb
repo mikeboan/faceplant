@@ -28,6 +28,7 @@ class Profile < ApplicationRecord
     inclusions = [
       :user,
       :likers,
+      :likes,
       profile: [user: :profile_pic],
       comments: [:author, :likes, :likers]
     ]
