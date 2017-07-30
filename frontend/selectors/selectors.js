@@ -28,5 +28,5 @@ export const selectCommentLikers = ({ users, likes }, commentId) => {
   return Object.keys(allCommentLikes)
     .map(id => allCommentLikes[id])
     .filter(like => like.likeable_id === commentId)
-    .map(like => users[like.liker_id]);
+    .map(like => users.byId[like.liker_id]);
 };
