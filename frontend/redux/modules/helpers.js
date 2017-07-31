@@ -8,13 +8,28 @@ export const normalize = (obj, targetKey) => {
   const items = {};
 
   Object.keys(obj).forEach( key => {
-    // debugger
     if (key === targetKey) Object.assign(items, obj[key]);
     else Object.assign(items, normalize(obj[key], targetKey));
-
   });
 
   return Object.assign(items, normalize(items, targetKey));
+};
+
+export const normalize2 = (obj, targetKey) => {
+  if (!isObject(obj) || isEmpty(obj)) return {};
+
+  const items = {};
+  debugger
+
+  Object.keys(obj).forEach( key => {
+    const item = obj[key];
+    if (key === targetKey) Object.assign(items, { [item.id]: item });
+    else Object.assign(items, normalize(item, targetKey));
+  });
+
+  debugger
+
+  return items;
 };
 
 export const isObject = (item) => item !== null && typeof item === 'object';

@@ -6,6 +6,7 @@ import GenericCard from './GenericCard';
 import FriendListItem from './FriendListItem';
 
 const mapStateToProps = (state, { user }) => {
+  debugger
   const friends = selectFriends(state, user);
 
   return {
