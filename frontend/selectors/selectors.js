@@ -10,9 +10,9 @@ export const selectUser = (state, userId) => state.users.byId[userId] || {};
 export const selectUsers = (state, userIds) => userIds.map(id => selectUser(state, id));
 export const selectCurrentUser = ({ session }) => session.currentUser || {};
 
-export const selectFriends = ({ users }, { friends }) => {debugger;return(
+export const selectFriends = ({ users }, { friends }) => (
   friends ? friends.slice(0, 9).map(id => users.byId[id]) : []
-)};
+);
 
 export const selectPostComments = ({ comments }, postId) => (
   Object.keys(comments.byId)

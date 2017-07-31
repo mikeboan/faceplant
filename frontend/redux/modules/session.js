@@ -49,7 +49,6 @@ const defaultState = {
 export default (oldState = defaultState, action) => {
   switch(action.type) {
     case RECEIVE_CURRENT_USER:
-      debugger
       return Object.assign({}, oldState, { currentUser: action.user });
     default:
       return oldState;

@@ -32,35 +32,34 @@ const usersById = (oldState = {}, action) => {
       return Object.assign({}, oldState, { [action.user.id]: action.user });
 
     case RECEIVE_PROFILE:
-      // const { user, timeline_post_ids, timeline_posts } = action.profile;
-      // const { friends } = user;
-      // const newUsers = {};
-      // user.friends = Object.keys(friends);
-      //
-      // timeline_post_ids.map( id => timeline_posts[id]).forEach( post => {
-      //   const newUser = post.user;
-      //   const newProfileUser = post.profileUser;
-      //   // allow friends array to be deleted
-      //   newUsers[newUser.id] = newUser;
-      //   newUsers[newProfileUser.id] = newProfileUser;
-      //
-      //   Object.keys(post.comments).forEach( id => {
-      //     const comment = post.comments[id];
-      //     newUsers[comment.author.id] = comment.author;
-      //   });
-      // });
-      //
-      //
-      //
-      // return Object.assign({}, oldState, newUsers, friends, { [user.id]: user });
-      const { user } = action.profile;
-      user.friends = Object.keys(user.friends);
+      const { user, timeline_post_ids, timeline_posts } = action.profile;
+      const { friends } = user;
+      const newUsers = {};
+      user.friends = Object.keys(friends);
 
-      const users = normalize2(action.profile, 'user');
-      const friends = normalize(action.profile, 'friends');
-      debugger
+      timeline_post_ids.map( id => timeline_posts[id]).forEach( post => {
+        const newUser = post.user;
+        const newProfileUser = post.profileUser;
+        // allow friends array to be deleted
+        newUsers[newUser.id] = newUser;
+        newUsers[newProfileUser.id] = newProfileUser;
 
-      return Object.assign({}, oldState, users, friends, { [user.id]: user });
+        Object.keys(post.comments).forEach( id => {
+          const comment = post.comments[id];
+          newUsers[comment.author.id] = comment.author;
+        });
+      });
+
+
+
+      return Object.assign({}, oldState, newUsers, friends, { [user.id]: user });
+      // const { user } = action.profile;
+      // user.friends = Object.keys(user.friends);
+      //
+      // const users = normalize2(action.profile, 'user');
+      // const friends = normalize(action.profile, 'friends');
+      //
+      // return Object.assign({}, oldState, users, friends, { [user.id]: user });
 
 
     default:

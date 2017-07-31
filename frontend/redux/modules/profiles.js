@@ -5,10 +5,10 @@ import { RECEIVE_POST, REMOVE_POST } from './posts';
 export const RECEIVE_PROFILE = "RECEIVE_PROFILE";
 
 // sync actions
-export const receiveProfile = profile => ({
+export const receiveProfile = profile => {window.profile = profile; return ({
   type: RECEIVE_PROFILE,
   profile
-});
+});};
 
 // async actions
 export const fetchProfile = (userId) => dispatch => (

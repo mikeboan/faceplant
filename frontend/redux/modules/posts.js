@@ -87,7 +87,6 @@ const postsById = (oldState = {}, action) => {
     // case RECEIVE_COMMENT:
     //   const { comment } = action;
     //   const commentedPost = oldState[comment.commentable_id];
-    //   debugger
     //   commentedPost.timeline_post_ids = [comment.id, ...commentedPost.timeline_post_ids];
     //   return Object.assign({}, { [commentedPost.id]: commentedPost });
 
