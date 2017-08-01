@@ -1,30 +1,30 @@
 import { schema } from 'normalizr';
 
-export const like = new schema.Entity('likes');
+export const likeSchema = new schema.Entity('likes');
 
 
-export const user = new schema.Entity('users', {
-  newsfeedPosts: [ post ]
+export const userSchema = new schema.Entity('users', {
+  newsfeedPosts: [ postSchema ]
 });
 
-export const friends = new schema.Array(user);
+export const friendsSchema = new schema.Array(userSchema);
 
-user.define({friends: friends});
+userSchema.define({friends: friendsSchema});
 
-export const comment = new schema.Entity('comments', {
-  author: user,
-  likers: [ user ],
-  likes: [ like ]
+export const commentSchema = new schema.Entity('comments', {
+  author: userSchema,
+  likers: [ userSchema ],
+  likes: [ likeSchema ]
 });
 
-export const post = new schema.Entity('post', {
-  comments: [ comment ],
-  profileUser: user,
-  user: user,
-  likes: [ like ]
+export const postSchema = new schema.Entity('posts', {
+  comments: [ commentSchema ],
+  profileUser: userSchema,
+  user: userSchema,
+  likes: [ likeSchema ]
 });
 
-export const profile = new schema.Entity('profile', {
-  timelinePosts: [ post ],
-  user: user
+export const profileSchema = new schema.Entity('profiles', {
+  timelinePosts: [ postSchema ],
+  user: userSchema
 });

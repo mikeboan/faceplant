@@ -75,18 +75,20 @@ const likesByType = (oldState = {}, action) => {
       return newState;
 
     case RECEIVE_PROFILE:
-      const likes = normalize(action.profile, 'likes');
-      const byType = {};
-
-      Object.keys(likes).forEach( id => {
-        const like = likes[id];
-        if (!byType[like.likeable_type]) {
-          Object.assign(byType, { [like.likeable_type]: {} });
-        }
-        Object.assign(byType[like.likeable_type], { [id]: like });
-      });
-
-      return Object.assign({}, oldState, byType);
+    //   const likes = normalize(action.profile, 'likes');
+    //   const byType = {};
+    //
+    //   Object.keys(likes).forEach( id => {
+    //     const like = likes[id];
+    //     if (!byType[like.likeable_type]) {
+    //       Object.assign(byType, { [like.likeable_type]: {} });
+    //     }
+    //     Object.assign(byType[like.likeable_type], { [id]: like });
+    //   });
+    //
+    //   return Object.assign({}, oldState, byType);
+      // TODO: assign likes to key of likeable_type
+      return Object.assign({}, oldState, action.entities.likes);
 
     default:
       return oldState;

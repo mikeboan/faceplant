@@ -1,19 +1,25 @@
 import { combineReducers } from 'redux';
 import { RECEIVE_POST, REMOVE_POST } from './posts';
+import { normalize } from 'normalizr';
+
+import { profileSchema } from './schema';
 
 // action types
 export const RECEIVE_PROFILE = "RECEIVE_PROFILE";
 
 // sync actions
-export const receiveProfile = profile => {window.profile = profile; return ({
+export const receiveProfile = profile => ({
   type: RECEIVE_PROFILE,
-  profile
-});};
+  ...normalize(profile, profileSchema)
+});
 
 // async actions
 export const fetchProfile = (userId) => dispatch => (
-  api.fetchProfile(userId).then(profile => dispatch(receiveProfile(profile)))
+  api.fetchProfile(userId).then(profile =>
+    dispatch(receiveProfile(profile)))
 );
+
+window.fetchProfile = fetchProfile;
 
 const api = {
   fetchProfile: (userId) => $.ajax({
@@ -22,53 +28,20 @@ const api = {
   }),
 };
 
-// helpers
-const updateTimelinePosts = (oldState = [], action) => {
-  const profileUserId = Object.keys(oldState).find( userId => {
-    return oldState[userId].id === action.post.profile_id;
-  });
-  const updatedProfile = Object.assign(
-    {},
-    oldState[profileUserId]
-  );
-
-  switch(action.type) {
-    case RECEIVE_POST:
-      updatedProfile.timelinePosts = [action.post.id, ...updatedProfile.timelinePosts];
-      break;
-
-    case REMOVE_POST:
-      updatedProfile.timelinePosts = updatedProfile.timelinePosts.filter( (postId) => {
-        return postId !== action.post.id;
-      });
-      break;
-
-    default:
-      return oldState;
-  }
-
-  return Object.assign(
-    {},
-    oldState,
-    { [updatedProfile.user_id]: updatedProfile }
-  );
-};
-
 // profile reducer
 const profilesByUserId = (oldState = {}, action) => {
   switch(action.type) {
     case RECEIVE_PROFILE:
-      const { user, timeline_posts, timeline_post_ids, ...profile } = action.profile;
-      profile.timelinePosts = timeline_post_ids;
-      return Object.assign(
-        {},
-        oldState,
-        { [action.profile.user_id]: profile }
-      );
+      const { profiles } = action.entities;
+      const newProfiles = Object.keys(profiles).map(id => {
+        const profile = profiles[id];
+        return { [profile.user_id]: profile };
+      });
+      return Object.assign({}, oldState, ...newProfiles);
 
-    case RECEIVE_POST:
-    case REMOVE_POST:
-      return updateTimelinePosts(oldState, action);
+    // case RECEIVE_POST:
+    // case REMOVE_POST:
+      // return updateTimelinePosts(oldState, action);
 
     default:
       return oldState;

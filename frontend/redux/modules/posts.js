@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
+import { normalize } from 'normalizr';
 
 import { RECEIVE_PROFILE } from './profiles';
 import { RECEIVE_COMMENT } from './comments';
+import { postSchema } from './schema';
 
 // action types
 export const POST_POST = "POST_POST";
@@ -72,16 +74,16 @@ const postsById = (oldState = {}, action) => {
       return newState;
 
     case RECEIVE_PROFILE:
-      const { timeline_posts, timeline_post_ids } = action.profile;
-      const newPosts = timeline_post_ids.map( id => {
-        const { user, comments, ...post } = timeline_posts[id];
-        return { [post.id]: post };
-      });
+      // const { timeline_posts, timeline_post_ids } = action.profile;
+      // const newPosts = timeline_post_ids.map( id => {
+      //   const { user, comments, ...post } = timeline_posts[id];
+      //   return { [post.id]: post };
+      // });
 
       return Object.assign(
         {},
         oldState,
-        ...newPosts
+        action.entities.posts
       );
 
     // case RECEIVE_COMMENT:
