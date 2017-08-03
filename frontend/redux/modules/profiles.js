@@ -31,12 +31,7 @@ const api = {
 const profilesByUserId = (oldState = {}, action) => {
   switch(action.type) {
     case RECEIVE_PROFILE:
-      const { profiles } = action.entities;
-      const newProfiles = Object.keys(profiles).map(id => {
-        const profile = profiles[id];
-        return { [profile.user_id]: profile };
-      });
-      return Object.assign({}, oldState, ...newProfiles);
+      return Object.assign({}, oldState, action.entities.profiles);
 
     case RECEIVE_POST:
       const { posts } = action.entities;

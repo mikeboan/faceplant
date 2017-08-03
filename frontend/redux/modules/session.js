@@ -1,5 +1,4 @@
 const api = {
-  // user = { email: 'mike@fake.com', password: 'starwars'}
   login: (user) => $.ajax({
     url: '/api/session',
     method: 'POST',
