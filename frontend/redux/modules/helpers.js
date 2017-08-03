@@ -19,7 +19,6 @@ export const normalize2 = (obj, targetKey) => {
   if (!isObject(obj) || isEmpty(obj)) return {};
 
   const items = {};
-  debugger
 
   Object.keys(obj).forEach( key => {
     const item = obj[key];
@@ -27,10 +26,11 @@ export const normalize2 = (obj, targetKey) => {
     else Object.assign(items, normalize(item, targetKey));
   });
 
-  debugger
 
-  return items;
+  return {};
 };
+
+window.normalize2 = normalize2;
 
 export const isObject = (item) => item !== null && typeof item === 'object';
 export const isEmpty = (obj) => Object.keys(obj).length === 0;
