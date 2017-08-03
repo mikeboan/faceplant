@@ -3,15 +3,21 @@ import { RECEIVE_POST, REMOVE_POST } from './posts';
 import { normalize } from 'normalizr';
 
 import { profileSchema } from './schema';
+import { generateSyncActions } from './shared';
 
 // action types
 export const RECEIVE_PROFILE = "RECEIVE_PROFILE";
 
 // sync actions
-export const receiveProfile = profile => {debugger; return({
+// const syncActions = generateSyncActions(
+//   [ RECEIVE_PROFILE ],
+//   profileSchema
+// );
+
+export const receiveProfile = profile => ({
   type: RECEIVE_PROFILE,
   ...normalize(profile, profileSchema)
-})};
+});
 
 // async actions
 export const fetchProfile = (userId) => dispatch => (
@@ -37,15 +43,15 @@ const profilesByUserId = (oldState = {}, action) => {
       });
       return Object.assign({}, oldState, ...newProfiles);
 
-    // case RECEIVE_POST:
-    // case REMOVE_POST:
-    //   const newProfiles = [];
-    //   const posts = Object.keys(action.entities.posts)
-    //     .map(id => action.entities.posts[id])
-    //     .forEach(post => {
-    //
-    //     });
-    //   return Object.assign({}, oldState, ...newProfiles);
+    case RECEIVE_POST:
+      const { posts } = action.entities;
+      const newState = Object.assign({}, oldState);
+      Object.keys(posts).forEach(postId => {
+        const post = posts[postId];
+        const profile = newState[post.profileUserId];
+        profile.timelinePosts = [postId, ...profile.timelinePosts];
+      });
+      return newState;
 
     default:
       return oldState;

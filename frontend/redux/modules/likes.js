@@ -48,8 +48,6 @@ const api = {
   }),
 };
 
-window.likesApi = api;
-
 // reducer
 const likeById = (oldState = {}, { like }) => (
   Object.assign(

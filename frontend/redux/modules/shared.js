@@ -5,17 +5,19 @@ export const genericAction = (schema) => (type) => (data) => ({
   ...normalize(data, schema)
 });
 
-export const generateSyncActions = (types, schema) => {
-  const _nameFromType = type => type.split("_").map(
-    (word, i) =>
-      i === 0 ?
-        word.toLowerCase() :
-        word[0].toUpperCase() + word.slice(1).toLowerCase()
-  ).join("");
 
+export const generateSyncActions = (types, schema) => {
   const action = genericAction(schema);
+
   return Object.assign(
     {},
-    ...types.map(type => ({ [_nameFromType(type)]: action(type) }))
+    ...types.map(type => ({ [toCamelCase(type)]: action(type) }))
   );
 }
+
+export const toCamelCase = str => str.split("_").map(
+  (word, i) =>
+    i === 0 ?
+    word.toLowerCase() :
+    word[0].toUpperCase() + word.slice(1).toLowerCase()
+).join("");
