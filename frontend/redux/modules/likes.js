@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
 
 import { RECEIVE_PROFILE } from './profiles';
-import { normalize } from './helpers.js';
+import { likeSchema } from './schema';
+import { generateSyncActions } from './shared.js';
+
 
 // action types
 export const POST_LIKE = "POST_LIKE";
@@ -10,35 +12,41 @@ export const DELETE_LIKE = "DELETE_LIKE";
 export const REMOVE_LIKE = "REMOVE_LIKE";
 
 // sync actions
-export const receiveLike = like => ({
-  type: RECEIVE_LIKE,
-  like
-});
+// export const receiveLike = like => ({
+//   type: RECEIVE_LIKE,
+//   like
+// });
+//
+// export const removeLike = like => ({
+//   type: REMOVE_LIKE,
+//   like
+// });
 
-export const removeLike = like => ({
-  type: REMOVE_LIKE,
-  like
-});
-
-window.removeLike = removeLike;
-window.receiveLike = receiveLike;
+export const syncActions = generateSyncActions(
+  [ RECEIVE_LIKE, REMOVE_LIKE ],
+  likeSchema
+);
 
 // async actions
 export const postLike = (likeableId, likeableType) => dispatch => (
-  api.postLike(likeableId, likeableType).then(like => dispatch(receiveLike(like)))
+  api.postLike(likeableId, likeableType).then(
+    like => dispatch(syncActions.receiveLike(like))
+  )
 );
 
 export const deleteLike = (likeId) => dispatch => (
-  api.deleteLike(likeId).then(like => dispatch(removeLike(like)))
+  api.deleteLike(likeId).then(
+    like => dispatch(syncActions.removeLike(like))
+  )
 );
 
 
 const api = {
-  postLike: (likeableId, likeableType) => $.ajax({
+  postLike: (likeable_id, likeable_type) => $.ajax({
     url: `/api/likes`,
     method: 'POST',
     data: {
-      like: { likeable_id: likeableId, likeable_type: likeableType }
+      like: { likeable_id, likeable_type }
     }
   }),
 
@@ -49,7 +57,7 @@ const api = {
 };
 
 // reducer
-const likeById = (oldState = {}, { like }) => (
+const likeById = (oldState = {}, like) => (
   Object.assign(
     oldState,
     { [like.id]: like }
@@ -57,36 +65,24 @@ const likeById = (oldState = {}, { like }) => (
 );
 
 const likesByType = (oldState = {}, action) => {
-  switch(action.type) {
-    case RECEIVE_LIKE:
-      const type = action.like.likeable_type;
-      return Object.assign(
-        {},
-        oldState,
-        { [type]: likeById(oldState[type], action) }
-      );
 
-    case REMOVE_LIKE:
+  switch(action.type) {
+    case RECEIVE_PROFILE:
+    case RECEIVE_LIKE:
       const newState = Object.assign({}, oldState);
-      const targetSlice = newState[action.like.likeable_type];
-      delete targetSlice[action.like.id];
+      const { likes } = action.entities;
+      Object.keys(likes).forEach( id => {
+        const like = likes[id];
+        const type = like.likeable_type;
+        Object.assign(
+          newState,
+          { [type]: likeById(oldState[type], like) }
+        );
+      });
       return newState;
 
-    case RECEIVE_PROFILE:
-    //   const likes = normalize(action.profile, 'likes');
-    //   const byType = {};
-    //
-    //   Object.keys(likes).forEach( id => {
-    //     const like = likes[id];
-    //     if (!byType[like.likeable_type]) {
-    //       Object.assign(byType, { [like.likeable_type]: {} });
-    //     }
-    //     Object.assign(byType[like.likeable_type], { [id]: like });
-    //   });
-    //
-    //   return Object.assign({}, oldState, byType);
-      // TODO: assign likes to key of likeable_type
-      return Object.assign({}, oldState, action.entities.likes);
+    case REMOVE_LIKE:
+      return oldState; // TODO
 
     default:
       return oldState;
