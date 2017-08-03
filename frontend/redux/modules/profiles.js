@@ -36,6 +36,7 @@ const profilesByUserId = (oldState = {}, action) => {
     case RECEIVE_POST:
       const { posts } = action.entities;
       const newState = Object.assign({}, oldState);
+      // add post ids to appropriate profile timelines
       Object.keys(posts).forEach(postId => {
         const post = posts[postId];
         const profile = newState[post.profileUserId];

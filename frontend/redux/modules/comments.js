@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import { RECEIVE_PROFILE } from './profiles';
+import { RECEIVE_LIKE } from './likes';
 import { commentSchema } from './schema';
 import { generateSyncActions } from './shared';
 
@@ -15,20 +16,6 @@ export const syncActions = generateSyncActions(
   [ RECEIVE_COMMENT, UPDATE_COMMENT, REMOVE_COMMENT ],
   commentSchema
 );
-// export const receiveComment = comment => ({
-//   type: RECEIVE_COMMENT,
-//   comment
-// });
-//
-// export const updateComment = comment => ({
-//   type: UPDATE_COMMENT,
-//   comment
-// });
-//
-// export const removeComment = comment => ({
-//   type: REMOVE_COMMENT,
-//   comment
-// });
 
 // async actions
 export const postComment = (comment, postId) => dispatch => (
@@ -55,6 +42,16 @@ const commentsById = (oldState = {}, action) => {
 
     case RECEIVE_PROFILE:
       return Object.assign({}, oldState, action.entities.comments);
+
+    case RECEIVE_LIKE:
+      const newState = Object.assign({}, oldState);
+      const like = action.entities.likes[action.result];
+      if (like.likeable_type === 'Comment') {
+        const comment = newState[like.likeable_id];
+        comment.likes = [like.id, ...comment.likes];
+        comment.likers = [like.liker_id, ...comment.likers];
+      }
+      return Object.assign({}, newState);
 
     default:
       return oldState;
