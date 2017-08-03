@@ -9,20 +9,15 @@ import { generateSyncActions } from './shared';
 export const RECEIVE_PROFILE = "RECEIVE_PROFILE";
 
 // sync actions
-// const syncActions = generateSyncActions(
-//   [ RECEIVE_PROFILE ],
-//   profileSchema
-// );
-
-export const receiveProfile = profile => ({
-  type: RECEIVE_PROFILE,
-  ...normalize(profile, profileSchema)
-});
+const syncActions = generateSyncActions(
+  [ RECEIVE_PROFILE ],
+  profileSchema
+);
 
 // async actions
 export const fetchProfile = (userId) => dispatch => (
   api.fetchProfile(userId).then(profile =>
-    dispatch(receiveProfile(profile)))
+    dispatch(syncActions.receiveProfile(profile)))
 );
 
 const api = {
