@@ -27,7 +27,7 @@ const api = {
 const usersById = (oldState = {}, action) => {
   switch(action.type) {
     case RECEIVE_SINGLE_USER:
-      return Object.assign({}, oldState, { [action.user.id]: action.user });
+      return oldState; // TODO
 
     case RECEIVE_PROFILE:
       return Object.assign({}, oldState, action.entities.users);

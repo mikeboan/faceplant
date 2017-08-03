@@ -1,7 +1,7 @@
 export const selectTimelinePosts = (state, userId) => {
   const { posts } = state;
   const profile = state.profiles.byUserId[userId];
-  
+
   if (!profile) return [];
   return profile.timelinePosts.map( id => posts.byId[id] );
 };
@@ -29,4 +29,8 @@ export const selectCommentLikers = ({ users, likes }, commentId) => {
     .map(id => allCommentLikes[id])
     .filter(like => like.likeable_id === commentId)
     .map(like => users.byId[like.liker_id]);
+};
+
+export const userLikesItem = (state, itemId) => {
+  
 };
