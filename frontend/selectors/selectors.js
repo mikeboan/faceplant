@@ -14,23 +14,21 @@ export const selectFriends = ({ users }, { friends }) => (
   friends ? friends.slice(0, 9).map(id => users.byId[id]) : []
 );
 
-export const selectPostComments = ({ comments }, postId) => (
-  Object.keys(comments.byId)
-    .map(id => comments.byId[id])
-    .filter(comment => comment.commentable_id == postId &&
-      comment.commentable_type === "Post"
-    )
+export const selectPostComments = ({ comments }, post) => (
+  post.comments.map(id => comments.byId[id])
+  // Object.keys(comments.byId)
+  //   .map(id => comments.byId[id])
+  //   .filter(comment => comment.commentable_id == postId &&
+  //     comment.commentable_type === "Post"
+  //   )
 );
 
-export const selectCommentLikers = ({ users, likes }, commentId) => {
-  const allCommentLikes = likes.byType.Comment || {};
-
-  return Object.keys(allCommentLikes)
-    .map(id => allCommentLikes[id])
-    .filter(like => like.likeable_id === commentId)
-    .map(like => users.byId[like.liker_id]);
+export const selectCommentLikers = ({ users, comments }, commentId) => {
+  const comment = comments.byId[commentId] || {};
+  return comment.likers.map(userId => users.byId[userId]);
 };
 
-export const userLikesItem = (state, itemId) => {
-  
+export const currentUserLikesComment = (state, commentId) => {
+  const comment = state.comments.byId[commentId];
+  return comment.likers.includes(state.session.currentUser.id);
 };

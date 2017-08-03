@@ -1,21 +1,33 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { selectCommentLikers } from '../../selectors/selectors';
-import { postLike } from '../../redux/modules/likes';
+import { selectCommentLikers, currentUserLikesComment } from '../../selectors/selectors';
+import { postLike, deleteLike } from '../../redux/modules/likes';
 
 const mapStateToProps = (state, { commentId }) => ({
   likers: selectCommentLikers(state, commentId),
+  currentUserLikesComment: currentUserLikesComment(state, commentId),
 });
 
-const mapDispatchToProps = (dispatch, { commentId }) => ({
-  postLike: () => dispatch(postLike(commentId, "Comment")),
-});
+const mapDispatchToProps = (dispatch, { commentId, currentUserLikesComment }) => {
+  let clickAction = postLike;
+  let likeText = "Like";
 
-const CommentActions = ({ postLike, likers }) => (
+  if (currentUserLikesComment) {
+    clickAction = deleteLike;
+    likeText = "Unlike";
+  }
+
+  return {
+    clickAction: () => dispatch(clickAction(commentId, "Comment")),
+    likeText
+  };
+};
+
+const CommentActions = ({ clickAction, likeText, likers }) => (
   <div
     className='comment-actions'>
-    <span onClick={ postLike }>Like</span> Reply Likes: { likers.length }
+    <span onClick={ postLike }>{ likeText }</span> Reply Likes: { likers.length }
   </div>
 );
 

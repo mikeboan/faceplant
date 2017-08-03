@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { selectPostComments, selectUser } from '../../selectors/selectors';
 import CommentActions from './CommentActions';
 
-const mapStateToProps = (state, { postId }) => {
-  const comments = selectPostComments(state, postId);
+const mapStateToProps = (state, { post }) => {
+  const comments = selectPostComments(state, post);
   const users = {};
   comments.forEach( ({ author_id }) => {
     Object.assign(users, { [author_id]: selectUser(state, author_id) });

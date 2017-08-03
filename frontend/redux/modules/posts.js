@@ -56,13 +56,14 @@ const api = {
 
 // reducer
 const postsById = (oldState = {}, action) => {
+  const newState = Object.assign({}, oldState);
+
   switch(action.type) {
     case UPDATE_POST:
     case RECEIVE_POST:
       return Object.assign({}, oldState, action.entities.posts);
 
     case REMOVE_POST:
-      const newState = Object.assign({}, oldState);
       Object.keys(action.entities.posts).forEach( id =>
         delete newState[id]
       );
@@ -74,6 +75,13 @@ const postsById = (oldState = {}, action) => {
         oldState,
         action.entities.posts
       );
+
+    case RECEIVE_COMMENT:
+      const comment = action.entities.comments[action.result];
+      const post = newState[comment.commentable_id];
+      post.comments = [...post.comments, comment.id];
+      return newState;
+
 
     default:
       return oldState;
