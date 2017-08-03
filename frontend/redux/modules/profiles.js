@@ -8,18 +8,16 @@ import { profileSchema } from './schema';
 export const RECEIVE_PROFILE = "RECEIVE_PROFILE";
 
 // sync actions
-export const receiveProfile = profile => ({
+export const receiveProfile = profile => {debugger; return({
   type: RECEIVE_PROFILE,
   ...normalize(profile, profileSchema)
-});
+})};
 
 // async actions
 export const fetchProfile = (userId) => dispatch => (
   api.fetchProfile(userId).then(profile =>
     dispatch(receiveProfile(profile)))
 );
-
-window.fetchProfile = fetchProfile;
 
 const api = {
   fetchProfile: (userId) => $.ajax({
@@ -41,7 +39,13 @@ const profilesByUserId = (oldState = {}, action) => {
 
     // case RECEIVE_POST:
     // case REMOVE_POST:
-      // return updateTimelinePosts(oldState, action);
+    //   const newProfiles = [];
+    //   const posts = Object.keys(action.entities.posts)
+    //     .map(id => action.entities.posts[id])
+    //     .forEach(post => {
+    //
+    //     });
+    //   return Object.assign({}, oldState, ...newProfiles);
 
     default:
       return oldState;
