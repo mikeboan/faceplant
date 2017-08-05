@@ -18,15 +18,15 @@ export const syncActions = generateSyncActions(
 );
 
 // async actions
-export const postComment = (comment, postId) => dispatch => (
-  api.postComment(comment, postId).then(
+export const postComment = (comment) => dispatch => (
+  api.postComment(comment).then(
     comment => dispatch(syncActions.receiveComment(comment))
   )
 );
 
 const api = {
-  postComment: (comment, postId) => $.ajax({
-    url: `/api/posts/${postId}/comments/`,
+  postComment: (comment) => $.ajax({
+    url: `/api/comments/`,
     method: 'POST',
     data: { comment },
   }),

@@ -58,7 +58,7 @@ const PostItem = ({ post, user, profileUser, currentUser }) => {
       <div className='post-bottom'>
         <div className='post-actions'>Post Actions -- Like, etc.</div>
         <PostComments post={ post } />
-        <CommentForm postId={ post.id } commentableType={ 'Post' } />
+        <CommentForm commentableId={ post.id } commentableType={ 'Post' } />
       </div>
     </li>
   );

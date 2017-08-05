@@ -14,15 +14,24 @@ const mapDispatchToProps = (dispatch, { commentId, likedByCurrentUser }) => ({
   deleteLike: () => dispatch(deleteLike(commentId, "Comment")),
 });
 
-const CommentActions = ({ likers, likedByCurrentUser, postLike, deleteLike }) => {
+const CommentActions = (props) => {
+  const { likers, likedByCurrentUser, postLike, deleteLike, commentableId } = props;
   const clickAction = likedByCurrentUser ? deleteLike : postLike;
   const likeText = likedByCurrentUser ? "Unlike" : "Like";
 
   return (
-  <div
-    className='comment-actions'>
-    <span onClick={ clickAction }>{ likeText }</span> Reply Likes: { likers.length }
-  </div>
-)};
+    <ul className='comment-actions'>
+      <li>
+        <span onClick={ clickAction }>{ likeText }</span>
+      </li>
+      <li>
+        <label htmlFor={`post-#{commentableId}`}>Reply</label>
+      </li>
+      <li>
+        Likes: { likers.length }
+      </li>
+    </ul>
+  );
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentActions);

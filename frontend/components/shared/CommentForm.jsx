@@ -8,8 +8,8 @@ const mapStateToProps = (state, ownProps) => ({
   currentUser: selectCurrentUser(state)
 });
 
-const mapDispatchToProps = (dispatch, { postId }) => ({
-  postComment: comment => dispatch(postComment(comment, postId))
+const mapDispatchToProps = (dispatch) => ({
+  postComment: comment => dispatch(postComment(comment))
 });
 
 
@@ -28,11 +28,12 @@ class CommentForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { commentableType } = this.props;
-
-    this.props.postComment(
-      Object.assign({}, this.state, { commentable_type: commentableType })
-    ).then(() => this.setState({ body: "" }));
+    const { commentableType, commentableId } = this.props;
+    const comment = Object.assign(
+      { commentable_type: commentableType, commentable_id: commentableId },
+      this.state
+    );
+    this.props.postComment(comment).then(() => this.setState({ body: "" }));
   }
 
   render() {
@@ -40,6 +41,7 @@ class CommentForm extends React.Component {
       <form onSubmit={ this.handleSubmit.bind(this) } className='post-comment-form'>
         <img src={ this.props.currentUser.profilePicUrl }></img>
         <input type='text'
+          id={`post-${this.props.postId}`}
           onChange={ this.handleUpdate('body')}
           placeholder='Write a comment...'
           value={ this.state.body }

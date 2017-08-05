@@ -35,7 +35,7 @@ const PostCommentItem = ({ comment, user, likeComment }) => (
       <a>{ user.name }</a><span>{ comment.body }</span>
       <CommentActions
         commentId={ comment.id }
-        postId={ comment.commentable_id }
+        commentableId={ comment.commentable_id }
       />
     </div>
   </li>
