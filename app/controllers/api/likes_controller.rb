@@ -9,15 +9,15 @@ class Api::LikesController < ApplicationController
     end
   end
 
-  def destroy
-    @like = Like.find(params[:id])
-
-    if @like.destroy
-      render :show
-    else
-      render json: @like.errors.full_messages
-    end
-  end
+  # def destroy
+  #   @like = Like.find(params[:id])
+  #
+  #   if @like.destroy
+  #     render :show
+  #   else
+  #     render json: @like.errors.full_messages
+  #   end
+  # end
 
   private
   def like_params

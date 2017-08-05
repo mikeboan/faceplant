@@ -1,10 +1,11 @@
 class Api::CommentsController < ApplicationController
-
+  include LikeActions
+  
   def create
     @comment = Comment.new(comment_params)
     @comment.commentable_id = params[:post_id]
     @comment.author = current_user
-    
+
     if @comment.save
       render :show
     else

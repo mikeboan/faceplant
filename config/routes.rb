@@ -14,6 +14,14 @@ Rails.application.routes.draw do
       resources :comments, only: [:create]
     end
 
-    resources :likes, only: [:create, :destroy]
+    resources :likes, only: [:create]
+
+    # destroy likes
+    likeable_types = [:comments, :posts]
+
+    likeable_types.each do |type|
+      delete "#{type}/:#{type.to_s.singularize}_id/likes",
+        to: "#{type}#destroy_like"
+    end
   end
 end

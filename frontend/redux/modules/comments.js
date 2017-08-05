@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import { RECEIVE_PROFILE } from './profiles';
-import { RECEIVE_LIKE } from './likes';
+import { RECEIVE_LIKE, REMOVE_LIKE } from './likes';
 import { commentSchema } from './schema';
 import { generateSyncActions } from './shared';
 
@@ -34,8 +34,9 @@ const api = {
 
 // reducer
 const commentsById = (oldState = {}, action) => {
-  switch(action.type) {
+  const newState = Object.assign({}, oldState);
 
+  switch(action.type) {
     case RECEIVE_COMMENT:
       const id = action.result;
       return Object.assign({}, oldState, { [id]: action.entities.comments[id] });
@@ -44,7 +45,6 @@ const commentsById = (oldState = {}, action) => {
       return Object.assign({}, oldState, action.entities.comments);
 
     case RECEIVE_LIKE:
-      const newState = Object.assign({}, oldState);
       const like = action.entities.likes[action.result];
       if (like.likeable_type === 'Comment') {
         const comment = newState[like.likeable_id];
@@ -52,6 +52,13 @@ const commentsById = (oldState = {}, action) => {
         comment.likers = [like.liker_id, ...comment.likers];
       }
       return Object.assign({}, newState);
+
+    case REMOVE_LIKE:
+      const oldLike = action.entities.likes[action.result];
+      const comment = newState[oldLike.likeable_id];
+      comment.likes = comment.likes.filter( id => id !== oldLike.id );
+      comment.likers = comment.likers.filter( id => id !== oldLike.liker_id );
+      return newState
 
     default:
       return oldState;
