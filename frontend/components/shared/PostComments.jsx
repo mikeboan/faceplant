@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { selectPostComments, selectUser } from '../../selectors/selectors';
-import CommentActions from './CommentActions';
+import PostCommentItem from './PostCommentItem';
 
 const mapStateToProps = (state, { post }) => {
   const comments = selectPostComments(state, post);
@@ -21,24 +21,24 @@ const PostComments = ({ comments, users }) => (
         <PostCommentItem
           key={ comment.id }
           comment={ comment }
-          user={ users[comment.author_id] }
+          author={ users[comment.author_id] }
         />
       )
     }
   </ul>
 );
 
-const PostCommentItem = ({ comment, user, likeComment }) => (
-  <li className='post-comment-item'>
-    <img src={ user.profilePicUrl }></img>
-    <div>
-      <a>{ user.name }</a><span>{ comment.body }</span>
-      <CommentActions
-        commentId={ comment.id }
-        commentableId={ comment.commentable_id }
-      />
-    </div>
-  </li>
-);
+// const PostCommentItem = ({ comment, user, likeComment }) => (
+//   <li className='post-comment-item'>
+//     <img src={ user.profilePicUrl }></img>
+//     <div>
+//       <a>{ user.name }</a><span>{ comment.body }</span>
+//       <CommentActions
+//         commentId={ comment.id }
+//         commentableId={ comment.commentable_id }
+//       />
+//     </div>
+//   </li>
+// );
 
 export default connect(mapStateToProps)(PostComments);

@@ -15,7 +15,15 @@ const mapDispatchToProps = (dispatch, { commentId, likedByCurrentUser }) => ({
 });
 
 const CommentActions = (props) => {
-  const { likers, likedByCurrentUser, postLike, deleteLike, commentableId } = props;
+  const {
+    likers,
+    likedByCurrentUser,
+    postLike,
+    deleteLike,
+    commentableId,
+    toggleCommentForm
+  } = props;
+  debugger
   const clickAction = likedByCurrentUser ? deleteLike : postLike;
   const likeText = likedByCurrentUser ? "Unlike" : "Like";
 
@@ -24,8 +32,8 @@ const CommentActions = (props) => {
       <li>
         <span onClick={ clickAction }>{ likeText }</span>
       </li>
-      <li>
-        <label htmlFor={`post-#{commentableId}`}>Reply</label>
+      <li onClick={ toggleCommentForm }>
+        <span>Reply</span>
       </li>
       <li>
         Likes: { likers.length }

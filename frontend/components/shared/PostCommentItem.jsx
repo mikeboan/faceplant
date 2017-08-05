@@ -2,10 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import CommentForm from './CommentForm';
-
-const mapStateToProps = (state, ownProps) => ({
-
-});
+import CommentActions from './CommentActions';
 
 class PostCommentItem extends React.Component {
   constructor(props) {
@@ -15,7 +12,10 @@ class PostCommentItem extends React.Component {
 
   toggleCommentForm(e) {
     e.preventDefault();
-    this.setState({ commentFormVisible: !this.state.commentFormVisible });
+    this.setState(
+      { commentFormVisible: !this.state.commentFormVisible },
+      ()=>{ debugger }
+    );
   }
 
   render() {
@@ -32,7 +32,10 @@ class PostCommentItem extends React.Component {
           />
           {
             this.state.commentFormVisible ?
-              <CommentForm /> :
+              <CommentForm
+                commentableId={comment.id}
+                commentableType='Comment'
+              /> :
               null
           }
         </div>
@@ -41,4 +44,5 @@ class PostCommentItem extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(PostCommentItem);
+// export default connect(mapStateToProps)(PostCommentItem);
+export default PostCommentItem;
