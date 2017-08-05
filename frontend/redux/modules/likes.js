@@ -34,8 +34,8 @@ export const postLike = (likeableId, likeableType) => dispatch => (
   )
 );
 
-export const deleteLike = (likeId) => dispatch => (
-  api.deleteLike(likeId).then(
+export const deleteLike = (likeableId, likeableType) => dispatch => (
+  api.deleteLike(likeableId, likeableType).then(
     like => dispatch(syncActions.removeLike(like))
   )
 );
@@ -50,7 +50,7 @@ const api = {
     }
   }),
 
-  deleteLike: (likeId) => $.ajax({
+  deleteLike: (likeable_id, likeable_type) => $.ajax({
     url: `/api/likes/id`,
     method: 'DELETE',
   }),
@@ -82,7 +82,8 @@ const likesByType = (oldState = {}, action) => {
       return newState;
 
     case REMOVE_LIKE:
-      return oldState; // TODO
+
+      return oldState;
 
     default:
       return oldState;
