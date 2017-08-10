@@ -42,6 +42,11 @@ const api = {
     data: { post },
   }),
 
+  fetchPost: (id) => $.ajax({
+    url: `api/posts/${id}`,
+    method: 'GET'
+  }),
+
   editPost: ({ id, ...post }) => $.ajax({
     url: `/api/posts/${id}`,
     method: 'PATCH',
@@ -53,6 +58,8 @@ const api = {
     method: 'DELETE',
   }),
 };
+
+window.postsApi = api;
 
 // reducer
 const postsById = (oldState = {}, action) => {

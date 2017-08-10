@@ -27,6 +27,9 @@ const api = {
   }),
 };
 
+window.profileApi = api;
+window.profileActions = syncActions;
+
 // profile reducer
 const profilesByUserId = (oldState = {}, action) => {
   switch(action.type) {

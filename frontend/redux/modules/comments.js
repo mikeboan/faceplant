@@ -30,7 +30,17 @@ const api = {
     method: 'POST',
     data: { comment },
   }),
+  fetchComments: () => $.ajax({
+    url: `/api/comments`,
+    method: 'GET'
+  }),
+  fetchComment: (id) => $.ajax({
+    url: `/api/comments/${id}`,
+    method: 'GET'
+  }),
 };
+
+window.commentsApi = api;
 
 // reducer
 const commentsById = (oldState = {}, action) => {

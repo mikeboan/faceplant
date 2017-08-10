@@ -30,7 +30,7 @@ class Profile < ApplicationRecord
       :likers,
       :likes,
       profile: [user: :profile_pic],
-      comments: [:author, :likes, :likers]
+      comments: [:likes, :likers, author: [:profile_pic]]
     ]
 
     Post.includes(*inclusions).where(user_id: user_id).or(

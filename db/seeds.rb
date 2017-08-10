@@ -88,3 +88,22 @@ end
 Comment.create!(body: "Comment1", author_id: michael.id, commentable_id: post.id, commentable_type: "Post")
 Comment.create!(body: "Comment2", author_id: michael.id, commentable_id: post.id, commentable_type: "Post")
 Comment.create!(body: "Comment3", author_id: michael.id, commentable_id: post.id, commentable_type: "Post")
+
+puts "Creating nested comments"
+post = Post.first
+mike = User.first
+5.times do |i|
+  c1 = Comment.create!(body: "1st level #{i}", author: mike, commentable: post1)
+  4.times do |j|
+    c2 = Comment.create!(body: "2nd level #{j} respoonding to 1st level #{i}", parent: c1, author: mike, commentable: post1)
+    3.times do |k|
+      c3 = Comment.create!(body: "3rd level #{k} respoonding to 2nd level #{j}", parent: c2, author: mike, commentable: post1)
+      2.times do |l|
+        Comment.create!(body: "4th level #{l} respoonding to 3rd level #{k}", parent: c3, author: mike, commentable: post1)
+      end
+    end
+  end
+end
+
+
+Comment.create(body: 'top-level 1', commentable: post1, author: mike)

@@ -12,13 +12,12 @@
 
 class Post < ApplicationRecord
   include Likeable
-  
+  include Commentable
+
   belongs_to :user
   belongs_to :profile
 
   has_one :profile_user,
     through: :profile,
     source: :user
-
-  has_many :comments, as: :commentable
 end

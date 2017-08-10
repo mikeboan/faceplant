@@ -1,5 +1,21 @@
 class Api::PostsController < ApplicationController
 
+  def show
+    # testing purposes only!
+    debugger
+    @post = Post.includes(
+      :user,
+      :likers,
+      :likes,
+      comments: [
+        :author,
+        :likes,
+        :likers,
+      ]
+    ).find(params[:id])
+
+  end
+
   def create
     @post = Post.new(post_params)
     @post.profile = Profile.find_by(user_id: params[:profile_user_id]) if params[:profile_user_id]

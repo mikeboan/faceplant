@@ -11,11 +11,21 @@ export const RECEIVE_LIKE = "RECEIVE_LIKE";
 export const DELETE_LIKE = "DELETE_LIKE";
 export const REMOVE_LIKE = "REMOVE_LIKE";
 
+// sync actions
+// export const receiveLike = like => ({
+//   type: RECEIVE_LIKE,
+//   like
+// });
+//
+// export const removeLike = like => ({
+//   type: REMOVE_LIKE,
+//   like
+// });
+
 export const syncActions = generateSyncActions(
   [ RECEIVE_LIKE, REMOVE_LIKE ],
   likeSchema
 );
-
 
 // async actions
 export const postLike = (likeableId, likeableType) => dispatch => (
@@ -40,12 +50,11 @@ const api = {
     }
   }),
 
-  deleteLike: (likeableId, likeableType) => $.ajax({
-    url: `/api/${likeableType.toLowerCase()}s/${likeableId}/likes`,
+  deleteLike: (likeable_id, likeable_type) => $.ajax({
+    url: `/api/likes/id`,
     method: 'DELETE',
   }),
 };
-
 
 // reducer
 const likeById = (oldState = {}, like) => (
@@ -56,11 +65,11 @@ const likeById = (oldState = {}, like) => (
 );
 
 const likesByType = (oldState = {}, action) => {
-  const newState = Object.assign({}, oldState);
 
   switch(action.type) {
     case RECEIVE_PROFILE:
     case RECEIVE_LIKE:
+      const newState = Object.assign({}, oldState);
       const { likes } = action.entities;
       Object.keys(likes).forEach( id => {
         const like = likes[id];
@@ -73,9 +82,7 @@ const likesByType = (oldState = {}, action) => {
       return newState;
 
     case REMOVE_LIKE:
-      const oldLike = action.entities.likes[action.result];
-      delete newState[oldLike.likeable_type][oldLike.id];
-      return newState;
+      return oldState;
 
     default:
       return oldState;
