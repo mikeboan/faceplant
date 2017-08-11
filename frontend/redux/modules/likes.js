@@ -51,7 +51,7 @@ const api = {
   }),
 
   deleteLike: (likeable_id, likeable_type) => $.ajax({
-    url: `/api/likes/id`,
+    url: `/api/${likeable_type.toLowerCase()}s/${likeable_id}/likes`,
     method: 'DELETE',
   }),
 };
@@ -72,7 +72,7 @@ const likesByType = (oldState = {}, action) => {
       const newState = Object.assign({}, oldState);
       const { likes } = action.entities;
       if (!likes) return newState;
-      
+
       Object.keys(likes).forEach( id => {
         const like = likes[id];
         const type = like.likeable_type;

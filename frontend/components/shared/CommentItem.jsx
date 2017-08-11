@@ -40,7 +40,11 @@ class CommentItem extends React.Component {
                 /> :
               null
           }
-          <Comments comments={ comment.replies }/>
+          {
+            comment.replies.length ?
+              <Comments comments={ comment.replies }/> :
+              null
+          }
         </div>
       </li>
     );
