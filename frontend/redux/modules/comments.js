@@ -40,8 +40,6 @@ const api = {
   }),
 };
 
-window.commentsApi = api;
-
 // reducer
 const commentsById = (oldState = {}, action) => {
   const newState = Object.assign({}, oldState);
@@ -49,7 +47,13 @@ const commentsById = (oldState = {}, action) => {
   switch(action.type) {
     case RECEIVE_COMMENT:
       const id = action.result;
-      return Object.assign({}, oldState, { [id]: action.entities.comments[id] });
+      const newComment = action.entities.comments[id];
+      Object.assign(newState, { [id]: newComment });
+      if (newComment.parent_id) {
+        const parent = newState[newComment.parent_id];
+        parent.replyIds = [...parent.replyIds, newComment.id];
+      }
+      return newState;
 
     case RECEIVE_PROFILE:
       return Object.assign({}, oldState, action.entities.comments);

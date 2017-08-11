@@ -87,6 +87,7 @@ const postsById = (oldState = {}, action) => {
       const comment = action.entities.comments[action.result];
       const post = newState[comment.commentable_id];
       post.comments = [...post.comments, comment.id];
+      if (!comment.parent_id) post.replyIds = [...post.replyIds, comment.id];
       return newState;
 
 

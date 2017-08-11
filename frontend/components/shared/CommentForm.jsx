@@ -19,6 +19,10 @@ class CommentForm extends React.Component {
     this.state = { body: "" };
   }
 
+  componentDidMount() {
+    this.input.focus();
+  }
+
   handleUpdate(field) {
     return (e) => {
       e.preventDefault();
@@ -28,12 +32,18 @@ class CommentForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { commentableType, commentableId } = this.props;
+    const { commentableType, commentableId, parentId } = this.props;
     const comment = Object.assign(
-      { commentable_type: commentableType, commentable_id: commentableId },
+      {
+        commentable_type: commentableType,
+        commentable_id: commentableId,
+        parent_id: parentId
+      },
       this.state
     );
-    this.props.postComment(comment).then(() => this.setState({ body: "" }));
+    this.props.postComment(comment)
+      .then(() => this.setState({ body: "" }))
+      .then(this.props.hideCommentForm);
   }
 
   render() {
@@ -45,6 +55,7 @@ class CommentForm extends React.Component {
           onChange={ this.handleUpdate('body')}
           placeholder='Write a comment...'
           value={ this.state.body }
+          ref={ (input) => this.input = input }
         ></input>
       </form>
     );
