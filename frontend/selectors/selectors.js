@@ -16,11 +16,6 @@ export const selectFriends = ({ users }, { friends }) => (
 
 export const selectPostComments = ({ comments }, post) => (
   post.comments.map(id => comments.byId[id])
-  // Object.keys(comments.byId)
-  //   .map(id => comments.byId[id])
-  //   .filter(comment => comment.commentable_id == postId &&
-  //     comment.commentable_type === "Post"
-  //   )
 );
 
 export const selectCommentLikers = ({ users, comments }, commentId) => {
@@ -40,5 +35,3 @@ export const nestComments = (state, { replyIds }) => replyIds.map(id => {
     author: selectUser(state, comment.author_id),
   });
 });
-
-window.nestComments = nestComments;

@@ -71,6 +71,8 @@ const likesByType = (oldState = {}, action) => {
     case RECEIVE_LIKE:
       const newState = Object.assign({}, oldState);
       const { likes } = action.entities;
+      if (!likes) return newState;
+      
       Object.keys(likes).forEach( id => {
         const like = likes[id];
         const type = like.likeable_type;
