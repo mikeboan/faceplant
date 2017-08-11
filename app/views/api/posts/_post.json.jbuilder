@@ -32,3 +32,5 @@ json.comments post.comments,
 json.likes post.likes,
   partial: 'api/likes/like',
   as: :like
+
+json.replyIds post.top_level_comment_ids

@@ -28,7 +28,7 @@ const api = {
 };
 
 window.profileApi = api;
-window.profileActions = syncActions;
+window.profileActions = Object.assign(syncActions, { fetchProfile });
 
 // profile reducer
 const profilesByUserId = (oldState = {}, action) => {

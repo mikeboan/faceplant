@@ -32,3 +32,23 @@ export const currentUserLikesComment = (state, commentId) => {
   const comment = state.comments.byId[commentId];
   return comment.likers.includes(state.session.currentUser.id);
 };
+
+export const nestComments = (state, { replyIds }) => replyIds.map(id => {
+  const comment = state.comments.byId[id];
+  return Object.assign({}, comment, { replies: nestComments(state, comment) })
+});
+
+window.nestComments = nestComments;
+
+///////////////////////
+//  Horrific runtime, don't use!
+// const getChildComments = (state, parentId) => Object.keys(state.comments)
+//   .map( id => state.comments[id] )
+//   .filter( comment => comment.parent_id === parentId)
+//   .map( comment => Object.assign({}, comment, { replies: getChildComments(state, comment.id)} ));
+//
+// const nestComments = (state, commentableId) => Object.keys(state.comments)
+//   .map( id => state.comments[id] )
+//   .filter( comment => comment.commentable_id === commentableId && comment.parent_id === null)
+//   .map( comment => Object.assign({}, comment, { replies: getChildComments(state, comment.id)}));
+////////////////////////

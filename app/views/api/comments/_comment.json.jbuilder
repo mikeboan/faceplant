@@ -12,6 +12,4 @@ json.likes comment.likes,
   partial: 'api/likes/like',
   as: :like
 
-# json.replies comment.replies,
-#   partial: 'api/comments/comment',
-#   as: :comment
+json.replyIds comment.reply_ids

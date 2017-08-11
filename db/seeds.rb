@@ -105,5 +105,4 @@ mike = User.first
   end
 end
 
-
 Comment.create(body: 'top-level 1', commentable: post1, author: mike)

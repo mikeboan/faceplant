@@ -20,4 +20,10 @@ class Post < ApplicationRecord
   has_one :profile_user,
     through: :profile,
     source: :user
+
+  has_many :top_level_comments,
+    -> { where(parent_id: nil) },
+    as: :commentable,
+    class_name: "Comment"
+
 end
