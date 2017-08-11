@@ -1,44 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { selectPostComments, selectUser } from '../../selectors/selectors';
-import PostCommentItem from './PostCommentItem';
+import { nestComments, selectUser } from '../../selectors/selectors';
+import Comments from './Comments';
 
 const mapStateToProps = (state, { post }) => {
-  const comments = selectPostComments(state, post);
-  const users = {};
-  comments.forEach( ({ author_id }) => {
-    Object.assign(users, { [author_id]: selectUser(state, author_id) });
-  });
+  const comments = nestComments(state, post);
+  // const users = {};
+  // comments.forEach( ({ author_id }) => {
+  //   Object.assign(users, { [author_id]: selectUser(state, author_id) });
+  // });
 
-  return { comments, users };
+  return { comments };
 };
 
-const PostComments = ({ comments, users }) => (
-  <ul className='post-comments'>
-    {
-      comments.map( (comment, i) =>
-        <PostCommentItem
-          key={ comment.id }
-          comment={ comment }
-          author={ users[comment.author_id] }
-        />
-      )
-    }
-  </ul>
-);
-
-// const PostCommentItem = ({ comment, user, likeComment }) => (
-//   <li className='post-comment-item'>
-//     <img src={ user.profilePicUrl }></img>
-//     <div>
-//       <a>{ user.name }</a><span>{ comment.body }</span>
-//       <CommentActions
-//         commentId={ comment.id }
-//         commentableId={ comment.commentable_id }
-//       />
-//     </div>
-//   </li>
-// );
-
-export default connect(mapStateToProps)(PostComments);
+export default connect(mapStateToProps)(Comments);

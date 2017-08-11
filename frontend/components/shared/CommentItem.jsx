@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 
 import CommentForm from './CommentForm';
 import CommentActions from './CommentActions';
+import Comments from './Comments';
 
-class PostCommentItem extends React.Component {
+class CommentItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = { commentFormVisible: false };
@@ -13,13 +14,14 @@ class PostCommentItem extends React.Component {
   toggleCommentForm(e) {
     e.preventDefault();
     this.setState(
-      { commentFormVisible: !this.state.commentFormVisible },
-      ()=>{ debugger }
+      { commentFormVisible: !this.state.commentFormVisible }
     );
   }
 
   render() {
-    const { comment, author } = this.props;
+    const { comment } = this.props;
+    const { author } = comment;
+
     return (
       <li className='post-comment-item'>
         <img src={ author.profilePicUrl }></img>
@@ -29,20 +31,20 @@ class PostCommentItem extends React.Component {
             commentId={ comment.id }
             commentableId={ comment.commentable_id }
             toggleCommentForm={ this.toggleCommentForm.bind(this) }
-          />
+            />
           {
             this.state.commentFormVisible ?
               <CommentForm
                 commentableId={comment.id}
                 commentableType='Comment'
-              /> :
+                /> :
               null
           }
+          <Comments comments={ comment.replies }/>
         </div>
       </li>
     );
   }
 }
 
-// export default connect(mapStateToProps)(PostCommentItem);
-export default PostCommentItem;
+export default CommentItem;

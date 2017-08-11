@@ -23,7 +23,7 @@ const CommentActions = (props) => {
     commentableId,
     toggleCommentForm
   } = props;
-  debugger
+  
   const clickAction = likedByCurrentUser ? deleteLike : postLike;
   const likeText = likedByCurrentUser ? "Unlike" : "Like";
 
