@@ -20,7 +20,7 @@ class CommentItem extends React.Component {
   hideCommentForm() {
     this.setState({ commentFormVisible: false });
   }
-  
+
   render() {
     const { comment } = this.props;
     const { author } = comment;
@@ -36,20 +36,20 @@ class CommentItem extends React.Component {
             toggleCommentForm={ this.toggleCommentForm.bind(this) }
             />
           {
-            this.state.commentFormVisible ?
-              <CommentForm
-                commentableId={ comment.commentable_id }
-                commentableType={ comment.commentable_type }
-                parentId={ comment.id }
-                hideCommentForm={ this.hideCommentForm.bind(this) }
-                /> :
-              null
-          }
-          {
             comment.replies.length ?
               <Comments comments={ comment.replies }/> :
               null
           }
+          {
+            this.state.commentFormVisible ?
+            <CommentForm
+              commentableId={ comment.commentable_id }
+              commentableType={ comment.commentable_type }
+              parentId={ comment.id }
+              hideCommentForm={ this.hideCommentForm.bind(this) }
+              /> :
+              null
+            }
         </div>
       </li>
     );

@@ -21,6 +21,11 @@ class CommentForm extends React.Component {
 
   componentDidMount() {
     this.input.focus();
+    const top = this.input.getBoundingClientRect().top;
+    const bodyTop = document.body.getBoundingClientRect().top;
+    const scrollPos = top - bodyTop - (window.innerHeight / 2);
+    debugger
+    window.scrollTo(0, scrollPos);
   }
 
   handleUpdate(field) {

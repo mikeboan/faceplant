@@ -17,4 +17,9 @@
     border: 1px solid $border-gray;
     padding-left: 6px;
   }
+
+  input:focus {
+    // TEMPORARY -- SUPER UGLY
+    border: 3px solid $button-blue;
+  }
 }
