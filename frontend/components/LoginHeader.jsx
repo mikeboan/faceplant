@@ -46,7 +46,7 @@ class LogInHeader extends React.Component {
     return (
       <header className='login-header'>
         <div className='logo-frame'>
-          LOGO HERE
+          <h1>faceplant</h1>
         </div>
         <form onSubmit={ this.handleSubmit.bind(this) }>
           <label>Email
