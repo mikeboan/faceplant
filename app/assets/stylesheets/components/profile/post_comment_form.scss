@@ -16,10 +16,10 @@
     background-color: white;
     border: 1px solid $border-gray;
     padding-left: 6px;
+    box-sizing: border-box;
   }
 
   input:focus {
-    // TEMPORARY -- SUPER UGLY
-    border: 3px solid $button-blue;
+    border: 1px solid rgba(74, 108, 189, 0.8);
   }
 }
