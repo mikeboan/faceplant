@@ -33,10 +33,16 @@
 
     input[type='submit'] {
       font-size: 12px;
-      background-color: $button-blue;
+      background-color: rgb(55, 110, 172);
+      border: 1px solid $border-blue;
+      border-radius: 2px;
       font-weight: 500;
       align-self: flex-end;
       padding: 4px 6px;
+    }
+
+    input[type='submit']:hover {
+      background-color: rgb(44, 94, 148);
     }
   }
 }
