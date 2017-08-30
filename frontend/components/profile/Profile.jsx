@@ -1,17 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchProfile } from '../../redux/modules/profiles';
+import { Route } from 'react-router-dom';
 
+import { fetchProfile } from '../../redux/modules/profiles';
 import ProfileHeader from './ProfileHeader';
+import ProfileAbout from './ProfileAbout';
+import ProfileFriends from './ProfileFriends';
+import ProfilePhotos from './ProfilePhotos';
 import Timeline from './Timeline';
-import InfoCard from './InfoCard';
-import FriendsCard from './FriendsCard';
-import PhotosCard from './PhotosCard';
-import PostFormCreateModal from '../shared/PostFormCreateModal';
-import PostsIndex from '../shared/PostsIndex';
+
 
 const mapStateToProps = ({ users, profiles }, ownProps) => {
   const userId = ownProps.match.params.userId;
+
   return {
     user: users.byId[userId] || {},
     profile: profiles.byUserId[userId] || {},
@@ -37,22 +38,19 @@ class Profile extends React.Component {
   }
 
   render() {
-    const user = this.props.user || {};
-    const profile = this.props.profile || {};
+    const { user, profile } = this.props;
 
     return (
       <section className='profile'>
-        <ProfileHeader user={ user } profile={ profile} />
+        <ProfileHeader user={ user } profile={ profile } />
         <div className='profile-contents'>
-          <div className='left'>
-            <InfoCard user={user} />
-            <FriendsCard user={user} />
-            <PhotosCard />
-          </div>
-          <div className='right'>
-            <PostFormCreateModal />
-            <Timeline />
-          </div>
+          <Route
+            exact path="/profiles/:userId"
+            render={ props => <Timeline user={ user } {...props} /> }
+          />
+          <Route path="/profiles/:userId/about" component={ ProfileAbout } />
+          <Route path="/profiles/:userId/friends" component={ ProfileFriends } />
+          <Route path="/profiles/:userId/photos" component={ ProfilePhotos } />
         </div>
       </section>
     );

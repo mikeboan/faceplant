@@ -1,27 +1,24 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 
-import { selectTimelinePosts } from '../../selectors/selectors';
-import PostItem from '../shared/PostItem';
-import PostsIndex from '../shared/PostsIndex';
+import InfoCard from './InfoCard';
+import FriendsCard from './FriendsCard';
+import PhotosCard from './PhotosCard';
+import PostFormCreateModal from '../shared/PostFormCreateModal';
+import PostsIndex from './PostsIndex';
 
-const Timeline = ({ posts }) => (
-  <ul className='timeline'>
-    {
-      posts.map( post => (
-        <PostItem post={post} key={post.id} />
-      ))
-    }
-  </ul>
+const Timeline = ({ user }) => (
+  <div className='timeline'>
+    <div className='left'>
+      <InfoCard user={user} />
+      <FriendsCard user={user} />
+      <PhotosCard />
+    </div>
+    <div className='right'>
+      <PostFormCreateModal />
+      <PostsIndex />
+    </div>
+  </div>
 );
 
-const mapStateToProps = (state, ownProps) => {
-  const { userId } = ownProps.match.params;
 
-  return {
-    posts: selectTimelinePosts(state, userId)
-  };
-};
-
-export default withRouter(connect(mapStateToProps)(Timeline));
+export default Timeline;

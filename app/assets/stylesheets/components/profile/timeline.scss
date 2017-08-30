@@ -1,0 +1,19 @@
+.timeline {
+  display: flex;
+  justify-content: space-between;
+
+  .left {
+    width: 320px;
+
+    .card {
+      margin-bottom: 16px;
+      background: white;
+      border: 1px solid $border-gray;
+      border-radius: 3px;
+    }
+  }
+
+  .right {
+    width: 510px;
+  }
+}

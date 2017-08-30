@@ -2,7 +2,6 @@ class Api::PostsController < ApplicationController
 
   def show
     # testing purposes only!
-    debugger
     @post = Post.includes(
       :user,
       :likers,
