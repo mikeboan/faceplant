@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const ProfileHeader = ({ user, profile}) => (
-  <div className='profile-header shadow'>
+  <div className='profile-header'>
     <div className='cover-photo-container'>
       <img className='cover-photo' src={profile.coverPhotoUrl} />
     </div>
@@ -16,7 +16,7 @@ const ProfileHeader = ({ user, profile}) => (
       <NavLink to={`/profiles/${user.id}`} exact>Timeline</NavLink>
       <NavLink to={`/profiles/${user.id}/about`}>About</NavLink>
       <NavLink to={`/profiles/${user.id}/friends`}>Friends</NavLink>
-      <NavLink to={`/profiles/${user.id}/photos`}>photos</NavLink>
+      <NavLink to={`/profiles/${user.id}/photos`}>Photos</NavLink>
     </nav>
   </div>
 );

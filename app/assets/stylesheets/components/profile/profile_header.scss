@@ -3,6 +3,7 @@
   width: 848px;
   margin-bottom: 16px;
   position: relative;
+  border-bottom: 1px solid $border-gray;
 
   .cover-photo-container {
     height: 315px;
@@ -69,7 +70,37 @@
     }
 
     .active {
-      color: green;
+      position: relative;
+    }
+
+    .active:after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      margin-left: -10px;
+      width: 0;
+      height: 0;
+      border-top: 0 solid $border-gray;
+      border-bottom: 10px solid $border-gray;
+      border-right: 10px solid transparent;
+      border-left: 10px solid transparent;
+      background: transparent;
+    }
+
+    .active:before {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      margin-left: -10px;
+      width: 0;
+      height: 0;
+      border-top: 0 solid $background-gray;
+      border-bottom: 10px solid $background-gray;
+      border-right: 10px solid transparent;
+      border-left: 10px solid transparent;
+      background: transparent;
     }
   }
 }

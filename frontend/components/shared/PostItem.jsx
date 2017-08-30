@@ -22,7 +22,7 @@ const PostItem = ({ post, user, profileUser, currentUser }) => {
   const timeAgo = moment(post.created_at, "YYYYMMDD").calendar();
 
   return (
-    <li className='post-item shadow'>
+    <li className='post-item'>
       <div className='post-item-contents'>
         <div className='post-header'>
           <div className='info'>

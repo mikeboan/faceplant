@@ -46,7 +46,7 @@ class PostForm extends React.Component {
     const { currentUser, profileOwner } = this.props;
 
     return (
-      <div className='post-form-container shadow'>
+      <div className='post-form-container'>
         <nav>
           <a>
             <img src={window.staticImages.pencil}></img>
