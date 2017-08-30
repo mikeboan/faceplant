@@ -15,6 +15,13 @@
     padding-top: 9px;
     border-top: 1px solid $border-gray;
 
+    .post-comment-item {
+      .post-comment-item {
+        padding-left: 40px;
+        margin-left: -40px;
+        border-left: 1px solid $border-gray;
+      }
+    }
 
     li {
       display: flex;

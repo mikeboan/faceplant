@@ -51,37 +51,48 @@ class SignUpForm extends React.Component {
       <div>
         <LogInHeader />
 
-        <div className='main'>
-          <h2>Sign Up</h2>
-          <h3>It's free and always will be</h3>
-          <form onSubmit={ this.handleSubmit.bind(this) }>
-            <input
-              type="text"
-              onChange={ this.assignHandler('first_name') }
-              placeholder="First Name"
-            />
-            <input
-              type="text"
-              onChange={ this.assignHandler('last_name') }
-              placeholder="Last Name"
-            />
-            <input
-              type="text"
-              onChange={ this.assignHandler('email') }
-              placeholder="Email Address"
-            />
-            <input
-              type="password"
-              onChange={ this.assignHandler('password') }
-              placeholder="Password"
-            />
-            <input
-              type="submit"
-              value="Sign Up"
-            />
-          </form>
+        <div className='content'>
+          <div className='signup'>
+            <div className='left'>
+              <img src='https://www.facebook.com/rsrc.php/v3/yp/r/_1iT_csnL1u.png'></img>
+              <h4>Some nonsense about how great facebook is.</h4>
+            </div>
+            <div className='right'>
+              <h2>Sign Up</h2>
+              <h3>It's free and always will be</h3>
+              <form onSubmit={ this.handleSubmit.bind(this) }>
+                <div className='name-fields'>
+                  <input
+                    type="text"
+                    onChange={ this.assignHandler('first_name') }
+                    placeholder="First Name"
+                  />
+                  <input
+                    type="text"
+                    onChange={ this.assignHandler('last_name') }
+                    placeholder="Last Name"
+                  />
+                </div>
+
+                <input
+                  type="text"
+                  onChange={ this.assignHandler('email') }
+                  placeholder="Email Address"
+                />
+                <input
+                  type="password"
+                  onChange={ this.assignHandler('password') }
+                  placeholder="Password"
+                />
+                <input
+                  type="submit"
+                  value="Create Account"
+                />
+              </form>
+            </div>
+          </div>
         </div>
-        </div>
+      </div>
     );
   }
 }
