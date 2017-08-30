@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const ProfileHeader = ({ user, profile}) => (
   <div className='profile-header shadow'>
@@ -13,10 +13,10 @@ const ProfileHeader = ({ user, profile}) => (
       { user.name }
     </div>
     <nav>
-      <Link to={`/profiles/${user.id}`}>Timeline</Link>
-      <Link to={`/profiles/${user.id}/about`}>About</Link>
-      <Link to={`/profiles/${user.id}/friends`}>Friends</Link>
-      <Link to={`/profiles/${user.id}/photos`}>photos</Link>
+      <NavLink to={`/profiles/${user.id}`} exact>Timeline</NavLink>
+      <NavLink to={`/profiles/${user.id}/about`}>About</NavLink>
+      <NavLink to={`/profiles/${user.id}/friends`}>Friends</NavLink>
+      <NavLink to={`/profiles/${user.id}/photos`}>photos</NavLink>
     </nav>
   </div>
 );
