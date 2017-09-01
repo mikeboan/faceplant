@@ -98,14 +98,14 @@ class User < ApplicationRecord
 
   alias_method :friends, :accepted_friends
 
-  ["sent", "received"].each do |direction|
-    Friendship::STATUSES.each do |status|
+  ["requested", "received"].each do |direction|
+    Friendship::STATUSES.each_with_index do |status, index|
       define_method("#{direction}_#{status}_friend_requests") do
-        send("${direction}_friend_requests").where(status: status)
+        send("#{direction}_friend_requests".to_sym).where(status: index)
       end
 
       define_method("#{direction}_#{status}_friends") do
-        send("${direction}_friends").where(status: status)
+        send("#{direction}_friends").where("friendships.status" => index)
       end
     end
   end
