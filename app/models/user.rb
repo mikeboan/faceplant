@@ -101,7 +101,7 @@ class User < ApplicationRecord
   ["requested", "received"].each do |direction|
     Friendship::STATUSES.each_with_index do |status, index|
       define_method("#{direction}_#{status}_friend_requests") do
-        send("#{direction}_friend_requests".to_sym).where(status: index)
+        send("#{direction}_friend_requests").where(status: index)
       end
 
       define_method("#{direction}_#{status}_friends") do

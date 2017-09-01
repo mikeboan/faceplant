@@ -1,17 +1,17 @@
 json.partial! 'api/users/user', user: @user
 
-friends = @user.friends
-if friends.empty?
-  json.friends Hash.new
-else
-  json.friends do
-    friends.each do |friend|
-      json.set! friend.id do
-        json.partial! 'api/users/user', user: friend
-      end
-    end
-  end
-end
+json.acceptedFriends @user.accepted_friends,
+  partial: 'api/users/user',
+  as: :user
 
-# I wish...
-# json.friends @user.friends.inject({}) { |accum, f| accum.merge(f.id => f) }
+json.inPendingFriends @user.requested_pending_friends + @user.requested_rejected_friends, # don't show that other users have rejected current user's request
+  partial: 'api/users/user',
+  as: :user
+
+json.outPendingFriends @user.received_pending_friends,
+  partial: 'api/users/user',
+  as: :user
+
+json.rejectedFriends @user.received_rejected_friends,
+  partial: 'api/users/user',
+  as: :user
