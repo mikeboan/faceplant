@@ -1,7 +1,12 @@
 <script id="bootstrap-current-user" type="text/javascript">
   <% if logged_in? %>
-  	window.currentUser = <%= render("api/users/user.json.jbuilder",
-  		user: current_user).html_safe %>
+  	window.currentUser = <%=
+      render(
+        partial: "api/users/current_user.json.jbuilder",
+        formats: [:json],
+  		  locals: { user: current_user }
+      ).html_safe
+    %>
   <% end %>
 
   window.staticImages = {

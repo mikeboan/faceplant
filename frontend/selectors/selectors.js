@@ -1,7 +1,7 @@
 export const selectTimelinePosts = (state, userId) => {
   const { posts } = state;
   const profile = state.profiles.byUserId[userId];
-  
+
   if (!profile) return [];
   return profile.timelinePosts.map( id => posts.byId[id] );
 };
@@ -35,3 +35,13 @@ export const nestComments = (state, { replyIds }) => replyIds.map(id => {
     author: selectUser(state, comment.author_id),
   });
 });
+
+export const friendStatusWithCurrentUser = (currentUser, userId) => {
+  debugger
+  if (currentUser.acceptedFriends.includes(userId)) return "accepted";
+  if (currentUser.outPendingFriends.includes(userId)) return "requested";
+  if (currentUser.inPendingFriends.includes(userId)) return "pending";
+  if (currentUser.rejectedFriends.includes(userId)) return "rejected";
+
+  return "none"
+};

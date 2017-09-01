@@ -1,0 +1,19 @@
+.profile-header-buttons {
+  position: absolute;
+  bottom: 62px;
+  right: 16px;
+  color: rgb(75, 79, 86);
+  font-size: 12px;
+  font-weight: 600;
+
+  button {
+    background: rgb(233, 235, 238);
+    border: 1px solid rgba(0, 0, 0, .4);
+    padding: 6px 8px;
+    margin-right: 14px;
+  }
+
+  button:last-child {
+    margin:0;
+  }
+}

@@ -10,12 +10,13 @@ import ProfilePhotos from './ProfilePhotos';
 import Timeline from './Timeline';
 
 
-const mapStateToProps = ({ users, profiles }, ownProps) => {
+const mapStateToProps = ({ users, profiles, session: { currentUser } }, ownProps) => {
   const userId = ownProps.match.params.userId;
 
   return {
     user: users.byId[userId] || {},
     profile: profiles.byUserId[userId] || {},
+    currentUser
   };
 };
 
@@ -38,11 +39,11 @@ class Profile extends React.Component {
   }
 
   render() {
-    const { user, profile } = this.props;
+    const { currentUser, user, profile } = this.props;
 
     return (
       <section className='profile'>
-        <ProfileHeader user={ user } profile={ profile } />
+        <ProfileHeader currentUser={currentUser} user={ user } profile={ profile } />
         <div className='profile-contents'>
           <Route
             exact path="/profiles/:userId"

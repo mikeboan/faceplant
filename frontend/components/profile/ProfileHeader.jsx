@@ -1,7 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const ProfileHeader = ({ user, profile}) => (
+import HeaderButtons from './HeaderButtons';
+
+const ProfileHeader = ({ user, currentUser, profile}) => (
   <div className='profile-header'>
     <div className='cover-photo-container'>
       <img className='cover-photo' src={profile.coverPhotoUrl} />
@@ -12,12 +14,14 @@ const ProfileHeader = ({ user, profile}) => (
     <div className='username'>
       { user.name }
     </div>
-    <nav>
+    <nav className="profile-header-nav">
       <NavLink to={`/profiles/${user.id}`} exact>Timeline</NavLink>
       <NavLink to={`/profiles/${user.id}/about`}>About</NavLink>
       <NavLink to={`/profiles/${user.id}/friends`}>Friends</NavLink>
       <NavLink to={`/profiles/${user.id}/photos`}>Photos</NavLink>
     </nav>
+
+    <HeaderButtons user={user} currentUser={currentUser} profile={profile} />
   </div>
 );
 
