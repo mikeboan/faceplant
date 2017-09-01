@@ -7,7 +7,7 @@ import FriendListItem from './FriendListItem';
 
 const mapStateToProps = (state, { user }) => {
   const friends = selectFriends(state, user);
-
+  
   return {
     cardName: "Friends",
     cardIcon: window.staticImages.friendsBubble,

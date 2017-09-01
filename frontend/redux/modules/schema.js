@@ -7,10 +7,13 @@ export const userSchema = new schema.Entity('users', {
 
 });
 export const friendsSchema = new schema.Array(userSchema);
-userSchema.define({ acceptedFriends: friendsSchema });
-userSchema.define({ inPendingFriends: friendsSchema });
-userSchema.define({ outPendingFriends: friendsSchema });
-userSchema.define({ rejectedFriends: friendsSchema });
+
+[ 'friends',
+  'acceptedFriends',
+  'inPendingFriends',
+  'outPendingFriends',
+  'rejectedFriends'
+].forEach( key => userSchema.define({ [key]: friendsSchema }) );
 
 export const commentSchema = new schema.Entity('comments', {
   author: userSchema,

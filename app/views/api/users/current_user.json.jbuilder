@@ -4,7 +4,8 @@ json.acceptedFriends @user.accepted_friends,
   partial: 'api/users/user',
   as: :user
 
-json.inPendingFriends @user.requested_pending_friends + @user.requested_rejected_friends, # don't show that other users have rejected current user's request
+# don't show that other users have rejected current user's request
+json.inPendingFriends @user.requested_pending_friends + @user.requested_rejected_friends,
   partial: 'api/users/user',
   as: :user
 

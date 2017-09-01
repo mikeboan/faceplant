@@ -8,6 +8,7 @@ import posts from './modules/posts';
 import comments from './modules/comments';
 import likes from './modules/likes';
 import modal from './modules/modal';
+import loading from './modules/loading';
 
 const loggerMiddleware = createLogger(); // initialize logger
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
   posts,
   comments,
   likes,
-  modal
+  modal,
+  loading
 });
 
 const configureStore = (preloadedState) => createStoreWithMiddleware(rootReducer, preloadedState);

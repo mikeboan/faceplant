@@ -5,6 +5,8 @@ import { normalize } from 'normalizr';
 import { profileSchema } from './schema';
 import { generateSyncActions } from './shared';
 
+import { load } from './loading';
+
 // action types
 export const RECEIVE_PROFILE = "RECEIVE_PROFILE";
 
@@ -15,10 +17,11 @@ const syncActions = generateSyncActions(
 );
 
 // async actions
-export const fetchProfile = (userId) => dispatch => (
-  api.fetchProfile(userId).then(profile =>
-    dispatch(syncActions.receiveProfile(profile)))
-);
+export const fetchProfile = (userId) => dispatch => {
+  dispatch(load('profile'));
+  return api.fetchProfile(userId).then(profile =>
+    dispatch(syncActions.receiveProfile(profile)));
+};
 
 const api = {
   fetchProfile: (userId) => $.ajax({

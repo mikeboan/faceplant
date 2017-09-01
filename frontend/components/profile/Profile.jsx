@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 
 import { fetchProfile } from '../../redux/modules/profiles';
 import ProfileHeader from './ProfileHeader';
@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 class Profile extends React.Component {
   componentDidMount() {
-    if (!Boolean(this.props.profile.userId)) {
+    if (!Boolean(this.props.profile.user_id)) {
       this.props.fetchProfile(this.props.match.params.userId);
     }
   }
@@ -57,4 +57,4 @@ class Profile extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Profile));
