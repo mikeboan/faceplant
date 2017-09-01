@@ -1,3 +1,6 @@
+import { normalize } from 'normalizr';
+import { userSchema } from './schema';
+
 const api = {
   login: (user) => $.ajax({
     url: '/api/session',
@@ -23,7 +26,7 @@ export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
 // sync actions
 export const receiveCurrentUser = user => ({
   type: RECEIVE_CURRENT_USER,
-  user
+  ...normalize(user, userSchema)
 });
 
 // async actions
@@ -48,7 +51,7 @@ const defaultState = {
 export default (oldState = defaultState, action) => {
   switch(action.type) {
     case RECEIVE_CURRENT_USER:
-      return Object.assign({}, oldState, { currentUser: action.user });
+      return Object.assign({}, oldState, { currentUser: action.entities.users[action.result] });
     default:
       return oldState;
   }

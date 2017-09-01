@@ -3,10 +3,14 @@ import { schema } from 'normalizr';
 export const likeSchema = new schema.Entity('likes');
 
 export const userSchema = new schema.Entity('users', {
-  newsfeedPosts: [ postSchema ]
+  newsfeedPosts: [ postSchema ],
+
 });
 export const friendsSchema = new schema.Array(userSchema);
-userSchema.define({ friends: friendsSchema });
+userSchema.define({ acceptedFriends: friendsSchema });
+userSchema.define({ inPendingFriends: friendsSchema });
+userSchema.define({ outPendingFriends: friendsSchema });
+userSchema.define({ rejectedFriends: friendsSchema });
 
 export const commentSchema = new schema.Entity('comments', {
   author: userSchema,

@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import { RECEIVE_PROFILE } from './profiles';
+import { RECEIVE_CURRENT_USER } from './session';
 
 // action types
 export const RECEIVE_SINGLE_USER = "RECEIVE_SINGLE_USER";
@@ -30,6 +31,7 @@ const usersById = (oldState = {}, action) => {
       return oldState; // TODO
 
     case RECEIVE_PROFILE:
+    case RECEIVE_CURRENT_USER:
       return Object.assign({}, oldState, action.entities.users);
 
     default:
