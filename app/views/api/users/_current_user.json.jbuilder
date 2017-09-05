@@ -1,3 +1,6 @@
+user = @user if @user
+
+
 json.partial! 'api/users/user', user: user
 
 json.acceptedFriends user.accepted_friends,

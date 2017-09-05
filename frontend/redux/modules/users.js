@@ -1,4 +1,8 @@
 import { combineReducers } from 'redux';
+import merge from 'lodash/merge';
+
+import { generateSyncActions } from './shared';
+// import { updateCurrentUserFriends } from './helpers';
 
 import { RECEIVE_PROFILE } from './profiles';
 import { RECEIVE_CURRENT_USER } from './session';
@@ -24,15 +28,16 @@ const api = {
   }),
 };
 
+
 // reducer
 const usersById = (oldState = {}, action) => {
   switch(action.type) {
     case RECEIVE_SINGLE_USER:
-      return oldState; // TODO
+      return oldState; // TODO?
 
     case RECEIVE_PROFILE:
     case RECEIVE_CURRENT_USER:
-      return Object.assign({}, oldState, action.entities.users);
+      return merge({}, oldState, action.entities.users);
 
     default:
       return oldState;
@@ -42,3 +47,70 @@ const usersById = (oldState = {}, action) => {
 export default combineReducers({
   byId: usersById
 });
+
+
+
+
+  /////////////////
+ // FRIENDSHIPS //
+/////////////////
+
+// action types
+export const POST_FRIENDSHIP = "POST_FRIENDSHIP";
+export const RECEIVE_FRIENDSHIP = "RECEIVE_FRIENDSHIP";
+export const UPDATE_FRIENDSHIP = "UPDATE_FRIENDSHIP";
+export const REMOVE_FRIENDSHIP = "REMOVE_FRIENDSHIP";
+
+// sync actions
+// export const syncActions = generateSyncActions(
+//   [ RECEIVE_COMMENT, UPDATE_COMMENT, REMOVE_COMMENT ],
+//   commentSchema
+// );
+export const syncActions = {
+  receiveFriendship: (friendship) => ({
+    type: RECEIVE_FRIENDSHIP,
+    friendship
+  }),
+
+  removeFriendship: (friendship) => ({
+    type: REMOVE_FRIENDSHIP,
+    friendship
+  }),
+};
+
+// async actions
+export const postFriendship = (friendId) => dispatch => (
+  friendshipApi.postFriendship(friendId).then(
+    friendship => dispatch(syncActions.receiveFriendship(friendship))
+  )
+);
+
+export const destroyFriendship = (friendId) => dispatch => (
+  friendshipApi.destroyFriendship(friendId).then(
+    friendship => dispatch(syncActions.removeFriendship(friendship))
+  )
+);
+
+export const updateFriendship = (friendId, status) => dispatch => (
+  friendshipApi.updateFriendship(friendId, status).then(
+    friendship => dispatch(syncActions.receiveFriendship(friendship))
+  )
+);
+
+const friendshipApi = {
+  postFriendship: friendeeId => $.ajax({
+    url: `/api/users/${friendeeId}/friendships/`,
+    method: 'POST',
+  }),
+
+  destroyFriendship: friendeeId => $.ajax({
+    url: `/api/users/${friendeeId}/friendships/`,
+    method: 'DELETE',
+  }),
+
+  updateFriendship: (friendeeId, status) => $.ajax({
+    url: `/api/users/${friendeeId}/friendships/`,
+    method: 'PATCH',
+    data: { friendship: { status } },
+  })
+};

@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const currentUser = window.currentUser || {};
   delete window.currentUser;
   const { entities, result } = normalize(currentUser, userSchema);
+
   const store = configureStore({
     users: { byId: { ...entities.users } },
     session: { currentUser: entities.users[result] }

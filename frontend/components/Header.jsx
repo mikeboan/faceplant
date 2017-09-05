@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 
 import SearchBar from './SearchBar';
 import { logout } from '../redux/modules/session';
+import { selectCurrentUser } from '../selectors/selectors';
 
 const mapStateToProps = (state) => ({
-  currentUser: state.session.currentUser
+  currentUser: selectCurrentUser(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

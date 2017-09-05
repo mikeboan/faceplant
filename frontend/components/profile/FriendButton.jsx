@@ -2,6 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { friendStatusWithCurrentUser } from '../../selectors/selectors.js';
+import {
+  postFriendship,
+  destroyFriendship,
+  updateFriendship
+} from '../../redux/modules/users';
 
 const mapStateToProps = (state, { currentUser, user }) => {
   const propsByStatus = {
@@ -11,37 +16,29 @@ const mapStateToProps = (state, { currentUser, user }) => {
     pending: { disabled: false, buttonText: "Accept Request"},
     rejected: { disabled: false, buttonText: "Add Friend"},
   }
-  debugger
+
   const friendStatus = friendStatusWithCurrentUser(currentUser, user.id);
 
-  return propsByStatus[friendStatus];
+  return { friendStatus, propsByStatus };
 }
 
-const mapDispatchToProps = (dispatch, { currentUser, user }) => {
-  const addFriend = () => console.log('add friend');
-  const removeFriend = () => console.log('remove friend');
-  const acceptFriend = () => console.log('accept friend');
-
-  const actionsByStatus = {
-    none: addFriend,
-    accepted: removeFriend,
+const mapDispatchToProps = (dispatch, { currentUser, user }) => ({
+  actionsByStatus: {
+    none: () => dispatch(postFriendship(user.id)),
+    accepted: () => dispatch(destroyFriendship(user.id)),
     requested: () => ({}),
-    pending: acceptFriend,
-    rejected: addFriend
-  };
+    pending: () => dispatch(updateFriendship(user.id, 'accepted')),
+    rejected: () => dispatch(postFriendship(user.id)),
+  }
+});
 
-  const friendStatus = friendStatusWithCurrentUser(currentUser, user.id);
-  debugger
-
-  return { buttonAction: () => dispatch(actionsByStatus[friendStatus]) };
-};
-
-const FriendButton = ({ buttonText, buttonAction, disabled }) => (
+const FriendButton = ({ friendStatus, propsByStatus, actionsByStatus }) => (
   <button
     className="friend-button"
-    onClick={ (e) => { e.preventDefault; buttonAction() } }
+    onClick={ (e) => { e.preventDefault; actionsByStatus[friendStatus](); } }
+    disabled={ propsByStatus[friendStatus].disabled }
   >
-    { buttonText }
+    { propsByStatus[friendStatus].buttonText }
   </button>
 );
 

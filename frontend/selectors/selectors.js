@@ -6,9 +6,14 @@ export const selectTimelinePosts = (state, userId) => {
   return profile.timelinePosts.map( id => posts.byId[id] );
 };
 
-export const selectUser = (state, userId) => state.users.byId[userId] || {};
-export const selectUsers = (state, userIds) => userIds.map(id => selectUser(state, id));
-export const selectCurrentUser = ({ session }) => session.currentUser || {};
+export const selectUser = (state, userId) =>
+  state.users.byId[userId] || {};
+
+export const selectUsers = (state, userIds) =>
+  userIds.map(id => selectUser(state, id));
+
+export const selectCurrentUser = ({ session, users }) =>
+  session.currentUser || {};
 
 export const selectFriends = ({ users }, { friends }) => (
   friends ? friends.slice(0, 9).map(id => users.byId[id]) : []
@@ -37,7 +42,6 @@ export const nestComments = (state, { replyIds }) => replyIds.map(id => {
 });
 
 export const friendStatusWithCurrentUser = (currentUser, userId) => {
-  debugger
   if (currentUser.acceptedFriends.includes(userId)) return "accepted";
   if (currentUser.outPendingFriends.includes(userId)) return "requested";
   if (currentUser.inPendingFriends.includes(userId)) return "pending";

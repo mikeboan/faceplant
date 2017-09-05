@@ -27,7 +27,10 @@ class CommentItem extends React.Component {
 
     return (
       <li className='post-comment-item'>
-        <img src={ author.profilePicUrl }></img>
+        <div className='pic-container'>
+          <img src={ author.profilePicUrl }></img>
+        </div>
+
         <div>
           <a>{ author.name }</a><span>{ comment.body }</span>
           <CommentActions

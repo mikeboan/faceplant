@@ -21,5 +21,10 @@ Rails.application.routes.draw do
       delete "#{type}/:#{type.to_s.singularize}_id/likes",
         to: "#{type}#destroy_like"
     end
+
+    # friendships
+    post "users/:id/friendships", to: "users#create_friendship"
+    patch "users/:id/friendships", to: "users#update_friendship"
+    delete "users/:id/friendships", to: "users#destroy_friendship"
   end
 end

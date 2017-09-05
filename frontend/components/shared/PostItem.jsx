@@ -27,10 +27,12 @@ const PostItem = ({ post, user, profileUser, currentUser }) => {
         <div className='post-header'>
           <div className='info'>
             <Link to={`/profiles/${user.id}`}>
-              <img
-                className='profile-pic-thumbnail'
-                src={user.profilePicUrl}
-                />
+              <div className='thumbnail-container'>
+                <img
+                  className='profile-pic-thumbnail'
+                  src={user.profilePicUrl}
+                  />
+              </div>
             </Link>
             <div className='metadata'>
               <div className='byline'>

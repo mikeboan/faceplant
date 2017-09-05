@@ -1,0 +1,1 @@
+import { generateSyncActions } from './shared';

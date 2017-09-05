@@ -22,7 +22,7 @@ class User < ApplicationRecord
 
 	validates :email, :first_name, :last_name, :password_digest, :session_token, presence: true
 	validates :email, uniqueness: true
-	validates :password, length: {minimum: 6}, allow_nil: :true
+	validates :password, length: { minimum: 6 }, allow_nil: :true
 
 	after_initialize :ensure_session_token
 	before_validation :ensure_session_token_uniqueness
@@ -85,9 +85,22 @@ class User < ApplicationRecord
           friendships
         ON friender_id = users.id OR friendee_id = users.id
       SQL
-      .where(<<-SQL, id, id, id)
-        users.id != ? AND (friender_id = ? OR friendee_id = ?)
+      .where(<<-SQL, id: id)
+        users.id != :id AND (friender_id = :id OR friendee_id = :id)
       SQL
+  end
+
+  def new_friend_request(friender)
+    received_friend_requests.new(
+      friender: friender,
+      status: 0
+    )
+  end
+
+  def friendship(friend_id)
+    friendships.where(
+      "friendee_id = :friend_id OR friender_id = :friend_id", friend_id: friend_id
+    )
   end
 
   Friendship::STATUSES.each_with_index do |status, index|

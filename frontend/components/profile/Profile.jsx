@@ -8,15 +8,17 @@ import ProfileAbout from './ProfileAbout';
 import ProfileFriends from './ProfileFriends';
 import ProfilePhotos from './ProfilePhotos';
 import Timeline from './Timeline';
+import { selectCurrentUser } from '../../selectors/selectors';
 
 
-const mapStateToProps = ({ users, profiles, session: { currentUser } }, ownProps) => {
+const mapStateToProps = (state, ownProps) => {
+  const { users, profiles, session: { currentUser } } = state;
   const userId = ownProps.match.params.userId;
 
   return {
     user: users.byId[userId] || {},
     profile: profiles.byUserId[userId] || {},
-    currentUser
+    currentUser: selectCurrentUser(state)
   };
 };
 
