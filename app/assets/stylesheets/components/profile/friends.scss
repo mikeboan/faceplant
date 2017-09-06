@@ -1,0 +1,58 @@
+.profile-friends {
+  background-color: rgb(211, 214, 219);
+  border: 1px solid $border-gray;
+  white-space: nowrap;
+
+  h2 {
+    color: #4b4f56;
+    font-size: 20px;
+    padding: 20px;
+  }
+
+  ul {
+    background-color: white;
+    border-top: 1px solid $border-gray;
+    display: flex;
+    box-sizing: content-box;
+
+    li {
+      box-sizing: border-box;
+      border: 1px solid $border-gray;
+      // height: 100px;
+      width: 50%;
+      margin: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+
+      a {
+        font-weight: 600px;
+        display: flex;
+        align-items: center;
+
+        &:hover {
+          text-decoration: underline;
+        }
+
+        img {
+          width: 100px;
+          height: 100px;
+          margin-right: 8px;
+          object-fit: cover;
+        }
+      }
+
+      button {
+        background-color: $fb-blue;
+        color: white;
+        border: 1px solid $border-blue;
+        padding: 5px;
+        margin-right: 8px;
+        border-radius: 2px;
+        font-size: 12px;
+      }
+    }
+  }
+
+}

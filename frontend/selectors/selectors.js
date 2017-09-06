@@ -15,6 +15,8 @@ export const selectUsers = (state, userIds) =>
 export const selectCurrentUser = ({ session, users }) =>
   session.currentUser || {};
 
+export const selectProfile = (state, userId) => state.profiles.byUserId[userId] || {};
+
 export const selectFriends = ({ users }, { friends }) => (
   friends ? friends.slice(0, 9).map(id => users.byId[id]) : []
 );
@@ -51,3 +53,9 @@ export const friendStatusWithCurrentUser = (currentUser, userId) => {
 };
 
 export const dropdownOpen = ({ dropdowns }, name) => Boolean(dropdowns[name]);
+
+export const selectProfileFriends = (state, userId) => {
+  const profile = selectProfile(state, userId);
+  if (!Boolean(profile.friends)) return [];
+  return selectUsers(state, profile.friends) || [];
+};

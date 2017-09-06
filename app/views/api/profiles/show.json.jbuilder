@@ -11,6 +11,10 @@ json.user do
     as: :user
 end
 
+json.friends user.friends,
+  partial: 'api/users/user',
+  as: :user
+
 json.timelinePosts @timeline_posts,
   partial: 'api/posts/post',
   as: :post

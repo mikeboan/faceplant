@@ -34,6 +34,7 @@ export const postSchema = new schema.Entity('posts', {
 export const profileSchema = new schema.Entity('profiles', {
   timelinePosts: [ postSchema ],
   user: userSchema,
+  friends: [ userSchema ]
 }, {
   idAttribute: 'user_id'
 });
