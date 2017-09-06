@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Switch } from 'react-router-dom';
+import { Switch, withRouter } from 'react-router-dom';
 
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import Header from './Header';
@@ -24,4 +24,4 @@ const App = ({ children, hideAllDropdowns }) => (
   </section>
 );
 
-export default connect(null, mapDispatchToProps)(App);
+export default withRouter(connect(null, mapDispatchToProps)(App));
