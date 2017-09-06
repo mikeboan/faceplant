@@ -49,3 +49,5 @@ export const friendStatusWithCurrentUser = (currentUser, userId) => {
 
   return "none"
 };
+
+export const dropdownOpen = ({ dropdowns }, name) => Boolean(dropdowns[name]);
