@@ -7,10 +7,68 @@
   font-weight: 600;
 
   button {
+    cursor: pointer;
     background: rgb(233, 235, 238);
     border: 1px solid rgba(0, 0, 0, .4);
     padding: 6px 8px;
     margin-right: 14px;
+    position: relative;
+
+    ul {
+      font-size: 12px;
+      font-weight: normal;
+      color: rgb(29, 33, 41);
+      position: absolute;
+      border: 1px solid $border-gray;
+      border-radius: 3px;
+      background-color: white;
+      right: 25px;
+      top: 30px;
+      white-space: nowrap;
+
+      li {
+        padding: 5px;
+        border-radius: 2px;
+
+        &:hover {
+          background-color: $fb-blue;
+          border: 0px 1px solid $border-blue;
+          color: white;
+        }
+      }
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: 13px;
+        margin-left: -10px;
+        width: 0;
+        height: 0;
+        border-top: 0 solid $border-gray;
+        border-bottom: 10px solid $border-gray;
+        border-right: 10px solid transparent;
+        border-left: 10px solid transparent;
+        background: transparent;
+      }
+
+      &:after {
+        content: "";
+        position: absolute;
+        top: -9px;
+        left: 14px;
+        margin-left: -10px;
+        width: 0;
+        height: 0;
+        border-top: 0 solid white;
+        border-bottom: 9px solid white;
+        border-right: 9px solid transparent;
+        border-left: 9px solid transparent;
+        background: transparent;
+      }
+
+    }
+
   }
 
   button:last-child {
