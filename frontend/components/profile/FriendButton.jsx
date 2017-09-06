@@ -9,7 +9,7 @@ import {
 } from '../../redux/modules/users';
 import { showDropdown, hideDropdown } from '../../redux/modules/dropdowns';
 
-const mapStateToProps = (state, { currentUser, user }) => {
+const mapStateToProps = (state, { currentUser, user }) => {  
   const propsByStatus = {
     none: { disabled: false, buttonText: "Add Friend"},
     accepted: { disabled: false, buttonText: "Remove Friend"},

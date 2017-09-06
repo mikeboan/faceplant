@@ -2,40 +2,71 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { selectProfileFriends } from '../../selectors/selectors';
+import {
+  selectProfileFriends,
+  selectCurrentUser,
+  selectUser
+} from '../../selectors/selectors';
 import FriendListItem from './FriendListItem';
+import FriendButton from './FriendButton';
 
-const mapStateToProps = (state, ownProps) => ({
-  friends: selectProfileFriends(state, parseInt(ownProps.match.params.userId))
-});
+const mapStateToProps = (state, ownProps) => {
+  const userId = parseInt(ownProps.match.params.userId);
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+  return ({
+    friends: selectProfileFriends(state, userId),
+    currentUser: selectCurrentUser(state),
+    user: selectUser(state, userId)
+  })
+};
 
-});
+class ProfileFriends extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { query: "" };
+  }
 
-const ProfileFriends = ({ friends }) => (
-  <section className='profile-friends'>
-    <h2>Friends</h2>
+  filteredFriends() {
+    return this.props.friends.filter( friend =>
+      friend.name.toLowerCase().indexOf(this.state.query.toLowerCase()) !== -1
+    );
+  }
 
-    <ul>
-      {
-        friends.map( friend => (
-          <li className='friend-item'>
+  assignHandler(name) {
+    return e => this.setState({ [name]: e.currentTarget.value });
+  }
 
-            <Link to={ `/profiles/${friend.id}` }>
-              <img src={ friend.profilePicUrl }></img>
-              <span>{ friend.name }</span>
-            </Link>
+  render() {
+    const { currentUser, user } = this.props;
 
-            <button onClick={ e => e.preventDefault() }>
-              ToDo: Friend Req
-            </button>
+    return (
+      <section className='profile-friends'>
+        <nav>
+          <h2>Friends</h2>
+          <input
+            onChange={ this.assignHandler('query') }
+            placeholder="Search Friends">
+          </input>
+        </nav>
 
-          </li>
-        ))
-      }
-    </ul>
-  </section>
-);
+        <ul>
+          {
+            this.filteredFriends().map( friend => (
+              <li className='friend-item'>
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileFriends);
+                <Link to={ `/profiles/${friend.id}` }>
+                  <img src={ friend.profilePicUrl }></img>
+                  <span>{ friend.name }</span>
+                </Link>
+
+                <FriendButton currentUser={ currentUser } user={ friend } />
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    );
+  }
+}
+
+export default connect(mapStateToProps)(ProfileFriends);

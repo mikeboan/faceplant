@@ -1,0 +1,55 @@
+.friend-request-dd {
+  font-size: 12px;
+  font-weight: normal;
+  color: rgb(29, 33, 41);
+  position: absolute;
+  border: 1px solid $border-gray;
+  border-radius: 3px;
+  background-color: white;
+  right: 0;
+  top: 30px;
+  white-space: nowrap;
+  padding: 2px 0px; 
+
+
+  li {
+    padding: 5px;
+
+    &:hover {
+      background-color: $fb-blue;
+      border: 0px 1px solid $border-blue;
+      color: white;
+    }
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 13px;
+    margin-left: -10px;
+    width: 0;
+    height: 0;
+    border-top: 0 solid $border-gray;
+    border-bottom: 10px solid $border-gray;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    background: transparent;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: -9px;
+    left: 14px;
+    margin-left: -10px;
+    width: 0;
+    height: 0;
+    border-top: 0 solid white;
+    border-bottom: 9px solid white;
+    border-right: 9px solid transparent;
+    border-left: 9px solid transparent;
+    background: transparent;
+  }
+
+}

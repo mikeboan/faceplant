@@ -1,21 +1,38 @@
 .profile-friends {
-  background-color: rgb(211, 214, 219);
+  background-color: rgb(246, 247, 249);
   border: 1px solid $border-gray;
   white-space: nowrap;
 
-  h2 {
-    color: #4b4f56;
-    font-size: 20px;
+  nav {
+    display: flex;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 20px;
+
+    h2 {
+      color: #4b4f56;
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    input {
+      border: 1px solid $border-gray;
+      color: black;
+      background-color: white;
+      padding: 4px;
+      font-size: 14px;
+      width: 200px;
+    }
   }
 
-  ul {
+  > ul {
     background-color: white;
     border-top: 1px solid $border-gray;
     display: flex;
     box-sizing: content-box;
 
-    li {
+    > li {
       box-sizing: border-box;
       border: 1px solid $border-gray;
       // height: 100px;
@@ -25,9 +42,12 @@
       justify-content: space-between;
       align-items: center;
 
+      &:nth-of-type(2) {
+        margin-left: 0;
+      }
 
       a {
-        font-weight: 600px;
+        font-weight: 500;
         display: flex;
         align-items: center;
 
@@ -51,6 +71,9 @@
         margin-right: 8px;
         border-radius: 2px;
         font-size: 12px;
+        position: relative;
+
+        .hidden { display: none; }
       }
     }
   }
