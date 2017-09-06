@@ -19,7 +19,7 @@ const mapStateToProps = (state, { currentUser, user }) => {
   }
 
   const friendStatus = friendStatusWithCurrentUser(currentUser, user.id);
-  console.log(dropdownOpen, showDropdown, hideDropdown);
+
   return {
     friendStatus,
     propsByStatus,
