@@ -45,13 +45,13 @@ class CommentItem extends React.Component {
           }
           {
             this.state.commentFormVisible ?
-            <CommentForm
-              commentableId={ comment.commentable_id }
-              commentableType={ comment.commentable_type }
-              parentId={ comment.id }
-              hideCommentForm={ this.hideCommentForm.bind(this) }
-              /> :
-              null
+              <CommentForm
+                commentableId={ comment.commentable_id }
+                commentableType={ comment.commentable_type }
+                parentId={ comment.id }
+                hideCommentForm={ this.hideCommentForm.bind(this) }
+                /> :
+                null
             }
         </div>
       </li>

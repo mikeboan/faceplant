@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch, { post }) => ({
 const PostNav = ({ showEditForm, showDeletePrompt, hideDropdown, showDropdown, visible }) => {
   const clickAction = e => {
     e.stopPropagation();
-    
+
     if (visible) hideDropdown();
     else showDropdown();
   };
