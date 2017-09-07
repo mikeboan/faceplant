@@ -48,7 +48,7 @@ const PostItem = ({ post, user, profileUser, currentUser }) => {
           </div>
           {
             user.id === currentUser.id ?
-              <PostNav post={ post }/> :
+              <PostNav item={ post } type={ 'post' }/> :
               null
           }
         </div>

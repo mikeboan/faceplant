@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import CommentForm from './CommentForm';
 import CommentActions from './CommentActions';
 import Comments from './Comments';
+import PostNav from './PostNav';
 
 class CommentItem extends React.Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class CommentItem extends React.Component {
   }
 
   render() {
-    const { comment } = this.props;
+    const { comment, currentUser } = this.props;
     const { author } = comment;
 
     return (
@@ -31,18 +32,31 @@ class CommentItem extends React.Component {
           <img src={ author.profilePicUrl }></img>
         </div>
 
-        <div>
-          <a>{ author.name }</a><span>{ comment.body }</span>
+        <div className='comment-content'>
+          <div className='comment-top'>
+
+          <div><a>{ author.name }</a><span>{ comment.body }</span></div>
+
+          {
+            author.id === currentUser.id ?
+              <PostNav item={ comment } type={ 'comment' }/> :
+              null
+          }
+
+          </div>
+
           <CommentActions
             commentId={ comment.id }
             commentableId={ comment.commentable_id }
             toggleCommentForm={ this.toggleCommentForm.bind(this) }
-            />
+          />
+
           {
             comment.replies.length ?
-              <Comments comments={ comment.replies }/> :
+              <Comments comments={ comment.replies } currentUser={ currentUser }/> :
               null
           }
+
           {
             this.state.commentFormVisible ?
               <CommentForm

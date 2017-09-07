@@ -24,11 +24,32 @@ export const postComment = (comment) => dispatch => (
   )
 );
 
+export const editComment = (comment) => dispatch => (
+  api.editComment(comment).then(
+    comment => dispatch(syncActions.receiveComment(comment))
+  )
+);
+
+export const deleteComment = (comment) => dispatch => (
+  api.deleteComment(comment).then(
+    comment => dispatch(syncActions.removeComment(comment))
+  )
+);
+
 const api = {
   postComment: (comment) => $.ajax({
     url: `/api/comments/`,
     method: 'POST',
     data: { comment },
+  }),
+  editComment: (comment) => $.ajax({
+    url: `/api/comments/${comment.id}`,
+    method: 'PATCH',
+    data: { comment },
+  }),
+  deleteComment: (comment) => $.ajax({
+    url: `/api/comments/${comment.id}`,
+    method: 'DELETE',
   }),
   fetchComments: () => $.ajax({
     url: `/api/comments`,
@@ -42,10 +63,11 @@ const api = {
 
 // reducer
 const commentsById = (oldState = {}, action) => {
-  const newState = Object.assign({}, oldState);
+  let newState;
 
   switch(action.type) {
     case RECEIVE_COMMENT:
+      newState = Object.assign({}, oldState);
       const id = action.result;
       const newComment = action.entities.comments[id];
       Object.assign(newState, { [id]: newComment });
@@ -53,6 +75,11 @@ const commentsById = (oldState = {}, action) => {
         const parent = newState[newComment.parent_id];
         parent.replyIds = [...parent.replyIds, newComment.id];
       }
+      return newState;
+
+    case REMOVE_COMMENT:
+      newState = Object.assign({}, oldState);
+      debugger
       return newState;
 
     case RECEIVE_PROFILE:

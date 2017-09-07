@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 // import { hideModal } from '../../redux/modules/modal';
 
-const DeletePrompt = ({ type, confirm, edit, hideModal }) => {
+const DeletePrompt = ({ type, item, confirm, edit, hideModal }) => {
 
   const _onClick = action => e => {
     e.preventDefault();

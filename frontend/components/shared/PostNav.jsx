@@ -3,25 +3,34 @@ import { connect } from 'react-redux';
 
 import { showModal } from '../../redux/modules/modal';
 import { showDropdown, hideDropdown } from '../../redux/modules/dropdowns';
-import PostFormEditModalContainer from './PostFormEditModalContainer';
-import DeletePostPrompt from './DeletePostPrompt';
+import EditModalContainer from './EditModalContainer';
+import DeletePrompt from './DeletePromptContainer';
 import { dropdownOpen } from '../../selectors/selectors';
 
-const mapStateToProps = (state, { post }) => ({
-  visible: dropdownOpen(state, `post-dropdown-${post.id}`),
-});
+const mapStateToProps = (state, { type, item }) => {
+  const name = `${type}-dropdown-${item.id}`;
 
-const mapDispatchToProps = (dispatch, { post }) => ({
-  showEditForm: () => dispatch(showModal(<PostFormEditModalContainer post={post} />)),
-  showDeletePrompt: () => dispatch(showModal(<DeletePostPrompt post={post} />)),
-  showDropdown: () => dispatch(showDropdown(`post-dropdown-${post.id}`)),
-  hideDropdown: () => dispatch(hideDropdown(`post-dropdown-${post.id}`)),
-});
+  return ({
+    visible: dropdownOpen(state, name),
+  });
+};
 
-const PostNav = ({ showEditForm, showDeletePrompt, hideDropdown, showDropdown, visible }) => {
+const mapDispatchToProps = (dispatch, { type, item }) => {
+  const name = `${type}-dropdown-${item.id}`;
+
+  return ({
+    showEditForm: () => dispatch(showModal(<EditModalContainer post={ item } />)),
+    showDeletePrompt: () => dispatch(showModal(<DeletePrompt type={ type } />)),
+    showDropdown: () => dispatch(showDropdown(name)),
+    hideDropdown: () => dispatch(hideDropdown(name)),
+  });
+};
+
+const PostNav = (props) => {
+  const { showEditForm, showDeletePrompt, hideDropdown, showDropdown, visible } = props;
+
   const clickAction = e => {
     e.stopPropagation();
-
     if (visible) hideDropdown();
     else showDropdown();
   };
@@ -34,7 +43,7 @@ const PostNav = ({ showEditForm, showDeletePrompt, hideDropdown, showDropdown, v
         <li onClick={showDeletePrompt}>Delete Post</li>
       </ul>
     </nav>
-  )
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostNav);

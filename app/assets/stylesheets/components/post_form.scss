@@ -27,6 +27,10 @@
       margin-right: 0px;
     }
 
+    a:last-child {
+      margin-left: 8px;
+    }
+
     a:first-child:after {
       content: "|";
       color: $subtle;
