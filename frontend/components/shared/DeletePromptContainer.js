@@ -13,7 +13,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch, { item, type }) => {
   const deleteAction = type === 'post' ? deletePost : deleteComment;
-
+  
   return ({
     confirm: () => dispatch(deleteAction(item.id)),
     edit: () => dispatch(showModal(<EditModalContainer item={item} />)),

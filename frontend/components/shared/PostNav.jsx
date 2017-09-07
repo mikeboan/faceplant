@@ -19,8 +19,8 @@ const mapDispatchToProps = (dispatch, { type, item }) => {
   const name = `${type}-dropdown-${item.id}`;
 
   return ({
-    showEditForm: () => dispatch(showModal(<EditModalContainer post={ item } />)),
-    showDeletePrompt: () => dispatch(showModal(<DeletePrompt type={ type } />)),
+    showEditForm: () => dispatch(showModal(<EditModalContainer post={ item } type={ type }/>)),
+    showDeletePrompt: () => dispatch(showModal(<DeletePrompt item={ item } type={ type }/>)),
     showDropdown: () => dispatch(showDropdown(name)),
     hideDropdown: () => dispatch(hideDropdown(name)),
   });
