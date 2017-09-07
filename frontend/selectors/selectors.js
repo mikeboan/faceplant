@@ -37,6 +37,7 @@ export const currentUserLikesComment = (state, commentId) => {
 
 export const nestComments = (state, { replyIds }) => replyIds.map(id => {
   const comment = state.comments.byId[id];
+
   return Object.assign({}, comment, {
     replies: nestComments(state, comment),
     author: selectUser(state, comment.author_id),

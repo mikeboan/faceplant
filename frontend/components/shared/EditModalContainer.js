@@ -15,7 +15,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, { type }) => {
   const editAction = type === 'post' ? editPost : editComment;
-  debugger
+  
   return ({
     submitPost: (item) => dispatch(editAction(item))
       .then(() => dispatch(hideModal()))

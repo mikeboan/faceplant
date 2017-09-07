@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import { RECEIVE_PROFILE } from './profiles';
-import { RECEIVE_COMMENT } from './comments';
+import { RECEIVE_COMMENT, REMOVE_COMMENT } from './comments';
 import { postSchema } from './schema';
 import { generateSyncActions } from './shared';
 
@@ -64,6 +64,7 @@ window.postsApi = api;
 // reducer
 const postsById = (oldState = {}, action) => {
   const newState = Object.assign({}, oldState);
+  let comment, post;
 
   switch(action.type) {
     case UPDATE_POST:
@@ -84,12 +85,17 @@ const postsById = (oldState = {}, action) => {
       );
 
     case RECEIVE_COMMENT:
-      const comment = action.entities.comments[action.result];
-      const post = newState[comment.commentable_id];
+      comment = action.entities.comments[action.result];
+      post = newState[comment.commentable_id];
       post.comments = [...post.comments, comment.id];
       if (!comment.parent_id) post.replyIds = [...post.replyIds, comment.id];
       return newState;
 
+    case REMOVE_COMMENT:
+      comment = action.entities.comments[action.result];
+      post = newState[comment.commentable_id];
+      post.replyIds = post.replyIds.filter( id => id !== comment.id )
+      return newState;
 
     default:
       return oldState;

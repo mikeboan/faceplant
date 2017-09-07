@@ -101,7 +101,7 @@ export default (oldState = defaultState, action) => {
 
     case REMOVE_FRIENDSHIP:
       newState = Object.assign({}, oldState);
-      debugger
+
       const { friendship } = action;
       const friendId = friendship.friendee_id === newState.currentUser.id ?
         friendship.friender_id :
