@@ -9,7 +9,7 @@ const DeletePrompt = ({ type, item, confirm, edit, hideModal }) => {
     e.preventDefault();
     action().then(hideModal);
   };
-
+  
   return (
     <div className='delete-prompt'>
       <h2>

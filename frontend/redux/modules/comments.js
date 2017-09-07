@@ -30,8 +30,8 @@ export const editComment = (comment) => dispatch => (
   )
 );
 
-export const deleteComment = (comment) => dispatch => (
-  api.deleteComment(comment).then(
+export const deleteComment = (id) => dispatch => (
+  api.deleteComment(id).then(
     comment => dispatch(syncActions.removeComment(comment))
   )
 );
@@ -47,8 +47,8 @@ const api = {
     method: 'PATCH',
     data: { comment },
   }),
-  deleteComment: (comment) => $.ajax({
-    url: `/api/comments/${comment.id}`,
+  deleteComment: (id) => $.ajax({
+    url: `/api/comments/${id}`,
     method: 'DELETE',
   }),
   fetchComments: () => $.ajax({
@@ -64,12 +64,14 @@ const api = {
 // reducer
 const commentsById = (oldState = {}, action) => {
   let newState;
+  let id;
+  let newComment;
 
   switch(action.type) {
     case RECEIVE_COMMENT:
       newState = Object.assign({}, oldState);
-      const id = action.result;
-      const newComment = action.entities.comments[id];
+      id = action.result;
+      newComment = action.entities.comments[id];
       Object.assign(newState, { [id]: newComment });
       if (newComment.parent_id) {
         const parent = newState[newComment.parent_id];
@@ -79,7 +81,13 @@ const commentsById = (oldState = {}, action) => {
 
     case REMOVE_COMMENT:
       newState = Object.assign({}, oldState);
-      debugger
+      id = action.result;
+      newComment = action.entities.comments[id];
+      delete newState[id];
+      if (newComment.parent_id) {
+        const parent = newState[newComment.parent_id];
+        parent.replyIds = parent.replyIds.filter( replyId => replyId !== id )
+      }
       return newState;
 
     case RECEIVE_PROFILE:

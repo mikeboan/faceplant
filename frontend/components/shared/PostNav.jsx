@@ -27,7 +27,8 @@ const mapDispatchToProps = (dispatch, { type, item }) => {
 };
 
 const PostNav = (props) => {
-  const { showEditForm, showDeletePrompt, hideDropdown, showDropdown, visible } = props;
+  const { showEditForm, showDeletePrompt, hideDropdown, showDropdown, visible, type } = props;
+  const name = type.charAt(0).toUpperCase() + type.slice(1);
 
   const clickAction = e => {
     e.stopPropagation();
@@ -39,8 +40,8 @@ const PostNav = (props) => {
     <nav onClick={ clickAction } className='post-dd-toggle'>
       ···
       <ul className={ visible ? "dropdown shadow" : "hidden" } onClick={ e => e.stopPropagation() }>
-        <li onClick={showEditForm}>Edit Post</li>
-        <li onClick={showDeletePrompt}>Delete Post</li>
+        <li onClick={showEditForm}>Edit { name }</li>
+        <li onClick={showDeletePrompt}>Delete { name }</li>
       </ul>
     </nav>
   );

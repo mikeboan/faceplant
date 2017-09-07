@@ -28,6 +28,16 @@ class Api::CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    @comment = Comment.find(params[:id])
+
+    if @comment.destroy
+      render :show
+    else
+      render json: @comment.errors
+    end
+  end
+
   private
 
   def comment_params
