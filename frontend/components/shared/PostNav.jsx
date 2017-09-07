@@ -37,7 +37,7 @@ const PostNav = (props) => {
 
   return (
     <nav onClick={ clickAction } className='post-dd-toggle'>
-      ...
+      ···
       <ul className={ visible ? "dropdown shadow" : "hidden" } onClick={ e => e.stopPropagation() }>
         <li onClick={showEditForm}>Edit Post</li>
         <li onClick={showDeletePrompt}>Delete Post</li>
