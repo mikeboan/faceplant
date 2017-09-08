@@ -52,7 +52,7 @@ class ProfileFriends extends React.Component {
         <ul>
           {
             this.filteredFriends().map( friend => (
-              <li className='friend-item'>
+              <li className='friend-item' key={`friend-${friend.id}`}>
 
                 <Link to={ `/profiles/${friend.id}` }>
                   <img src={ friend.profilePicUrl }></img>

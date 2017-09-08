@@ -3,7 +3,7 @@ class Api::PostsController < ApplicationController
   def show
     # testing purposes only!
     @post = Post.includes(
-      :user,
+      :author,
       :likers,
       :likes,
       comments: [
@@ -49,7 +49,7 @@ class Api::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:content, :user_id)
+    params.require(:post).permit(:body, :author_id)
   end
 
 end

@@ -26,7 +26,7 @@ export const postComment = (comment) => dispatch => (
 
 export const editComment = (comment) => dispatch => (
   api.editComment(comment).then(
-    comment => dispatch(syncActions.receiveComment(comment))
+    comment => dispatch(syncActions.updateComment(comment))
   )
 );
 
@@ -69,6 +69,7 @@ const commentsById = (oldState = {}, action) => {
 
   switch(action.type) {
     case RECEIVE_COMMENT:
+    case UPDATE_COMMENT:
       newState = Object.assign({}, oldState);
       id = action.result;
       newComment = action.entities.comments[id];

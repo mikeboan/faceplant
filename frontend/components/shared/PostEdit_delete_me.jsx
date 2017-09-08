@@ -10,7 +10,7 @@ const mapStateToProps = (state) => ({
   currentUser: selectCurrentUser(state)
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch, { type }) => ({
   postPost: (post, profileUserId) => dispatch(postPost(post, profileUserId))
 });
 
@@ -22,7 +22,7 @@ class PostForm extends React.Component {
     super(props);
 
     this.state = {
-      content: "",
+      body: "",
       focused: false
     };
 
@@ -41,13 +41,33 @@ class PostForm extends React.Component {
     const post = Object.assign(
       {},
       this.state,
-      { user_id: this.props.currentUser.id }
+      { author_id: this.props.currentUser.id }
     );
     this.props.postPost(post, this.props.match.params.userId)
-      .then(() => this.setState({ content: "", focused: false }));
+      .then(() => this.setState({ body: "", focused: false }));
   }
 
   render() {
+    console.log('hello')
+    console.log('hello')
+    console.log('hello')
+    console.log('hello')
+    console.log('hello')
+    console.log('hello')
+    console.log('hello')
+    console.log('hello')
+    console.log('hello')
+    console.log('hello')
+    console.log('hello')
+    console.log('hello')
+    console.log('hello')
+    console.log('hello')
+    console.log('hello')
+    console.log('hello')
+    console.log('hello')
+    console.log('hello')
+    console.log('hello')
+    console.log('hello')
     const { currentUser } = this.props;
 
     return (
@@ -73,8 +93,8 @@ class PostForm extends React.Component {
             <form onSubmit={ this.handleSubmit }>
               <textarea
                 placeholder={ `Write something to ${currentUser.first_name}` }
-                onChange={ this.handleUpdate('content') }
-                value={ this.state.content }
+                onChange={ this.handleUpdate('body') }
+                value={ this.state.body }
                 ></textarea>
               <input type='submit' value="Post"></input>
             </form>

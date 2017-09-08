@@ -10,14 +10,15 @@ import { hideAllDropdowns } from '../../redux/modules/dropdowns';
 
 const mapStateToProps = (state, ownProps) => ({
   currentUser: selectCurrentUser(state),
-  profileOwner: selectUser(state, ownProps.match.params.userId)
+  profileOwner: selectUser(state, ownProps.match.params.userId),
+  item: ownProps.post || ownProps.comment
 });
 
 const mapDispatchToProps = (dispatch, { type }) => {
   const editAction = type === 'post' ? editPost : editComment;
-  
+
   return ({
-    submitPost: (item) => dispatch(editAction(item))
+    submitItem: (item) => dispatch(editAction(item))
       .then(() => dispatch(hideModal()))
       .then(() => dispatch(hideAllDropdowns()))
   });

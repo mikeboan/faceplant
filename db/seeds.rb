@@ -34,19 +34,19 @@
 #
 # puts "destroying posts"
 # Post.destroy_all
-# lighter_fluid = Post.create!(content: "But where did the lighter fluid come from!?", user_id: gob.id, profile_id: michael.profile.id)
-# milford_man = Post.create!(content: "You can always tell a Milford Man", user_id: gob.id, profile_id: buster.profile.id)
-# milford_man_reverse = Post.create!(content: "You can always tell a Milford Man (reverse)", user_id: buster.id, profile_id: gob.profile.id)
-# irrelevant_post = Post.create!(content: "Doesn't matter", user_id: irrelevant1.id, profile_id: irrelevant2.profile.id)
-# hey_brother = Post.create!(content: "Hey, brother!", user_id: buster.id, profile_id: michael.profile.id)
-# hey_hermano = Post.create!(content: "Hey, hermano!", user_id: buster.id, profile_id: gob.profile.id)
+# lighter_fluid = Post.create!(content: "But where did the lighter fluid come from!?", author_id: gob.id, profile_id: michael.profile.id)
+# milford_man = Post.create!(content: "You can always tell a Milford Man", author_id: gob.id, profile_id: buster.profile.id)
+# milford_man_reverse = Post.create!(content: "You can always tell a Milford Man (reverse)", author_id: buster.id, profile_id: gob.profile.id)
+# irrelevant_post = Post.create!(content: "Doesn't matter", author_id: irrelevant1.id, profile_id: irrelevant2.profile.id)
+# hey_brother = Post.create!(content: "Hey, brother!", author_id: buster.id, profile_id: michael.profile.id)
+# hey_hermano = Post.create!(content: "Hey, hermano!", author_id: buster.id, profile_id: gob.profile.id)
 #
 #
 # # puts "creating profile posts"
 # # 50.times do |i|
 # #   Post.create!(
 # #     content: "Post number #{i}",
-# #     user_id: users[i % users.length].id,
+# #     author_id: users[i % users.length].id,
 # #     profile_id: profiles[(i + 1) % profiles.length].id
 # #   )
 # # end
@@ -55,7 +55,7 @@
 # # 50.times do |i|
 # #   Post.create!(
 # #     content: "Self-post number #{i}",
-# #     user_id: users[i % users.length].id,
+# #     author_id: users[i % users.length].id,
 # #     profile_id: profiles[i % profiles.length].id
 # #   )
 # # end

@@ -7,11 +7,12 @@ import { postPost } from '../../redux/modules/posts';
 
 const mapStateToProps = (state, ownProps) => ({
   currentUser: selectCurrentUser(state),
-  profileOwner: selectUser(state, ownProps.match.params.userId)
+  profileOwner: selectUser(state, ownProps.match.params.userId),
+  item: ownProps.post
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  submitPost: (post, profileUserId) => dispatch(postPost(post, profileUserId)).then(() => ownProps.success())
+  submitItem: (post, profileUserId) => dispatch(postPost(post, profileUserId)).then(() => ownProps.success())
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostForm));

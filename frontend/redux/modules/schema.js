@@ -27,7 +27,7 @@ commentSchema.define({ replies: repliesSchema });
 export const postSchema = new schema.Entity('posts', {
   comments: [ commentSchema ],
   profileUser: userSchema,
-  user: userSchema,
+  author: userSchema,
   likes: [ likeSchema ]
 });
 

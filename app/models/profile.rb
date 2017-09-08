@@ -26,7 +26,7 @@ class Profile < ApplicationRecord
 
   def timeline_posts
     inclusions = [
-      :user,
+      :author,
       :likers,
       :likes,
       :top_level_comments,
@@ -34,7 +34,7 @@ class Profile < ApplicationRecord
       comments: [:likes, :likers, :replies, author: [:profile_pic]]
     ]
 
-    Post.includes(*inclusions).where(user_id: user_id).or(
+    Post.includes(*inclusions).where(author_id: user_id).or(
       Post.includes(*inclusions).where(id: posts.select(:id))
     )
   end

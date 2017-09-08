@@ -3,10 +3,9 @@ import React from 'react';
 class PostForm extends React.Component {
   constructor(props) {
     super(props);
-    const { post } = props;
-
+    const { item } = props;
     this.state = {
-      content: post ? post.content : "",
+      body: item ? item.body : "",
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,16 +24,17 @@ class PostForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const post = Object.assign(
+    const item = Object.assign(
       {},
-      this.props.post,
+      this.props.item,
       this.state,
-      { user_id: this.props.currentUser.id }
+      { author_id: this.props.currentUser.id }
     );
-
-    this.props.submitPost(post, this.props.match.params.userId)
+    delete item.author;
+    
+    this.props.submitItem(item, this.props.match.params.userId)
       .then(() => {
-        if (this._isMounted) this.setState({ content: "" });
+        if (this._isMounted) this.setState({ body: "" });
       });
   }
 
@@ -66,8 +66,8 @@ class PostForm extends React.Component {
             </img>
             <textarea
               placeholder={ `Write something to ${profileOwner.first_name || "..."}` }
-              onChange={ this.handleUpdate('content') }
-              value={ this.state.content }
+              onChange={ this.handleUpdate('body') }
+              value={ this.state.body }
             ></textarea>
           </div>
 

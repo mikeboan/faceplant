@@ -10,8 +10,8 @@ const HeaderButtons = ({currentUser, user, profile}) => (
       currentUser.id === user.id ?
         <EditProfileButton profile={profile} /> :
         [
-          <FriendButton user={user} currentUser={currentUser} />,
-          <MessageButton />
+          <FriendButton user={user} currentUser={currentUser} key='hb-1' />,
+          <MessageButton key='hb-2' />
         ]
     }
   </nav>

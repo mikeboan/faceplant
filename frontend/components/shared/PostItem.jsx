@@ -9,16 +9,16 @@ import PostComments from './PostComments';
 import CommentForm from './CommentForm';
 
 const mapStateToProps = (state, ownProps) => {
-  const { user_id, profileUserId } = ownProps.post;
+  const { author_id, profileUserId } = ownProps.post;
 
   return {
-    user: selectUser(state, user_id),
+    author: selectUser(state, author_id),
     profileUser: selectUser(state, profileUserId),
     currentUser: state.session.currentUser
   };
 };
 
-const PostItem = ({ post, user, profileUser, currentUser }) => {
+const PostItem = ({ post, author, profileUser, currentUser }) => {
   const timeAgo = moment(post.created_at, "YYYYMMDD").calendar();
 
   return (
@@ -26,19 +26,19 @@ const PostItem = ({ post, user, profileUser, currentUser }) => {
       <div className='post-item-contents'>
         <div className='post-header'>
           <div className='info'>
-            <Link to={`/profiles/${user.id}`}>
+            <Link to={`/profiles/${author.id}`}>
               <div className='thumbnail-container'>
                 <img
                   className='profile-pic-thumbnail'
-                  src={user.profilePicUrl}
+                  src={author.profilePicUrl}
                   />
               </div>
             </Link>
             <div className='metadata'>
               <div className='byline'>
-                <Link to={`/profiles/${user.id}`}>{ user.name }</Link>
+                <Link to={`/profiles/${author.id}`}>{ author.name }</Link>
                 {
-                  profileUser.id === user.id ?
+                  profileUser.id === author.id ?
                     "" :
                     [<span key='span-1'>{" > "}</span>, <Link key='link-1' to={`/profiles/${profileUser.id}`}>{ profileUser.name }</Link>]
                 }
@@ -47,13 +47,13 @@ const PostItem = ({ post, user, profileUser, currentUser }) => {
             </div>
           </div>
           {
-            user.id === currentUser.id ?
+            author.id === currentUser.id ?
               <PostNav item={ post } type={ 'post' }/> :
               null
           }
         </div>
         <div className='post-contents'>
-          { post.content }
+          { post.body }
         </div>
       </div>
 

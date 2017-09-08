@@ -133,12 +133,12 @@ class User < ApplicationRecord
       :user
     ]
 
-		Post.includes(*inclusions).where(user_id: id).or(
-			Post.includes(*inclusions).where(profile_id: Profile.where(user_id: id))
+		Post.includes(*inclusions).where(author_id: id).or(
+			Post.includes(*inclusions).where(profile_id: Profile.where(author_id: id))
 		).or(
-			Post.includes(*inclusions).where(user_id: friends)
+			Post.includes(*inclusions).where(author_id: friends)
 		).or(
-			Post.includes(*inclusions).where(profile_id: Profile.where(user_id: friends))
+			Post.includes(*inclusions).where(profile_id: Profile.where(author_id: friends))
 		)
 	end
 
