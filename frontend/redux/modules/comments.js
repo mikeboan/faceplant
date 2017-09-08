@@ -94,6 +94,7 @@ const commentsById = (oldState = {}, action) => {
       return Object.assign({}, oldState, action.entities.comments);
 
     case RECEIVE_LIKE:
+      newState = Object.assign({}, oldState);
       const like = action.entities.likes[action.result];
       if (like.likeable_type === 'Comment') {
         const comment = newState[like.likeable_id];
@@ -103,6 +104,7 @@ const commentsById = (oldState = {}, action) => {
       return Object.assign({}, newState);
 
     case REMOVE_LIKE:
+      newState = Object.assign({}, oldState);
       const oldLike = action.entities.likes[action.result];
       const comment = newState[oldLike.likeable_id];
       comment.likes = comment.likes.filter( id => id !== oldLike.id );
