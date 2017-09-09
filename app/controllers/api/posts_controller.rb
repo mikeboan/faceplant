@@ -1,4 +1,5 @@
 class Api::PostsController < ApplicationController
+  include LikeActions
 
   def show
     # testing purposes only!

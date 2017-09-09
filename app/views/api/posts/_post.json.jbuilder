@@ -14,6 +14,10 @@ json.comments post.comments,
   partial: 'api/comments/comment',
   as: :comment
 
+json.likers post.likers,
+  partial: 'api/users/user',
+  as: :user
+
 json.likes post.likes,
   partial: 'api/likes/like',
   as: :like

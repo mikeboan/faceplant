@@ -5,6 +5,7 @@ import moment from 'moment';
 
 import { selectUser } from '../../selectors/selectors';
 import PostNav from './PostNav';
+import PostActions from './PostActions';
 import PostComments from './PostComments';
 import CommentForm from './CommentForm';
 
@@ -19,7 +20,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const PostItem = ({ post, author, profileUser, currentUser }) => {
-  const timeAgo = moment(post.created_at, "YYYYMMDD").calendar();
+  const timeAgo = moment(post.created_at, "YYYYMMDD").calendar(); // NOT WORKING?!
 
   return (
     <li className='post-item'>
@@ -58,7 +59,7 @@ const PostItem = ({ post, author, profileUser, currentUser }) => {
       </div>
 
       <div className='post-bottom'>
-        <div className='post-actions'>Post Actions -- Like, etc.</div>
+        <PostActions postId={ post.id } />
         <PostComments post={ post } />
         <CommentForm commentableId={ post.id } commentableType={ 'Post' } />
       </div>

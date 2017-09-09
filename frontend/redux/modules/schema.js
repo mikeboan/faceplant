@@ -28,7 +28,8 @@ export const postSchema = new schema.Entity('posts', {
   comments: [ commentSchema ],
   profileUser: userSchema,
   author: userSchema,
-  likes: [ likeSchema ]
+  likes: [ likeSchema ],
+  likers: [ userSchema ]
 });
 
 export const profileSchema = new schema.Entity('profiles', {

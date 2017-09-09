@@ -25,9 +25,9 @@ export const selectPostComments = ({ comments }, post) => (
   post.comments.map(id => comments.byId[id])
 );
 
-export const selectCommentLikers = ({ users, comments }, commentId) => {
-  const comment = comments.byId[commentId] || {};
-  return comment.likers.map(userId => users.byId[userId]);
+export const selectItemLikers = (state, itemId, itemType) => {
+  const item = state[itemType + 's'].byId[itemId] || {};
+  return item.likers.map(userId => state.users.byId[userId]);
 };
 
 export const currentUserLikesItem = (state, itemId, itemType) => {

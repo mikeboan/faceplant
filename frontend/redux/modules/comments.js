@@ -107,9 +107,11 @@ const commentsById = (oldState = {}, action) => {
     case REMOVE_LIKE:
       newState = Object.assign({}, oldState);
       const oldLike = action.entities.likes[action.result];
-      const comment = newState[oldLike.likeable_id];
-      comment.likes = comment.likes.filter( id => id !== oldLike.id );
-      comment.likers = comment.likers.filter( id => id !== oldLike.liker_id );
+      if (oldLike.likeable_type === 'Comment') {
+        const comment = newState[oldLike.likeable_id];
+        comment.likes = comment.likes.filter( id => id !== oldLike.id );
+        comment.likers = comment.likers.filter( id => id !== oldLike.liker_id );
+      }
       return newState;
 
     default:

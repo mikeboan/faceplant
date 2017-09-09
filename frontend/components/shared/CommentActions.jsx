@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { selectCommentLikers, currentUserLikesItem } from '../../selectors/selectors';
+import { selectItemLikers, currentUserLikesItem } from '../../selectors/selectors';
 import { postLike, deleteLike } from '../../redux/modules/likes';
 
 const mapStateToProps = (state, { commentId }) => ({
-  likers: selectCommentLikers(state, commentId),
+  likers: selectItemLikers(state, commentId, 'comment'),
   likedByCurrentUser: currentUserLikesItem(state, commentId, 'comment'),
 });
 
