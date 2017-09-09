@@ -30,9 +30,9 @@ export const selectCommentLikers = ({ users, comments }, commentId) => {
   return comment.likers.map(userId => users.byId[userId]);
 };
 
-export const currentUserLikesComment = (state, commentId) => {
-  const comment = state.comments.byId[commentId];
-  return comment.likers.includes(state.session.currentUser.id);
+export const currentUserLikesItem = (state, itemId, itemType) => {
+  const item = state[itemType + 's'].byId[itemId];
+  return item.likers.includes(state.session.currentUser.id);
 };
 
 export const nestComments = (state, { replyIds }) => replyIds.map(id => {

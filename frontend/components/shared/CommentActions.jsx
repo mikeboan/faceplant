@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { selectCommentLikers, currentUserLikesComment } from '../../selectors/selectors';
+import { selectCommentLikers, currentUserLikesItem } from '../../selectors/selectors';
 import { postLike, deleteLike } from '../../redux/modules/likes';
 
 const mapStateToProps = (state, { commentId }) => ({
   likers: selectCommentLikers(state, commentId),
-  likedByCurrentUser: currentUserLikesComment(state, commentId),
+  likedByCurrentUser: currentUserLikesItem(state, commentId, 'comment'),
 });
 
 const mapDispatchToProps = (dispatch, { commentId, likedByCurrentUser }) => ({
@@ -23,7 +23,7 @@ const CommentActions = (props) => {
     commentableId,
     toggleCommentForm
   } = props;
-  
+
   const clickAction = likedByCurrentUser ? deleteLike : postLike;
   const likeText = likedByCurrentUser ? "Unlike" : "Like";
 
