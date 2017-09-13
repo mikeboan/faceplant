@@ -54,7 +54,7 @@ class CommentForm extends React.Component {
 
   setRef(input) {
     this.input = input;
-    if (this.props.setCommentRef) this.props.setCommentRef(input);
+    this.props.setCommentRef(input);
   }
 
   render() {

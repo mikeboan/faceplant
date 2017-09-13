@@ -9,17 +9,26 @@ import PostNav from './PostNav';
 class CommentItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { commentFormVisible: false };
+    this.state = { commentFormVisible: false, form: null };
   }
 
   toggleCommentForm() {
     this.setState(
-      { commentFormVisible: !this.state.commentFormVisible }
+      { commentFormVisible: !this.state.commentFormVisible },
+      this.focusCommentForm.bind(this)
     );
   }
 
   hideCommentForm() {
     this.setState({ commentFormVisible: false });
+  }
+
+  focusCommentForm() {
+    if (this.state.form) this.state.form.focus();
+  }
+
+  setCommentRef(ref) {
+    this.setState({ form: ref });
   }
 
   render() {
@@ -63,6 +72,7 @@ class CommentItem extends React.Component {
                 commentableId={ comment.commentable_id }
                 commentableType={ comment.commentable_type }
                 parentId={ comment.id }
+                setCommentRef={ this.setCommentRef.bind(this) }
                 hideCommentForm={ this.hideCommentForm.bind(this) }
                 /> :
                 null
