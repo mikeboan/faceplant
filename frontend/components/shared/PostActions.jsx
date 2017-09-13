@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { postLike, deleteLike } from '../../redux/modules/likes';
 import { selectItemLikers, currentUserLikesItem } from '../../selectors/selectors';
+import Likers from './Likers';
 
 const mapStateToProps = (state, { postId }) => ({
   likers: selectItemLikers(state, postId, 'post'),
@@ -20,20 +21,24 @@ const PostActions = (props) => {
     likedByCurrentUser,
     postLike,
     deleteLike,
+    focusCommentBox
   } = props;
 
   const clickAction = likedByCurrentUser ? deleteLike : postLike;
-  const likeText = likedByCurrentUser ? "Unlike" : "Like";
+  const image = likedByCurrentUser ? window.staticImages.unlike : window.staticImages.like;
 
   return (
     <ul className='post-actions'>
-      <li>
-        <span onClick={ clickAction }>{ likeText }</span>
+      <li onClick={ clickAction }>
+        <img src={ image }></img>
+        <span className={ likedByCurrentUser ? "liked" : "unliked" }>Like</span>
       </li>
 
-      <li>
-        Likes: { likers.length }
+      <li onClick={ focusCommentBox }>
+        <img src={ window.staticImages.commentBubble }></img>
+        <span>Comment</span>
       </li>
+
     </ul>
   );
 };

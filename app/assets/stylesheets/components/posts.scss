@@ -5,6 +5,7 @@
 
   .post-item-contents {
     padding: 12px;
+    padding-bottom: 0;
     background-color: white;
     font-size: 14px;
 
@@ -69,6 +70,35 @@
 
     a:hover {
       text-decoration: underline;
+    }
+
+    .post-actions {
+      margin-top: 12px;
+      background-color: white;
+      display: flex;
+      color: rgb(97, 103, 112);
+      border-top: 1px solid $border-gray;
+
+      li {
+        display: flex;
+        padding: 12px;
+        padding-left: 0px;
+
+        &:hover {
+          text-decoration: underline;
+          cursor: pointer;
+        }
+
+        img {
+          height: 18px;
+          width: 18px;
+          margin-right: 4px;
+        }
+
+        .liked {
+          color: rgb(88, 144, 255);
+        }
+      }
     }
   }
 }

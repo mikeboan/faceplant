@@ -1,0 +1,51 @@
+.profile-photos {
+  background-color: rgb(246, 247, 249);
+  border: 1px solid $border-gray;
+  white-space: nowrap;
+
+  nav {
+    display: flex;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+
+    h2 {
+      color: #4b4f56;
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    button {
+      border: 1px solid $border-gray;
+      color: black;
+      background-color: white;
+      padding: 4px;
+      font-size: 14px;
+      width: 200px;
+    }
+  }
+
+  ul {
+    background-color: white;
+    border-top: 1px solid $border-gray;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: content-box;
+    padding: 8px;
+
+    li {
+      border: 1px solid $border-gray;
+      width: calc(25% - 10px);
+      display: flex;
+
+      &:nth-child(4n) {
+        margin-right: 0;
+      }
+
+      img {
+        object-fit: cover;
+      }
+    }
+  }
+}

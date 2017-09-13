@@ -17,6 +17,8 @@ class CommentForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { body: "" };
+
+    this.setRef = this.setRef.bind(this);
   }
 
   componentDidMount() {
@@ -50,6 +52,11 @@ class CommentForm extends React.Component {
       .then(this.props.hideCommentForm);
   }
 
+  setRef(input) {
+    this.input = input;
+    if (this.props.setCommentRef) this.props.setCommentRef(input);
+  }
+
   render() {
     return (
       <form onSubmit={ this.handleSubmit.bind(this) } className='post-comment-form'>
@@ -59,7 +66,7 @@ class CommentForm extends React.Component {
           onChange={ this.handleUpdate('body')}
           placeholder='Write a comment...'
           value={ this.state.body }
-          ref={ (input) => this.input = input }
+          ref={ this.setRef }
         ></input>
       </form>
     );
