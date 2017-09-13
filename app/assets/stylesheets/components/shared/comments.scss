@@ -1,65 +1,58 @@
-.post-bottom {
-  background: rgb(247, 248, 250);
-  border-top: 1px solid $border-gray;
-  padding: 12px;
-  padding-top: 2px;
+.post-comments {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
 
-  .post-comments {
-    display: flex;
-    flex-direction: column;
-    font-size: 12px;
+  .post-comment-item {
+    margin-top: 6px;
 
-    .post-comment-item {
-      margin-top: 6px;
+    .comment-content {
+      display: flex;
+      flex-direction: column;
+      width: calc(100% - 41px);
 
-      .comment-content {
+      .comment-top {
         display: flex;
-        flex-direction: column;
-        width: calc(100% - 41px);
+        justify-content: space-between;
 
-        .comment-top {
-          display: flex;
-          justify-content: space-between;
-
-          .post-dd-toggle {
-            font-size: 12px;
-            margin-left: 8px;
-            vertical-align: super;
-            color: #9e9ea9;
-          }
+        .post-dd-toggle {
+          font-size: 12px;
+          margin-left: 8px;
+          vertical-align: super;
+          color: #9e9ea9;
         }
-      }
-
-      .post-comment-item {
-        padding-left: 40px;
-        margin-left: -40px;
-        border-left: 1px solid $border-gray;
       }
     }
 
-    li {
-      display: flex;
+    .post-comment-item {
+      padding-left: 40px;
+      margin-left: -40px;
+      border-left: 1px solid $border-gray;
+    }
+  }
 
-      div {
+  li {
+    display: flex;
 
-        a {
-          color: $link-blue;
-          font-weight: 700;
-          margin-bottom: 3px;
-          margin-right: 5px;
-        }
+    div {
 
-        a:hover {
-          text-decoration: underline;
-        }
+      a {
+        color: $link-blue;
+        font-weight: 700;
+        margin-bottom: 3px;
+        margin-right: 5px;
       }
 
-      img {
-        width: 32px;
-        height: 32px;
-        padding-right: 9px;
-        padding-bottom: 9px;
+      a:hover {
+        text-decoration: underline;
       }
+    }
+
+    img {
+      width: 32px;
+      height: 32px;
+      padding-right: 9px;
+      padding-bottom: 9px;
     }
   }
 }

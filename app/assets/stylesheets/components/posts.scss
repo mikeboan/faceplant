@@ -101,4 +101,24 @@
       }
     }
   }
+
+  .post-bottom {
+    background: rgb(247, 248, 250);
+    border-top: 1px solid $border-gray;
+    padding: 12px;
+    padding-top: 2px;
+
+    .likers {
+      display: flex;
+      padding: 6px 2px;
+      font-size: 12px;
+      color: rgb(97, 103, 112);
+
+      img {
+        height: 16px;
+        width: 16px;
+        margin-right: 4px;
+      }
+    }
+  }
 }
