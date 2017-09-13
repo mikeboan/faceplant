@@ -1,13 +1,41 @@
 .comment-actions {
-  line-height: 200%;
+  line-height: 16px;
+  vertical-align: middle;
   display: flex;
+  align-items: center;
+  margin: 4px 0px;
+  color: rgb(97, 103, 112);
 
-  li {
-    padding-right: 8px;
-    padding-bottom: 0 !important;
-  }
 
   span, label {
     cursor: pointer;
+  }
+
+  li {
+    padding-bottom: 0 !important;
+
+    &:after {
+      content: "·";
+      margin: 0px 4px;
+    }
+
+    &:last-child:after {
+      content: ""
+    }
+  }
+
+  .liked {
+    color: rgb(88, 144, 255);
+  }
+
+  .unliked {
+
+  }
+
+  .like-bubble {
+    height: 16px;
+    width: 16px;
+    padding: 0;
+    margin-right: 4px;
   }
 }

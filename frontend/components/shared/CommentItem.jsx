@@ -38,19 +38,19 @@ class CommentItem extends React.Component {
     return (
       <li className='post-comment-item'>
         <div className='pic-container'>
-          <img src={ author.profilePicUrl }></img>
+          <img className="" src={ author.profilePicUrl }></img>
         </div>
 
         <div className='comment-content'>
           <div className='comment-top'>
 
-          <div><a>{ author.name }</a><span>{ comment.body }</span></div>
+            <div><a>{ author.name }</a><span>{ comment.body }</span></div>
 
-          {
-            author.id === currentUser.id ?
-              <PostNav item={ comment } type={ 'comment' }/> :
-              null
-          }
+            {
+              author.id === currentUser.id ?
+                <PostNav item={ comment } type={ 'comment' }/> :
+                null
+            }
 
           </div>
 

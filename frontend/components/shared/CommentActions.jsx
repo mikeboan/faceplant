@@ -25,19 +25,27 @@ const CommentActions = (props) => {
   } = props;
 
   const clickAction = likedByCurrentUser ? deleteLike : postLike;
-  const likeText = likedByCurrentUser ? "Unlike" : "Like";
+  const className = likedByCurrentUser ? "liked" : "uniked";
 
   return (
     <ul className='comment-actions'>
       <li>
-        <span onClick={ clickAction }>{ likeText }</span>
+        <span onClick={ clickAction } className={ className }>Like</span>
       </li>
       <li onClick={ toggleCommentForm }>
         <span>Reply</span>
       </li>
-      <li>
-        Likes: { likers.length }
-      </li>
+      {
+        likers.length ?
+          <li>
+            <img
+              className="like-bubble"
+              src={ window.staticImages.likeCircle }>
+            </img>
+            { likers.length }
+          </li> :
+          null
+      }
     </ul>
   );
 };
