@@ -4,11 +4,13 @@ const Likers = ({ likers, likedByCurrentUser }) => {
   const numLikers = likedByCurrentUser ? likers.length - 1 : likers.length;
 
   let text;
-  if (likedByCurrentUser && numLikers) text = `You and ${numLikers} others like this`;
-  else if (likedByCurrentUser)         text = `You like this`;
+  if (likedByCurrentUser) {
+    if (numLikers == 1)                text = `You and ${numLikers} person like this`;
+    else                               text = `You and ${numLikers} people like this`;
+  }
   else {
-    if (numLikers == 1)                text = `${numLikers} other likes this`;
-    else                               text = `${numLikers} others like this`;
+    if (numLikers == 1)                text = `${numLikers} person likes this`;
+    else                               text = `${numLikers} people like this`;
   }
 
   return (
