@@ -4,7 +4,7 @@
   font-size: 12px;
 
   .post-comment-item {
-    margin-top: 6px;
+    margin-top: 12px;
 
     .comment-content {
       display: flex;
@@ -28,6 +28,7 @@
       padding-left: 40px;
       margin-left: -40px;
       border-left: 1px solid $border-gray;
+      margin-top: 6px;
     }
   }
 
