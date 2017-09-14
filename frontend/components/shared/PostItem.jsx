@@ -47,7 +47,7 @@ class PostItem extends React.Component {
 
   render() {
     const { post, author, profileUser, currentUser } = this.props;
-    const timeAgo = moment(post.created_at, "YYYYMMDD").calendar(); // NOT WORKING?!
+    const timeAgo = moment(post.created_at).fromNow(); // NOT WORKING?!
 
     return (
       <li className='post-item'>
