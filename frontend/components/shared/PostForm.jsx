@@ -9,7 +9,7 @@ class PostForm extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleKeyUp = this.handleKeyUp.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   componentDidMount() {
@@ -26,6 +26,8 @@ class PostForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const el = e.target;
+
     const item = Object.assign(
       {},
       this.props.item,
@@ -37,6 +39,7 @@ class PostForm extends React.Component {
     this.props.submitItem(item, this.props.match.params.userId)
       .then(() => {
         if (this._isMounted) this.setState({ body: "" });
+        el.style.cssText = 'height:auto;';
       });
   }
 
@@ -44,14 +47,14 @@ class PostForm extends React.Component {
     this._isMounted = false;
   }
 
-  handleKeyUp(e) {
+  handleKeyDown(e) {
     e = e || event;
     if (e.keyCode === 13 && !e.ctrlKey) this.handleSubmit(e);
   }
 
   autosize(e) {
     const el = e.target;
-    el.style.cssText = 'height:auto; padding:0';
+    el.style.cssText = 'height:auto;';
     el.style.cssText = 'height:' + el.scrollHeight + 'px';
   }
 
@@ -80,7 +83,7 @@ class PostForm extends React.Component {
             <textarea
               placeholder={ `Write something to ${profileOwner.first_name || "..."}` }
               onChange={ this.handleUpdate('body') }
-              onKeyUp={ this.handleKeyUp }
+              onKeyDown={ this.handleKeyDown }
               value={ this.state.body }
             ></textarea>
           </div>
