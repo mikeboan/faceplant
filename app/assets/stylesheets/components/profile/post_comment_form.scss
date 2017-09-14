@@ -11,13 +11,16 @@
     flex-grow: 0;
   }
 
-  input {
+  textarea {
     height: 32px;
     flex-grow: 1;
     background-color: white;
     border: 1px solid $border-gray;
     padding-left: 6px;
+    padding-top: 8px;
     box-sizing: border-box;
+    resize: none;
+    overflow: hidden;
   }
 
   input:focus {

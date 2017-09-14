@@ -21,23 +21,18 @@ class CommentForm extends React.Component {
     this.setRef = this.setRef.bind(this);
   }
 
-  componentDidMount() {
-    // this.input.focus();
-    // const top = this.input.getBoundingClientRect().top;
-    // const bodyTop = document.body.getBoundingClientRect().top;
-    // const scrollPos = top - bodyTop - (window.innerHeight / 2);
-    // window.scrollTo(0, scrollPos);
-  }
-
   handleUpdate(field) {
     return (e) => {
       e.preventDefault();
+      this.autosize(e);
       this.setState({ [field]: e.currentTarget.value });
     };
   }
 
   handleSubmit(e) {
     e.preventDefault();
+    const el = e.target;
+
     const { commentableType, commentableId, parentId } = this.props;
     const comment = Object.assign(
       {
@@ -49,6 +44,7 @@ class CommentForm extends React.Component {
     );
     this.props.postComment(comment)
       .then(() => this.setState({ body: "" }))
+      .then(() => el.style.cssText = 'height:auto;')
       .then(this.props.hideCommentForm);
   }
 
@@ -57,17 +53,29 @@ class CommentForm extends React.Component {
     this.props.setCommentRef(input);
   }
 
+  handleKeyDown(e) {
+    e = e || event;
+    if (e.keyCode === 13 && !e.ctrlKey) this.handleSubmit(e);
+  }
+
+  autosize(e) {
+    const el = e.target;
+    el.style.cssText = 'height:auto;';
+    el.style.cssText = 'height:' + el.scrollHeight + 'px';
+  }
+
   render() {
     return (
       <form onSubmit={ this.handleSubmit.bind(this) } className='post-comment-form'>
         <img src={ this.props.currentUser.profilePicUrl }></img>
-        <input type='text'
+        <textarea
           id={`post-${this.props.postId}`}
-          onChange={ this.handleUpdate('body')}
+          onChange={ this.handleUpdate('body') }
+          onKeyDown={ this.handleKeyDown.bind(this) }
           placeholder='Write a comment...'
           value={ this.state.body }
           ref={ this.setRef }
-        ></input>
+        ></textarea>
       </form>
     );
   }
