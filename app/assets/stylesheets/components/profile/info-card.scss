@@ -1,0 +1,23 @@
+.intro-card {
+
+  .info-item {
+    display: flex;
+    padding: 4px 12px;
+
+    img {
+      height: 16px;
+      width: 16px;
+      padding-right: 4px;
+    }
+
+    span {
+      color: rgb(29, 33, 41);
+      font-size: 12px;
+      line-height: 16px;
+    }
+
+    &:last-of-type {
+      padding-bottom: 12px;
+    }
+  }
+}

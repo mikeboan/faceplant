@@ -49,12 +49,22 @@ const profilesByUserId = (oldState = {}, action) => {
       return newState;
 
     case REMOVE_POST:
+
       Object.keys(action.entities.posts).map( id => action.entities.posts[id] )
         .forEach( post => {
           const profile = newState[post.profileUserId];
-          profile.timelinePosts = profile.timelinePosts.filter((postId) => (
-            parseInt(postId) !== action.result
-          ));
+          const posterProfile = newState[post.author];
+          if (profile) {
+            profile.timelinePosts = profile.timelinePosts.filter((postId) => (
+              parseInt(postId) !== action.result
+            ));
+          }
+
+          if (posterProfile) {
+            posterProfile.timelinePosts = posterProfile.timelinePosts.filter((postId) => (
+              parseInt(postId) !== action.result
+            ));
+          }
         }
       );
       return newState;

@@ -60,3 +60,18 @@ export const selectProfileFriends = (state, userId) => {
   if (!Boolean(profile.friends)) return [];
   return selectUsers(state, profile.friends) || [];
 };
+
+export const generateContent = (field, profile) => {
+  const content = profile[field];
+
+  switch (field) {
+    case 'hometown':
+      return `From ${content}`;
+    case 'location':
+      return `Lives in ${content}`;
+    case 'workplace':
+      return `Works at ${content}`;
+    case 'school':
+      return `Attended ${content}`;
+  }
+};
