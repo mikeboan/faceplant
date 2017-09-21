@@ -48,26 +48,6 @@ class PostForm extends React.Component {
   }
 
   render() {
-    console.log('hello')
-    console.log('hello')
-    console.log('hello')
-    console.log('hello')
-    console.log('hello')
-    console.log('hello')
-    console.log('hello')
-    console.log('hello')
-    console.log('hello')
-    console.log('hello')
-    console.log('hello')
-    console.log('hello')
-    console.log('hello')
-    console.log('hello')
-    console.log('hello')
-    console.log('hello')
-    console.log('hello')
-    console.log('hello')
-    console.log('hello')
-    console.log('hello')
     const { currentUser } = this.props;
 
     return (
