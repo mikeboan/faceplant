@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     users: { byId: { ...entities.users } },
     session: { currentUser: entities.users[result] }
   });
-  debugger
+
   window.store = store; // debugging purposes only
   ReactDOM.render(
     <Root store={store} />,
