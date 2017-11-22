@@ -23,6 +23,7 @@ class Header extends React.Component {
   }
 
   render() {
+    debugger
     return (
       <header className='header'>
         <div className='content'>
