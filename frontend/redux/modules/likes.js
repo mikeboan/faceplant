@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import { RECEIVE_PROFILE } from './profiles';
+import { RECEIVE_POSTS } from './posts';
 import { likeSchema } from './schema';
 import { generateSyncActions } from './shared.js';
 
@@ -68,6 +69,7 @@ const likesByType = (oldState = {}, action) => {
 
   switch(action.type) {
     case RECEIVE_PROFILE:
+    case RECEIVE_POSTS:
     case RECEIVE_LIKE:
       const newState = Object.assign({}, oldState);
       const { likes } = action.entities;

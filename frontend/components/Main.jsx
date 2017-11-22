@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Header from './Header';
-import Newsfeed from './Newsfeed';
+import Newsfeed from './newsfeed/Newsfeed';
 import Profile from './profile/Profile';
 import Modal from './Modal';
 

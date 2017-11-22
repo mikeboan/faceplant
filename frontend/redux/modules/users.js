@@ -5,6 +5,7 @@ import { generateSyncActions } from './shared';
 // import { updateCurrentUserFriends } from './helpers';
 
 import { RECEIVE_PROFILE } from './profiles';
+import { RECEIVE_POSTS } from './posts';
 import { RECEIVE_CURRENT_USER } from './session';
 
 // action types
@@ -36,6 +37,7 @@ const usersById = (oldState = {}, action) => {
       return oldState; // TODO?
 
     case RECEIVE_PROFILE:
+    case RECEIVE_POSTS:
     case RECEIVE_CURRENT_USER:
       return merge({}, oldState, action.entities.users);
 

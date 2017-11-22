@@ -128,17 +128,21 @@ class User < ApplicationRecord
 	####################
 
 	def newsfeed_posts
-    inclusions = [
-      # TODO!
-      :user
+		inclusions = [
+      :author,
+      :likers,
+      :likes,
+      :top_level_comments,
+      profile: [user: :profile_pic],
+      comments: [:likes, :likers, :replies, author: [:profile_pic]]
     ]
 
 		Post.includes(*inclusions).where(author_id: id).or(
-			Post.includes(*inclusions).where(profile_id: Profile.where(author_id: id))
+			Post.includes(*inclusions).where(profile_id: Profile.where(user_id: id))
 		).or(
 			Post.includes(*inclusions).where(author_id: friends)
 		).or(
-			Post.includes(*inclusions).where(profile_id: Profile.where(author_id: friends))
+			Post.includes(*inclusions).where(profile_id: Profile.where(user_id: friends))
 		)
 	end
 

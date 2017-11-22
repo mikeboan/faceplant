@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import { RECEIVE_PROFILE } from './profiles';
+import { RECEIVE_POSTS } from './posts';
 import { RECEIVE_LIKE, REMOVE_LIKE } from './likes';
 import { commentSchema } from './schema';
 import { generateSyncActions } from './shared';
@@ -92,6 +93,7 @@ const commentsById = (oldState = {}, action) => {
       return newState;
 
     case RECEIVE_PROFILE:
+    case RECEIVE_POSTS:
       return Object.assign({}, oldState, action.entities.comments);
 
     case RECEIVE_LIKE:

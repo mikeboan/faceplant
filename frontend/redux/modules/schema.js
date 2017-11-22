@@ -31,6 +31,9 @@ export const postSchema = new schema.Entity('posts', {
   likes: [ likeSchema ],
   likers: [ userSchema ]
 });
+export const newsfeedSchema = new schema.Entity('newsfeed', {
+  newsfeedPosts: [ postSchema ]
+});
 
 export const profileSchema = new schema.Entity('profiles', {
   timelinePosts: [ postSchema ],

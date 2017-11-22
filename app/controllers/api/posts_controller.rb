@@ -1,6 +1,10 @@
 class Api::PostsController < ApplicationController
   include LikeActions
 
+  def index
+    @posts = current_user.newsfeed_posts
+  end
+
   def show
     # testing purposes only!
     @post = Post.includes(
@@ -13,7 +17,6 @@ class Api::PostsController < ApplicationController
         :likers,
       ]
     ).find(params[:id])
-
   end
 
   def create

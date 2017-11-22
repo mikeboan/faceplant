@@ -3,12 +3,13 @@ import { combineReducers } from 'redux';
 import { RECEIVE_PROFILE } from './profiles';
 import { RECEIVE_COMMENT, REMOVE_COMMENT } from './comments';
 import { RECEIVE_LIKE, REMOVE_LIKE } from './likes';
-import { postSchema } from './schema';
+import { postSchema, newsfeedSchema } from './schema';
 import { generateSyncActions } from './shared';
 
 // action types
 export const POST_POST = "POST_POST";
 export const RECEIVE_POST = "RECEIVE_POST";
+export const RECEIVE_POSTS = "RECEIVE_POSTS";
 export const UPDATE_POST = "UPDATE_POST";
 export const REMOVE_POST = "REMOVE_POST";
 
@@ -17,7 +18,18 @@ export const syncActions = generateSyncActions(
   postSchema
 );
 
+Object.assign(
+  syncActions,
+  generateSyncActions([ RECEIVE_POSTS ], newsfeedSchema)
+)
+
 // async actions
+export const fetchNewsfeedPosts = () => dispatch => (
+  api.fetchNewsfeedPosts().then(
+    posts => dispatch(syncActions.receivePosts(posts))
+  )
+)
+
 export const postPost = (post, profileUserId) => dispatch => (
   api.postPost(post, profileUserId).then(
     post => dispatch(syncActions.receivePost(post))
@@ -48,6 +60,11 @@ const api = {
     method: 'GET'
   }),
 
+  fetchNewsfeedPosts: () => $.ajax({
+    url: "api/posts",
+    method: 'GET'
+  }),
+
   editPost: ({ id, ...post }) => $.ajax({
     url: `/api/posts/${id}`,
     method: 'PATCH',
@@ -70,7 +87,9 @@ const postsById = (oldState = {}, action) => {
   switch(action.type) {
     case UPDATE_POST:
     case RECEIVE_POST:
+    case RECEIVE_POSTS:
       return Object.assign({}, oldState, action.entities.posts);
+
 
     case REMOVE_POST:
       newState = Object.assign({}, oldState);
