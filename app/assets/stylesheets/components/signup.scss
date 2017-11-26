@@ -9,22 +9,35 @@
     font-size: 16px;
     font-weight: 500;
 
+    h2 {
+      font-size: 36px;
+      font-weight: 600;
+      margin: 28px 0px;
+    }
+
     form {
       display: flex;
       flex-direction: column;
+      width: 380px;
+      margin: 5px;
 
       input {
-        width: 380px;
+        box-sizing: border-box;
+        width: 100%;
         padding: 10px;
         border: 1px solid #bdc7d8;
         border-radius: 5px;
         background-color: white;
-        margin: 5px;
+        margin: 5px 0px;
       }
 
       .name-fields {
         display: flex;
-        align-items: center;
+        justify-content: space-between;
+
+        input {
+          width: 48.5%;
+        }
       }
 
       input[type='submit'] {
@@ -48,7 +61,17 @@
   }
 
   .left {
-    // width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    word-wrap: break-word;
+    padding-right: 30px;
+
+    h3 {
+      color: rgb(51, 51, 51);
+      font-size: 28px;
+      font-weight: 600;
+    }
 
     img {
       width: 485px;
