@@ -26,7 +26,7 @@ class User < ApplicationRecord
 
 	after_initialize :ensure_session_token
 	before_validation :ensure_session_token_uniqueness
-	after_create :setup!
+	after_create :create_profile!
 
 	####################
 	# SINGLE ASSOCIATIONS
@@ -150,24 +150,10 @@ class User < ApplicationRecord
 	# CALLBACKS
 	####################
 
-	def setup!
-		@profile = Profile.create!(user_id: id)
-		create_profile_pic!
-		create_cover_photo!
-	end
-
-	def create_profile_pic!
-		profile_pic = Photo.new
-		profile_pic.image = open(Photo::DEFAULT_PROFILE_PIC_URL)
-		profile_pic.save!
-		self.update(profile_pic: profile_pic)
-	end
-
-	def create_cover_photo!
-		cover_photo = Photo.new
-		cover_photo.image = open(Photo::DEFAULT_COVER_PHOTO_URL)
-		cover_photo.save!
-		@profile.update(cover_photo: cover_photo)
+	def create_profile!
+		Profile.create!(user_id: id)
+		profile_pic = Photo.create!(image: Photo::DEFAULT_PROFILE_PIC_URL)
+		self.update!(profile_pic: profile_pic)
 	end
 
 	####################

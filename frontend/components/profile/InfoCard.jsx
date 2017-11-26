@@ -11,8 +11,8 @@ const mapStateToProps = (state, { user }) => {
 
   const listItems = ['workplace', 'school', 'location', 'hometown']
     .filter( field => Boolean(profile[field]) )
-    .map( field =>
-      <InfoItem
+    .map( (field, idx) =>
+      <InfoItem key={idx}
         iconUrl={ window.staticImages[field] }
         content={ generateContent(field, profile) }
       />

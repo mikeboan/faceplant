@@ -11,6 +11,8 @@ User.destroy_all
 
 puts "destroying profiles"
 Profile.destroy_all
+puts "destroying photos"
+Photo.destroy_all
 
 puts "creating users"
 mike = User.create!(first_name: 'Mike', last_name: 'Fake', email: 'mike@fake.com', password: 'starwars')
@@ -18,8 +20,6 @@ michael = User.create!(first_name: 'Michael', last_name: 'Bluth', email: 'michae
 gob = User.create!(first_name: 'GOB', last_name: 'Bluth', email: 'gob@bluth.com', password: 'starwars')
 buster = User.create!(first_name: 'Buster', last_name: 'Bluth', email: 'buster@bluth.com', password: 'starwars')
 annyong = User.create!(first_name: 'Annyong', last_name: 'Bluth', email: 'annyong@bluth.com', password: 'starwars')
-irrelevant1 = User.create!(first_name: 'Irrelevant', last_name: '1', email: 'DC@bluth.com', password: 'starwars')
-irrelevant2 = User.create!(first_name: 'Irrelevant', last_name: '2', email: 'DC2@bluth.com', password: 'starwars')
 
 users = User.all.to_a
 
@@ -28,18 +28,36 @@ mike.profile.update!(workplace: "App Academy", work_title: "Senior TA", hometown
 michael.profile.update!(workplace: "Bluth Company", work_title: "CEO", hometown: "Newport Beach, CA")
 gob.profile.update!(workplace: "Magic Castle", work_title: "Magician", hometown: "Newport Beach, CA")
 buster.profile.update!(workplace: "Milford School", work_title: "Student", hometown: "Newport Beach, CA")
-
+annyong.profile.update!(workplace: "Hidden Room", work_title: "Mole", hometown: "Korea?")
 
 profiles = Profile.all.to_a
 
+
+
+puts "creating photos"
+mike_profile_pic = Photo.create(image: "https://s3-us-west-2.amazonaws.com/faceplant-seeds/mike.png")
+mike.update(profile_pic: mike_profile_pic)
+michael_profile_pic = Photo.create(image: "https://s3-us-west-2.amazonaws.com/faceplant-seeds/michael-profile.jpg")
+michael.update(profile_pic: michael_profile_pic)
+gob_profile_pic = Photo.create(image: "https://s3-us-west-2.amazonaws.com/faceplant-seeds/gob-profile.jpg")
+gob.update(profile_pic: gob_profile_pic)
+buster_profile_pic = Photo.create(image: "https://s3-us-west-2.amazonaws.com/faceplant-seeds/buster-profile.jpg")
+buster.update(profile_pic: buster_profile_pic)
+annyong_profile_pic = Photo.create(image: "https://s3-us-west-2.amazonaws.com/faceplant-seeds/annyong-profile.jpg")
+annyong.update(profile_pic: annyong_profile_pic)
+
+
 puts "destroying posts"
 Post.destroy_all
+puts "creating posts"
 lighter_fluid = Post.create!(body: "But where did the lighter fluid come from!?", author_id: gob.id, profile_id: michael.profile.id)
 milford_man = Post.create!(body: "You can always tell a Milford Man", author_id: gob.id, profile_id: buster.profile.id)
 milford_man_reverse = Post.create!(body: "You can always tell a Milford Man (reverse)", author_id: buster.id, profile_id: gob.profile.id)
-irrelevant_post = Post.create!(body: "Doesn't matter", author_id: irrelevant1.id, profile_id: irrelevant2.profile.id)
 hey_brother = Post.create!(body: "Hey, brother!", author_id: buster.id, profile_id: michael.profile.id)
 hey_hermano = Post.create!(body: "Hey, hermano!", author_id: buster.id, profile_id: gob.profile.id)
+
+
+
 
 
 # puts "creating profile posts"
@@ -69,13 +87,7 @@ Friendship.create!(friender_id: gob.id, friendee_id: michael.id, status: 1)
 Friendship.create!(friender_id: michael.id, friendee_id: mike.id, status: 0)
 Friendship.create!(friender_id: buster.id, friendee_id: michael.id, status: 1)
 Friendship.create!(friender_id: buster.id, friendee_id: gob.id, status: 1)
-Friendship.create!(friender_id: irrelevant1.id, friendee_id: irrelevant2.id, status: 1)
-Friendship.create!(friender_id: irrelevant1.id, friendee_id: mike.id, status: 0)
-Friendship.create!(friender_id: irrelevant2.id, friendee_id: mike.id, status: 2)
 
-
-
-User.create!(email: 'alffff222', first_name: 'asdfdffsdfdd', last_name: 'ddassdd', password: 'starwars')
 
 puts "destroying comments"
 Comment.destroy_all
@@ -104,5 +116,3 @@ mike = User.first
     end
   end
 end
-
-# Comment.create(body: 'top-level 1', commentable: post1, author: mike)

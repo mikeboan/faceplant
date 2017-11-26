@@ -16,6 +16,8 @@
 class Profile < ApplicationRecord
   validates :user_id, presence: true
 
+  after_create :create_cover_photo!
+
   belongs_to :user
   has_many :posts
 
@@ -38,4 +40,12 @@ class Profile < ApplicationRecord
       Post.includes(*inclusions).where(id: posts.select(:id))
     )
   end
+
+  private
+
+	def create_cover_photo!
+		cover_photo = Photo.create!(image: Photo::DEFAULT_COVER_PHOTO_URL)
+		self.update!(cover_photo: cover_photo)
+    puts self.cover_photo.url
+	end
 end

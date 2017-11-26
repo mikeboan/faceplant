@@ -13,8 +13,8 @@
 #
 
 class Photo < ApplicationRecord
-  DEFAULT_PROFILE_PIC_URL = "http://s3.amazonaws.com/faceplant-dev/photos/images/000/000/001/original/avatar.jpg?1498936822"
-  DEFAULT_COVER_PHOTO_URL = "https://s3.amazonaws.com/faceplant-dev/photos/images/000/000/016/original/open-uri20170810-18009-1ryfsa0"
+  DEFAULT_PROFILE_PIC_URL = "https://s3-us-west-2.amazonaws.com/faceplant-seeds/avatar.jpg"
+  DEFAULT_COVER_PHOTO_URL = "https://s3-us-west-2.amazonaws.com/faceplant-seeds/cover_photo.jpg"
 
   has_attached_file :image,
     styles: { avatar: "168x168>", thumb: "38x38>" },
