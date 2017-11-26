@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 
 import { fetchNewsfeedPosts } from '../../redux/modules/posts';
 import PostItem from '../shared/PostItem';
+import PostForm from '../shared/PostFormContainer';
+import LeftBar from './LeftBar';
+import RightBar from './RightBar';
 
 const mapStateToProps = (state, ownProps) => ({
   posts: Object.values(state.posts.byId)
@@ -20,11 +23,21 @@ class Newsfeed extends React.Component {
 
   render() {
     return(
-      <ul>
-        {
-          this.props.posts.map( post => <PostItem post={post} /> )
-        }
-      </ul>
+      <section className="newsfeed">
+        <LeftBar />
+
+        <div className='newsfeed-center'>
+          <PostForm />
+
+          <ul>
+            {
+              this.props.posts.map( post => <PostItem post={post} /> )
+            }
+          </ul>
+        </div>
+
+        <RightBar />
+      </section>
     )
   }
 }

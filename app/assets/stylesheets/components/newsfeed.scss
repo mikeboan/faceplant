@@ -1,0 +1,21 @@
+.newsfeed {
+  width: 100%;
+  display: flex;
+
+  .newsfeed-left-bar, .newsfeed-right-bar {
+    width: 20%;
+    height: 500px;
+    background-color: pink;
+    margin: 20px 10px;
+
+    &:after {
+      content: "side bar";
+    }
+  }
+
+  .newsfeed-center {
+    margin: 20px 10px;
+    width: 80%;
+  }
+
+}
