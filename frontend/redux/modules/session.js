@@ -2,6 +2,13 @@ import { normalize } from 'normalizr';
 import { userSchema } from './schema';
 
 import {
+  RECEIVE_AUTH_ERRORS,
+  CLEAR_AUTH_ERRORS,
+  receiveAuthErrors,
+  clearAuthErrors
+} from './errors';
+
+import {
   RECEIVE_FRIENDSHIP,
   UPDATE_FRIENDSHIP,
   REMOVE_FRIENDSHIP
@@ -20,7 +27,7 @@ const api = {
   }),
 
   signup: (user) => $.ajax({
-    url: '/api/user',
+    url: '/api/users',
     method: 'POST',
     data: { user }
   }),
@@ -45,7 +52,10 @@ export const logout = () => dispatch => (
 );
 
 export const signup = (user) => dispatch => (
-  api.signup(user).then(user => dispatch(receiveCurrentUser(user)))
+  api.signup(user)
+    .then(user => dispatch(receiveCurrentUser(user)))
+    .then(() => dispatch(clearAuthErrors()))
+    .fail(res => dispatch(receiveAuthErrors(res.responseJSON)))
 );
 
 // reducer
