@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { fetchNewsfeedPosts } from '../../redux/modules/posts';
 import PostItem from '../shared/PostItem';
-import PostForm from '../shared/PostFormContainer';
+import PostForm from '../shared/NewsFeedPostFormContainer';
 import LeftBar from './LeftBar';
 import RightBar from './RightBar';
 
@@ -31,14 +31,14 @@ class Newsfeed extends React.Component {
 
           <ul>
             {
-              this.props.posts.map( post => <PostItem post={post} /> )
+              this.props.posts.reverse().map( post => <PostItem post={post} /> )
             }
           </ul>
         </div>
 
         <RightBar />
       </section>
-    )
+    );
   }
 }
 

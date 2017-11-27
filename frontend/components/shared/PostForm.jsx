@@ -36,7 +36,9 @@ class PostForm extends React.Component {
     );
     delete item.author;
 
-    this.props.submitItem(item, this.props.match.params.userId)
+    const userId = this.props.match.params.userId || this.props.currentUser.id;
+
+    this.props.submitItem(item, userId)
       .then(() => {
         if (this._isMounted) this.setState({ body: "" });
         el.style.cssText = 'height:auto;';
@@ -60,6 +62,14 @@ class PostForm extends React.Component {
 
   render() {
     const { currentUser, profileOwner } = this.props;
+    let writeTo;
+    if (!profileOwner) {
+      writeTo = "to ...";
+    } else if (profileOwner.id === currentUser.id) {
+      writeTo = "on your wall";
+    } else {
+      `to ${profileOwner.firstName}`;
+    }
 
     return (
       <div className='post-form-container'>
@@ -81,7 +91,7 @@ class PostForm extends React.Component {
               src={ currentUser.profilePicUrl }>
             </img>
             <textarea
-              placeholder={ `Write something to ${profileOwner.first_name || "..."}` }
+              placeholder={ `Write something ${writeTo}` }
               onChange={ this.handleUpdate('body') }
               onKeyDown={ this.handleKeyDown }
               value={ this.state.body }

@@ -44,7 +44,8 @@ const profilesByUserId = (oldState = {}, action) => {
       Object.keys(posts).forEach(postId => {
         const post = posts[postId];
         const profile = newState[post.profileUserId];
-        profile.timelinePosts = [postId, ...profile.timelinePosts];
+        if (profile)
+          profile.timelinePosts = [postId, ...profile.timelinePosts];
       });
       return newState;
 
