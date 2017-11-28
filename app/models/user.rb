@@ -160,8 +160,6 @@ class User < ApplicationRecord
 
 	def create_profile!
 		Profile.create!(user_id: id)
-		profile_pic = Photo.create!(image: Photo::DEFAULT_PROFILE_PIC_URL)
-		self.update!(profile_pic: profile_pic)
 	end
 
 	####################

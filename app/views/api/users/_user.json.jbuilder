@@ -1,3 +1,3 @@
 json.extract! user, :first_name, :last_name, :email, :id
 json.name user.name
-json.profilePicUrl asset_path(user.profile_pic.url)
+json.profilePicUrl user.profile_pic&.url || Photo::DEFAULT_PROFILE_PIC_URL
