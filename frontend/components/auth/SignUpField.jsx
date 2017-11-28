@@ -2,10 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import SignUpError from './SignUpError';
-import { clearSingleAuthError } from '../../redux/modules/errors';
+import {
+  receiveSingleAuthError,
+  clearSingleAuthError
+} from '../../redux/modules/errors';
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  clearError: () => dispatch(clearSingleAuthError(ownProps.fieldName))
+const mapDispatchToProps = (dispatch, { fieldName }) => ({
+  clearError: () => dispatch(clearSingleAuthError(fieldName)),
+  showError: (messages) =>
+    dispatch(receiveSingleAuthError({ [fieldName]: messages }))
 });
 
 class SignUpField extends React.Component {
@@ -14,8 +19,15 @@ class SignUpField extends React.Component {
 
     this.state = { focused: false };
 
+    this.input = this.input || {};
+    this.handleInput = this.handleInput.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.handleFocus = this.handleFocus.bind(this);
+  }
+
+  handleInput(e) {
+    if (this.input.value.length > 0) this.props.clearError();
+    this.props.handleInput(e);
   }
 
   handleFocus() {
@@ -23,7 +35,10 @@ class SignUpField extends React.Component {
   }
 
   handleBlur() {
-    this.props.clearError();
+    if (this.input.value.length === 0)
+      this.props.showError(["can't be blank"]);
+    if (this.input.value.length > 0)
+      this.props.clearError();
     this.setState({ focused: false });
   }
 
@@ -39,8 +54,9 @@ class SignUpField extends React.Component {
       <div className='auth-field' >
         <SignUpError fieldName={fieldName} focused={ this.state.focused }/>
         <input
+          ref={ input => { this.input = input; } }
           type={ fieldName === 'password' ? 'password' : 'text' }
-          onChange={ this.props.handleInput }
+          onChange={ this.handleInput }
           onFocus={ this.handleFocus }
           onBlur={ this.handleBlur }
           placeholder={ placeholder }

@@ -2,13 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { signup } from '../../redux/modules/session';
-import { clearAuthErrors } from '../../redux/modules/errors';
+import { clearSingleAuthError } from '../../redux/modules/errors';
 import LogInHeader from './LoginHeader';
 import SignUpFormField from './SignUpField';
 
 const mapDispatchToProps = (dispatch) => ({
   signup: (user) => dispatch(signup(user)),
-  clearAuthErrors: () => dispatch(clearAuthErrors()),
+  clearLogInErrors: () => dispatch(clearSingleAuthError('credentials')),
 });
 
 class SignUpForm extends React.Component {
@@ -38,7 +38,7 @@ class SignUpForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    this.props.clearAuthErrors();
+    this.props.clearLogInErrors();
 
     this.props.signup(this.state)
       .then(() => this.redirectTo("/"))
