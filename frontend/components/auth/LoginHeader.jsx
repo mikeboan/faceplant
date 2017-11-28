@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import { login } from '../redux/modules/session';
+import { login } from '../../redux/modules/session';
 
 const mapDispatchToProps = (dispatch) => ({
   login: user => dispatch(login(user))

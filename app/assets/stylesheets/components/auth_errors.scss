@@ -1,0 +1,32 @@
+.sign-up-form {
+
+  .auth-field {
+    position: relative;
+  }
+
+  .auth-error {
+    position: absolute;
+    background-color: #be4b49;
+    border-radius: 30px;
+    height: 27px;
+    width: 27px;
+    right: 7px;
+    top: 12px;
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0 auto;
+
+    &:after {
+      content: '!';
+      color: white;
+      padding: 10px 20px;
+      position: absolute;
+      top: -7px;
+      left: -9px;
+    }
+  }
+
+  .auth-error + input {
+    border-color: #be4b49 !important;
+  }
+}

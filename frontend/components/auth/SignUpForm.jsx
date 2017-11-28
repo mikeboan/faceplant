@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { signup } from '../redux/modules/session';
+import { signup } from '../../redux/modules/session';
 import LogInHeader from './LoginHeader';
+import SignUpFormField from './SignUpField';
 
 const mapDispatchToProps = (dispatch) => ({
   signup: (user) => dispatch(signup(user))
@@ -61,32 +62,32 @@ class SignUpForm extends React.Component {
               <h2>Sign Up</h2>
               <h3>It's free and always will be</h3>
 
-              <form onSubmit={ this.handleSubmit.bind(this) }>
+              <form
+                className='sign-up-form'
+                onSubmit={ this.handleSubmit.bind(this) }>
                 <div className="name-fields">
-                  <input
-                    type="text"
-                    onChange={ this.assignHandler('first_name') }
-                    placeholder="First Name"
-                  />
-
-                  <input
-                    type="text"
-                    onChange={ this.assignHandler('last_name') }
-                    placeholder="Last Name"
-                  />
+                  {
+                    ['first_name', 'last_name']
+                      .map( fieldName =>
+                        <SignUpFormField
+                          key={ fieldName }
+                          fieldName={ fieldName }
+                          handleInput={ this.assignHandler(fieldName) }
+                        />
+                      )
+                  }
                 </div>
 
-                <input
-                  type="text"
-                  onChange={ this.assignHandler('email') }
-                  placeholder="Email Address"
-                />
-
-                <input
-                  type="password"
-                  onChange={ this.assignHandler('password') }
-                  placeholder="Password"
-                />
+                {
+                  ['email', 'password']
+                    .map( fieldName =>
+                      <SignUpFormField
+                        key={ fieldName }
+                        fieldName={ fieldName }
+                        handleInput={ this.assignHandler(fieldName) }
+                      />
+                    )
+                }
 
                 <input
                   type="submit"

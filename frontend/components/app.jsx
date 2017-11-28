@@ -4,7 +4,7 @@ import { Switch, withRouter } from 'react-router-dom';
 
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import Header from './Header';
-import SignUpForm from './SignUpForm';
+import SignUpForm from './auth/SignUpForm';
 import Main from './Main';
 import ScrollToTop from './ScrollToTop';
 import { hideAllDropdowns } from '../redux/modules/dropdowns';
