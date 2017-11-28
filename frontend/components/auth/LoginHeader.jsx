@@ -3,9 +3,15 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import { login } from '../../redux/modules/session';
+import { clearAuthErrors } from '../../redux/modules/errors';
+
+const mapStateToProps = (state, ownProps) => ({
+  errors: state.errors.auth.credentials
+});
 
 const mapDispatchToProps = (dispatch) => ({
-  login: user => dispatch(login(user))
+  login: user => dispatch(login(user)),
+  clearAuthErrors: () => dispatch(clearAuthErrors())
 });
 
 class LogInHeader extends React.Component {
@@ -31,6 +37,8 @@ class LogInHeader extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
+    this.props.clearAuthErrors();
+
     this.props.login(this.state)
       .then(() => this.redirectTo("/"))
       .fail(() => this.setState({ password: "" }));
@@ -42,18 +50,30 @@ class LogInHeader extends React.Component {
     }
   }
 
+  errorTooltip() {
+    const { errors } = this.props;
+    if (errors)
+      return <div className='login-error-tooltip'>{ errors.join(", ") }</div>;
+  }
+
   render() {
     return (
       <header className='login-header'>
         <div className='logo-frame'>
           <h1>faceplant</h1>
         </div>
-        <form onSubmit={ this.handleSubmit.bind(this) }>
+        <form onBlur={ this.props.clearAuthErrors }
+          className='login-form'
+          onSubmit={ this.handleSubmit.bind(this) }
+        >
+          { this.errorTooltip() }
           <label>Email
             <input type="text" onChange={ this.assignHandler('email') } />
           </label>
           <label>Password
-            <input type="password" onChange={ this.assignHandler('password') } />
+            <input
+              type="password"
+              onChange={ this.assignHandler('password') } />
           </label>
           <input type="submit" value="Log In"></input>
         </form>
@@ -63,6 +83,6 @@ class LogInHeader extends React.Component {
 };
 
 export default connect(
-  undefined,
+  mapStateToProps,
   mapDispatchToProps,
 )(withRouter(LogInHeader));

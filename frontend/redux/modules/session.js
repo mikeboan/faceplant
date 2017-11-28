@@ -44,11 +44,16 @@ export const receiveCurrentUser = user => ({
 
 // async actions
 export const login = user => dispatch => (
-  api.login(user).then(user => dispatch(receiveCurrentUser(user)))
+  api.login(user)
+    .then(user => dispatch(receiveCurrentUser(user)))
+    .then(() => dispatch(clearAuthErrors()))
+    .fail(res => dispatch(receiveAuthErrors(res.responseJSON)))
 );
 
 export const logout = () => dispatch => (
-  api.logout().then(user => dispatch(receiveCurrentUser({})))
+  api.logout()
+    .then(user => dispatch(receiveCurrentUser({})))
+    .then(() => dispatch(clearAuthErrors()))
 );
 
 export const signup = (user) => dispatch => (

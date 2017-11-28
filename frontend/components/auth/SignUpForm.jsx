@@ -2,11 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { signup } from '../../redux/modules/session';
+import { clearAuthErrors } from '../../redux/modules/errors';
 import LogInHeader from './LoginHeader';
 import SignUpFormField from './SignUpField';
 
 const mapDispatchToProps = (dispatch) => ({
-  signup: (user) => dispatch(signup(user))
+  signup: (user) => dispatch(signup(user)),
+  clearAuthErrors: () => dispatch(clearAuthErrors()),
 });
 
 class SignUpForm extends React.Component {
@@ -36,6 +38,8 @@ class SignUpForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
+    this.props.clearAuthErrors();
+
     this.props.signup(this.state)
       .then(() => this.redirectTo("/"))
       .fail(() => this.setState({ password: "" }));
@@ -55,8 +59,10 @@ class SignUpForm extends React.Component {
         <div className='content'>
           <div className='signup'>
             <div className='left'>
-              <h3>Connect with faces in the world around you</h3>
-              <img src='https://www.facebook.com/rsrc.php/v3/yp/r/_1iT_csnL1u.png'></img>
+              <h3>{ "Connect with faces in the world around you" }</h3>
+              <img
+                src='https://www.facebook.com/rsrc.php/v3/yp/r/_1iT_csnL1u.png'>
+              </img>
             </div>
             <div className='right'>
               <h2>Sign Up</h2>
