@@ -7,6 +7,7 @@ export const CLEAR_AUTH_ERRORS = "CLEAR_AUTH_ERRORS";
 export const CLEAR_POST_ERRORS = "CLEAR_POST_ERRORS";
 export const CLEAR_COMMENT_ERRORS = "CLEAR_COMMENT_ERRORS";
 export const CLEAR_ALL_ERRORS = "CLEAR_ALL_ERRORS";
+export const CLEAR_SINGLE_AUTH_ERROR = "CLEAR_SINGLE_AUTH_ERROR";
 
 const _defaultState = {};
 
@@ -25,6 +26,11 @@ export const receiveCommentErrors = (errors) => ({
   type: RECEIVE_AUTH_ERRORS
 });
 
+export const clearSingleAuthError = fieldName => ({
+  fieldName,
+  type: CLEAR_SINGLE_AUTH_ERROR
+})
+
 export const clearAllErrors = () => ({ type: CLEAR_ALL_ERRORS });
 export const clearAuthErrors = () => ({ type: CLEAR_AUTH_ERRORS });
 export const clearPostErrors = () => ({ type: CLEAR_POST_ERRORS });
@@ -34,6 +40,10 @@ const auth = (state = _defaultState, action) => {
   switch (action.type) {
     case RECEIVE_AUTH_ERRORS:
       return Object.assign({}, state, action.errors);
+    case CLEAR_SINGLE_AUTH_ERROR:
+      const newState = Object.assign({}, state);
+      delete newState[action.fieldName];
+      return newState;
     case CLEAR_AUTH_ERRORS:
     case CLEAR_ALL_ERRORS:
       return _defaultState;

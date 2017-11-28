@@ -1,6 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import SignUpError from './SignUpError';
+import { clearSingleAuthError } from '../../redux/modules/errors';
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  clearError: () => dispatch(clearSingleAuthError(ownProps.fieldName))
+});
 
 class SignUpField extends React.Component {
   constructor(props) {
@@ -17,6 +23,7 @@ class SignUpField extends React.Component {
   }
 
   handleBlur() {
+    this.props.clearError();
     this.setState({ focused: false });
   }
 
@@ -32,7 +39,7 @@ class SignUpField extends React.Component {
       <div className='auth-field' >
         <SignUpError fieldName={fieldName} focused={ this.state.focused }/>
         <input
-          type="text"
+          type={ fieldName === 'password' ? 'password' : 'text' }
           onChange={ this.props.handleInput }
           onFocus={ this.handleFocus }
           onBlur={ this.handleBlur }
@@ -43,4 +50,4 @@ class SignUpField extends React.Component {
   }
 }
 
-export default SignUpField;
+export default connect(null, mapDispatchToProps)(SignUpField);
