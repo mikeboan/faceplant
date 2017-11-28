@@ -1,3 +1,5 @@
+
+
 .sign-up-form {
 
   .auth-field {
@@ -6,7 +8,7 @@
 
   .auth-error {
     position: absolute;
-    background-color: #be4b49;
+    background-color: $error-red;
     border-radius: 30px;
     height: 27px;
     width: 27px;
@@ -27,6 +29,53 @@
   }
 
   .auth-error + input {
-    border-color: #be4b49 !important;
+    border-color: $error-red !important;
+  }
+
+  .auth-error-tooltip {
+    position: absolute;
+    transform: translateX(-100%);
+    left: -10px;
+    top: 4px;
+    padding: 10px 20px;
+    background-color: $error-red;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    border: 0;
+    border-radius: 2px;
+    box-shadow:
+      0 0 0 1px rgba(139, 3, 0, .75),
+      0 1px 10px rgba(0, 0, 0, .35);
+
+    &:before {
+      content: "";
+      position: absolute;
+      bottom: 6px;
+      right: -10px;
+      margin-left: -10px;
+      width: 0;
+      height: 0;
+      border-top: 11px solid transparent;
+      border-bottom: 11px solid transparent;
+      border-right: 0px solid #a63333;
+      border-left: 10px solid #a63333;
+      background: transparent;
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 7px;
+      right: -9px;
+      margin-left: -10px;
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-right: 0px solid $error-red;
+      border-left: 10px solid $error-red;
+      background: transparent;
+    }
   }
 }
