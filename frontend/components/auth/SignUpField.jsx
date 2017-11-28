@@ -35,8 +35,15 @@ class SignUpField extends React.Component {
   }
 
   handleBlur() {
+    const _messageByFieldName = {
+      email: "This is what you'll use to log in",
+      password: "Please use at least 6 characters",
+      first_name: "What is your first name?",
+      last_name: "What is your last name?"
+    };
+
     if (this.input.value.length === 0)
-      this.props.showError(["can't be blank"]);
+      this.props.showError([ _messageByFieldName[this.props.fieldName] ]);
     if (this.input.value.length > 0)
       this.props.clearError();
     this.setState({ focused: false });
