@@ -1,22 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { friendStatusWithCurrentUser, dropdownOpen } from '../../selectors/selectors.js';
+import {
+  friendStatusWithCurrentUser,
+  dropdownOpen
+} from '../../selectors/selectors.js';
+
 import {
   postFriendship,
   destroyFriendship,
   updateFriendship
 } from '../../redux/modules/users';
+
 import { showDropdown, hideDropdown } from '../../redux/modules/dropdowns';
 
-const mapStateToProps = (state, { currentUser, user }) => {  
+const mapStateToProps = (state, { currentUser, user }) => {
   const propsByStatus = {
     none: { disabled: false, buttonText: "Add Friend"},
     accepted: { disabled: false, buttonText: "Remove Friend"},
     requested: { disabled: true, buttonText: "Pending..."},
     pending: { disabled: false, buttonText: "Respond to Request"},
     rejected: { disabled: false, buttonText: "Add Friend"},
-  }
+  };
 
   const friendStatus = friendStatusWithCurrentUser(currentUser, user.id);
 
@@ -25,7 +30,7 @@ const mapStateToProps = (state, { currentUser, user }) => {
     propsByStatus,
     visible: dropdownOpen(state, 'friend-request')
   };
-}
+};
 
 const mapDispatchToProps = (dispatch, { currentUser, user }) => ({
   actionsByStatus: {
@@ -39,7 +44,15 @@ const mapDispatchToProps = (dispatch, { currentUser, user }) => ({
   hideDropdown: () => dispatch(hideDropdown('friend-request')),
 });
 
-const FriendButton = ({ friendStatus, propsByStatus, actionsByStatus, visible, showDropdown, hideDropdown }) => {
+const FriendButton = (props) => {
+  const {
+    friendStatus,
+    propsByStatus,
+    actionsByStatus,
+    visible,
+    showDropdown,
+    hideDropdown
+  } = props;
 
   if (friendStatus === 'pending') {
     const clickAction = e => {
@@ -48,7 +61,7 @@ const FriendButton = ({ friendStatus, propsByStatus, actionsByStatus, visible, s
 
       if (visible) hideDropdown();
       else showDropdown();
-    }
+    };
 
     return (
       <button
@@ -71,7 +84,7 @@ const FriendButton = ({ friendStatus, propsByStatus, actionsByStatus, visible, s
     return (
       <button
         className="friend-button"
-        onClick={ (e) => { e.preventDefault; actionsByStatus[friendStatus](); } }
+        onClick={ e => { e.preventDefault; actionsByStatus[friendStatus](); } }
         disabled={ propsByStatus[friendStatus].disabled }
       >
         { propsByStatus[friendStatus].buttonText }
@@ -80,9 +93,5 @@ const FriendButton = ({ friendStatus, propsByStatus, actionsByStatus, visible, s
     );
   }
 };
-
-// const FriendButton = ({ friendStatus, propsByStatus, actionsByStatus }) => (
-//
-// );
 
 export default connect(mapStateToProps, mapDispatchToProps)(FriendButton);
