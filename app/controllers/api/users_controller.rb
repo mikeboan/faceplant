@@ -1,4 +1,14 @@
 class Api::UsersController < ApplicationController
+  def index
+    @users = User.search_by_name(params[:query])
+
+    if @users
+      render 'api/users/search'
+    else
+      render json: { search: ['No results found'] }
+    end
+  end
+
 	def create
 		@user = User.includes(:profile_pic).includes(:newsfeed_posts).new(user_params)
 

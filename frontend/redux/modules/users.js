@@ -27,8 +27,13 @@ const api = {
     url: `/api/users/${id}`,
     method: 'GET'
   }),
+  searchUsers: (query) => $.ajax({
+    url: `/api/users?query=${query}`,
+    method: 'GET'
+  })
 };
 
+window.usersApi = api;
 
 // reducer
 const usersById = (oldState = {}, action) => {

@@ -76,6 +76,13 @@ class User < ApplicationRecord
     through: :received_friend_requests,
     source: :friender
 
+  def self.search_by_name(query)
+    query = "%#{query}%"
+    User.where("first_name LIKE ?", query).or(
+      User.where("last_name LIKE ?", query)
+    )
+  end
+
 	####################
 	# FRIENDS
 	####################
