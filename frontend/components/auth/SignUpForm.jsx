@@ -72,29 +72,27 @@ class SignUpForm extends React.Component {
                 className='sign-up-form'
                 onSubmit={ this.handleSubmit.bind(this) }>
                 <div className="name-fields">
-                  {
-                    ['first_name', 'last_name']
-                      .map( fieldName =>
-                        <SignUpFormField
-                          key={ fieldName }
-                          fieldName={ fieldName }
-                          handleInput={ this.assignHandler(fieldName) }
-                        />
-                      )
-                  }
+                  <SignUpFormField
+                    key={ 'first_name' }
+                    fieldName={ 'first_name' }
+                    handleInput={ this.assignHandler('first_name') }
+                  />
+                  <SignUpFormField
+                    key={ 'last_name' }
+                    fieldName={ 'last_name' }
+                    handleInput={ this.assignHandler('last_name') }
+                  />
                 </div>
-
-                {
-                  ['email', 'password']
-                    .map( fieldName =>
-                      <SignUpFormField
-                        key={ fieldName }
-                        fieldName={ fieldName }
-                        handleInput={ this.assignHandler(fieldName) }
-                      />
-                    )
-                }
-
+                <SignUpFormField
+                  key={ 'email' }
+                  fieldName={ 'email' }
+                  handleInput={ this.assignHandler('email') }
+                />
+                <SignUpFormField
+                  key={ 'password' }
+                  fieldName={ 'password' }
+                  handleInput={ this.assignHandler('password') }
+                />
                 <input
                   type="submit"
                   value="Create Account"
