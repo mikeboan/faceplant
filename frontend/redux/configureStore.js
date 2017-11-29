@@ -11,11 +11,13 @@ import modal from './modules/modal';
 import loading from './modules/loading';
 import dropdowns from './modules/dropdowns';
 import errors from './modules/errors';
+import search from './modules/search';
 
 const loggerMiddleware = createLogger(); // initialize logger
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const createStoreWithMiddleware = composeEnhancers(applyMiddleware(thunk, loggerMiddleware))(createStore); // apply logger to redux
+const createStoreWithMiddleware =
+  composeEnhancers(applyMiddleware(thunk, loggerMiddleware))(createStore);
 
 const rootReducer = combineReducers({
   session,
@@ -27,9 +29,12 @@ const rootReducer = combineReducers({
   modal,
   loading,
   dropdowns,
-  errors
+  errors,
+  search
 });
 
-const configureStore = (preloadedState) => createStoreWithMiddleware(rootReducer, preloadedState);
+const configureStore =
+  (preloadedState) =>
+    createStoreWithMiddleware(rootReducer, preloadedState);
 
 export default configureStore;

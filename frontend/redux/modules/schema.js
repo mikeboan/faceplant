@@ -8,7 +8,8 @@ export const userSchema = new schema.Entity('users', {
 });
 export const friendsSchema = new schema.Array(userSchema);
 
-[ 'friends',
+[
+  'friends',
   'acceptedFriends',
   'inPendingFriends',
   'outPendingFriends',
@@ -41,4 +42,8 @@ export const profileSchema = new schema.Entity('profiles', {
   friends: [ userSchema ]
 }, {
   idAttribute: 'user_id'
+});
+
+export const searchSchema = new schema.Entity('search', {
+  users: [ userSchema ]
 });
