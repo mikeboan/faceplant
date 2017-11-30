@@ -32,6 +32,10 @@
     display: flex;
     box-sizing: content-box;
 
+    .no-friends {
+      border: none;
+    }
+
     > li {
       box-sizing: border-box;
       border: 1px solid $border-gray;

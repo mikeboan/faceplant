@@ -38,6 +38,7 @@ class ProfileFriends extends React.Component {
 
   render() {
     const { currentUser, user } = this.props;
+    const friends = this.filteredFriends();
 
     return (
       <section className='profile-friends'>
@@ -51,17 +52,19 @@ class ProfileFriends extends React.Component {
 
         <ul>
           {
-            this.filteredFriends().map( friend => (
-              <li className='friend-item' key={`friend-${friend.id}`}>
+            friends.length > 0
+              ? friends.map( friend => (
+                <li className='friend-item' key={`friend-${friend.id}`}>
 
-                <Link to={ `/profiles/${friend.id}` }>
-                  <img src={ friend.profilePicUrl }></img>
-                  <span>{ friend.name }</span>
-                </Link>
+                  <Link to={ `/profiles/${friend.id}` }>
+                    <img src={ friend.profilePicUrl }></img>
+                    <span>{ friend.name }</span>
+                  </Link>
 
-                <FriendButton currentUser={ currentUser } user={ friend } />
-              </li>
-            ))
+                  <FriendButton currentUser={ currentUser } user={ friend } />
+                </li>
+              ))
+            : <li className='no-friends'>{"Use the search bar to find your friends!"}</li>
           }
         </ul>
       </section>
