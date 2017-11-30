@@ -75,3 +75,7 @@ export const generateContent = (field, profile) => {
       return `Attended ${content}`;
   }
 };
+
+export const selectUserSearchResults = ({ users, search }) => (
+  search.users.map(id => users.byId[id]) || []
+)

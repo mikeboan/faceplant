@@ -26,9 +26,11 @@ export const receiveSearchResults = (results) => {
   };
 };
 
-window.searchUsers = searchUsers;
+const _defaultState = {
+  users: [],
+}
 
-export default function (state = {}, action) {
+export default function (state = _defaultState, action) {
   switch (action.type) {
 
     case RECEIVE_SEARCH_RESULTS:

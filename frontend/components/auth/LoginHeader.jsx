@@ -5,6 +5,8 @@ import { withRouter } from 'react-router';
 import { login } from '../../redux/modules/session';
 import { clearAuthErrors } from '../../redux/modules/errors';
 
+import SearchBar from '../search/SearchBar';
+
 const mapStateToProps = (state, ownProps) => ({
   errors: state.errors.auth.credentials
 });

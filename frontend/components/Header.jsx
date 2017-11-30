@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 
-import SearchBar from './SearchBar';
+import SearchBar from './search/SearchBar';
 import { logout } from '../redux/modules/session';
 import { selectCurrentUser } from '../selectors/selectors';
 
