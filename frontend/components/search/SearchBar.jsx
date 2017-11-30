@@ -53,11 +53,15 @@ class SearchBar extends React.Component {
   render() {
     return (
       <div className='search-bar'>
-        <input
-          onFocus={ this.handleFocus }
-          onBlur={ this.handleBlur }
-          onChange={ this.handleChange }
-        ></input>
+        <form className='search-form' onSubmit={ this.submitSearch }>
+          <input
+            type='text'
+            onFocus={ this.handleFocus }
+            onBlur={ this.handleBlur }
+            onChange={ this.handleChange }
+            ></input>
+          <input type='submit' value="" />
+        </form>
       {
         this.state.active
           ? <SearchResultsIndex results={ this.props.results } />
