@@ -78,8 +78,8 @@ class User < ApplicationRecord
 
   def self.search_by_name(query)
     query = "%#{query}%"
-    User.includes(:profile_pic).where("first_name LIKE ?", query).or(
-      User.includes(:profile_pic).where("last_name LIKE ?", query)
+    User.includes(:profile_pic).where("first_name ILIKE ?", query).or(
+      User.includes(:profile_pic).where("last_name ILIKE ?", query)
     )
   end
 
