@@ -7,6 +7,7 @@ import { generateSyncActions } from './shared';
 import { RECEIVE_PROFILE } from './profiles';
 import { RECEIVE_POSTS } from './posts';
 import { RECEIVE_CURRENT_USER } from './session';
+import { RECEIVE_SEARCH_RESULTS } from './search';
 
 // action types
 export const RECEIVE_SINGLE_USER = "RECEIVE_SINGLE_USER";
@@ -39,6 +40,15 @@ const usersById = (oldState = {}, action) => {
     case RECEIVE_POSTS:
     case RECEIVE_CURRENT_USER:
       return merge({}, oldState, action.entities.users);
+
+    case RECEIVE_SEARCH_RESULTS:
+      return merge(
+        {},
+        oldState,
+        ...action.results.users.map( user =>
+          ({ [user.id]: user })
+        )
+      );
 
     default:
       return oldState;

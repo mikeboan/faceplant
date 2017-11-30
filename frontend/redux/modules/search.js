@@ -14,17 +14,30 @@ const api = {
 export const searchUsers = (query) => (dispatch) => (
   api.searchUsers(query)
     .then(results => dispatch(receiveSearchResults(results)))
-    // .error(console.log)
+    .fail(console.log)
 );
 
 export const receiveSearchResults = (results) => {
   const normalizedResults = normalize(results, searchSchema);
+  delete normalizedResults.search;
+  return {
+    type: RECEIVE_SEARCH_RESULTS,
+    results
+  };
 };
 
 window.searchUsers = searchUsers;
 
 export default function (state = {}, action) {
   switch (action.type) {
+
+    case RECEIVE_SEARCH_RESULTS:
+      const newState = Object.assign({}, action.results);
+      Object.keys(newState).forEach( result => {
+        newState[result] = newState[result].map( item => item.id)
+      });
+      return newState;
+
     default:
       return state;
   }
