@@ -1,0 +1,33 @@
+.search-bar {
+  position: relative;
+
+  .search-form {
+    height: 24px;
+    display: flex;
+    border: 2px solid rgb(62, 91, 153);
+
+    input[type='text'] {
+      width: 400px;
+      font-size: 12px;
+      padding: 5px 6px;
+      background: white;
+      color: black;
+      border-radius: 3px 0px 0px 3px;
+      border: 1px solid rgb(246, 247, 249);
+    }
+
+    input[type='submit'] {
+      background: rgb(246, 247, 249);
+      width: 50px;
+      border-radius: 0px 3px 3px 0px;
+
+      &:hover {
+        background: rgb(233, 238, 235);
+      }
+
+      &:after {
+        content: "0"
+      }
+    }
+  }
+}

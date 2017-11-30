@@ -59,6 +59,7 @@ class SearchBar extends React.Component {
             onFocus={ this.handleFocus }
             onBlur={ this.handleBlur }
             onChange={ this.handleChange }
+            placeholder="Search (ex: 'Bl')"
             ></input>
           <input type='submit' value="" />
         </form>
