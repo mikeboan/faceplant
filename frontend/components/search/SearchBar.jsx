@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { searchUsers } from '../../redux/modules/search';
+import { searchUsers, clearSearchResults } from '../../redux/modules/search';
 import { selectUserSearchResults } from '../../selectors/selectors';
 
 import SearchResultsIndex from './SearchResultsIndex';
@@ -11,28 +11,33 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  search: query => dispatch(searchUsers(query))
+  search: query => dispatch(searchUsers(query)),
+  clearResults: () => dispatch(clearSearchResults())
 });
 
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { active: false, query: "" };
+    this.state = { visible: false, query: "" };
 
-    this.handleFocus = this.handleFocus.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.show = this.show.bind(this);
+    this.hide = this.hide.bind(this);
   }
 
   submitSearch() {
-    this.searchTimeout = window.setTimeout(
-      () => {
-        window.clearTimeout(this.searchTimeout);
-        this.props.search(this.state.query)
-      },
-      300
-    );
+    if (this.state.query.length === 0) {
+      window.clearTimeout(this.searchTimeout);
+    } else {
+      this.searchTimeout = window.setTimeout(
+        () => {
+          window.clearTimeout(this.searchTimeout);
+          this.props.search(this.state.query)
+        },
+        300
+      );
+    }
   }
 
   handleChange(e) {
@@ -42,12 +47,17 @@ class SearchBar extends React.Component {
     );
   }
 
-  handleFocus() {
-    this.setState({ active: true });
+  handleClick() {
+    this.props.clearResults();
+    this.setState({ query: "" });
   }
 
-  handleBlur() {
-    this.setState({ active: false });
+  show() {
+    this.setState({ visible: true });
+  }
+
+  hide(e) {
+    this.setState({ visible: false });
   }
 
   render() {
@@ -56,16 +66,19 @@ class SearchBar extends React.Component {
         <form className='search-form' onSubmit={ this.submitSearch }>
           <input
             type='text'
-            onFocus={ this.handleFocus }
-            onBlur={ this.handleBlur }
+            onFocus={ this.show }
             onChange={ this.handleChange }
             placeholder="Search (ex: 'Bl')"
-            ></input>
+            value={ this.state.query }
+          ></input>
           <input type='submit' value="" />
         </form>
       {
-        this.state.active
-          ? <SearchResultsIndex results={ this.props.results } />
+        this.state.visible
+          ? <SearchResultsIndex
+              results={ this.props.results }
+              handleClick={ this.handleClick.bind(this) }
+            />
           : null
       }
       </div>

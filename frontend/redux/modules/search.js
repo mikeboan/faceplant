@@ -3,6 +3,7 @@ import { searchSchema } from './schema';
 
 export const SEARCH_USERS = "SEARCH_USERS";
 export const RECEIVE_SEARCH_RESULTS = "RECEIVE_SEARCH_RESULTS";
+export const CLEAR_SEARCH_RESULTS = "CLEAR_SEARCH_RESULTS";
 
 const api = {
   searchUsers: (query) => $.ajax({
@@ -26,6 +27,10 @@ export const receiveSearchResults = (results) => {
   };
 };
 
+export const clearSearchResults = () => ({
+  type: CLEAR_SEARCH_RESULTS,
+});
+
 const _defaultState = {
   users: [],
 }
@@ -34,13 +39,14 @@ export default function (state = _defaultState, action) {
   switch (action.type) {
 
     case RECEIVE_SEARCH_RESULTS:
-      const newState = Object.assign({}, action.results);
+      const newState = Object.assign({}, state, action.results);
       Object.keys(newState).forEach( result => {
         newState[result] = newState[result].map( item => item.id)
       });
       return newState;
 
+    case CLEAR_SEARCH_RESULTS:
     default:
-      return state;
+      return _defaultState;
   }
 }
