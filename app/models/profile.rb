@@ -38,4 +38,15 @@ class Profile < ApplicationRecord
       Post.includes(*inclusions).where(id: posts.select(:id))
     )
   end
+
+  def cover_photo=(image)
+    if cover_photo
+      cover_photo.update!(image: image)
+      photo = cover_photo
+    else
+      photo = Photo.create!(image: image)
+    end
+
+    super(photo)
+  end
 end

@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { RECEIVE_POST, REMOVE_POST } from './posts';
 import { normalize } from 'normalizr';
+import merge from 'lodash/merge';
 
 import { profileSchema } from './schema';
 import { generateSyncActions } from './shared';
@@ -23,11 +24,27 @@ export const fetchProfile = (userId) => dispatch => {
     dispatch(syncActions.receiveProfile(profile)));
 };
 
+export const updateCoverPhoto = formData => dispatch => (
+  api.updateCoverPhoto(formData).then( profile =>
+    dispatch(syncActions.receiveProfile(profile)))
+);
+
 const api = {
   fetchProfile: (userId) => $.ajax({
     url: `/api/profiles/${userId}`,
     method: 'GET'
   }),
+
+  updateCoverPhoto: formData => (
+    $.ajax({
+      url: `/api/profiles/cover_photo`,
+      method: "PATCH",
+      dataType: "json",
+      contentType: false,
+      processData: false,
+      data: formData,
+   })
+  )
 };
 
 // profile reducer
@@ -36,7 +53,7 @@ const profilesByUserId = (oldState = {}, action) => {
 
   switch(action.type) {
     case RECEIVE_PROFILE:
-      return Object.assign({}, oldState, action.entities.profiles);
+      return merge({}, oldState, action.entities.profiles);
 
     case RECEIVE_POST:
       const { posts } = action.entities;

@@ -14,4 +14,16 @@ class Api::ProfilesController < ApplicationController
     end
   end
 
+  def update_cover_photo
+    @profile = current_user.profile
+    @profile.update!(profile_params)
+    render 'api/profiles/tiny_show'
+  end
+
+  private
+
+  def profile_params
+    params.require(:profile).permit(:cover_photo)
+  end
+
 end

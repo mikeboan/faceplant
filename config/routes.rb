@@ -4,11 +4,16 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: :json} do
     resources :users, only: [:index, :create, :show]
+    patch "users/profile_picture",
+      to: "users#update_profile_picture"
+
     resource :session, only: [:create, :destroy, :show]
 
     resources :profiles, only: [:show], param: :user_id do
       resources :posts, only: [:create]
     end
+    patch "profiles/cover_photo",
+      to: "profiles#update_cover_photo"
 
     resources :posts, only: [:index, :show, :update, :destroy]
     resources :comments, only: [:create, :destroy, :index, :update]

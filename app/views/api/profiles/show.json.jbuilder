@@ -1,10 +1,6 @@
 json.extract! @profile, *@profile.attributes.keys - [:created_at, :updated_at, :cover_photo_id]
 
-if @profile.cover_photo
-  json.coverPhotoUrl @profile.cover_photo&.url
-else
-  json.coverPhotoUrl Photo::DEFAULT_COVER_PHOTO_URL
-end
+json.partial! 'api/profiles/cover_photo', profile: @profile
 
 user = @profile.user
 json.user do

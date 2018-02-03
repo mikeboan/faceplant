@@ -2,9 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import HeaderButtons from './HeaderButtons';
+import PhotoUpload from '../shared/PhotoUpload';
 
 const ProfileHeader = ({ user, currentUser, profile}) => (
   <div className='profile-header'>
+    <PhotoUpload></PhotoUpload>
     <div className='cover-photo-container'>
       <img className='cover-photo' src={profile.coverPhotoUrl} />
     </div>
