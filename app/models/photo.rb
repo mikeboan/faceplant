@@ -17,7 +17,7 @@ class Photo < ApplicationRecord
   DEFAULT_COVER_PHOTO_URL = "https://s3-us-west-2.amazonaws.com/faceplant-seeds/cover_photo.jpg"
 
   has_attached_file :image,
-    styles: { avatar: "168x168>", thumb: "38x38>" },
+    styles: { avatar: "168x168>", thumb: "38x38>", cover: "848x315" },
     default_url: "missing.png"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
@@ -29,7 +29,7 @@ class Photo < ApplicationRecord
     foreign_key: :cover_photo_id,
     class_name: "Profile"
 
-  def url
-    image.url
+  def url(style = nil)
+    image.url(style)
   end
 end

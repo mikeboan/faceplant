@@ -9,6 +9,9 @@
     height: 315px;
     border: 1px solid rgba(0, 0, 0, 0.5);
     border-top: 0;
+    // background-repeat: no-repeat;
+    // background-size: cover;
+    transition: all 0.3s ease-in;
   }
 
   .profile-pic-container {

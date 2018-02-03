@@ -8,6 +8,7 @@ class PhotoUpload extends React.Component {
     this.state = { imageFile: null, imageUrl: null };
     this.updateFile = this.updateFile.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   updateFile (e) {
@@ -37,13 +38,23 @@ class PhotoUpload extends React.Component {
     submit(formData);
   }
 
+  handleClick(e) {
+    this.input.click();
+  }
+
   render() {
     return (
-      <input
+      <div
         className={`photo-upload ${this.props.buttonClassName}`}
-        type='file'
-        onChange={this.updateFile}>
-      </input>
+        onClick={ this.handleClick }
+      >
+        <input
+          type='file'
+          onChange={this.updateFile}
+          ref={ el => this.input = el }
+        ></input>
+        <img src={window.staticImages.camera}></img>
+      </div>
     );
   }
 }

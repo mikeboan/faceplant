@@ -11,8 +11,10 @@ const ProfileHeader = ({ user, currentUser, profile}) => (
         <CoverPhotoUploadButton /> :
         null
     }
-    <div className='cover-photo-container'>
-      <img className='cover-photo' src={profile.coverPhotoUrl} />
+    <div
+      className='cover-photo-container'
+      style={{ background: `no-repeat center/cover url(${profile.coverPhotoUrl})` }}
+    >
     </div>
     <div className="profile-pic-container">
       <img className='profile-pic' src={user.profilePicUrl} />
