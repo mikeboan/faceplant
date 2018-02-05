@@ -53,7 +53,7 @@ class PhotoUpload extends React.Component {
           onChange={this.updateFile}
           ref={ el => this.input = el }
         ></input>
-        <img src={window.staticImages.camera}></img>
+      <img src={this.props.src}></img>
       </div>
     );
   }
