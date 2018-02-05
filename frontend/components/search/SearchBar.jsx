@@ -71,7 +71,7 @@ class SearchBar extends React.Component {
             placeholder="Search (ex: 'Bl')"
             value={ this.state.query }
           ></input>
-          <input type='submit' value="" />
+        <input type='submit' value='' />
         </form>
       {
         this.state.visible
@@ -82,7 +82,7 @@ class SearchBar extends React.Component {
           : null
       }
       </div>
-    )
+    );
   }
 }
 
