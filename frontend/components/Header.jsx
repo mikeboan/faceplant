@@ -27,7 +27,9 @@ class Header extends React.Component {
       <header className='header'>
         <div className='content'>
           <div className='header-left'>
-            <span className='logo'></span>
+            <a href="#/">
+              <span className='logo'>fp</span>
+            </a>
             <SearchBar />
           </div>
           <div className='header-right'>

@@ -1,6 +1,7 @@
 header {
   background-color: $fb-blue;
   color: white;
+  padding: 5px 0px;
 
   .content {
     display: flex;
@@ -12,6 +13,8 @@ header {
 .logo {
   font-size: 26px;
   padding: 5px;
+  color: white;
+  cursor: pointer;
 }
 
 .header-left, .header-right{
@@ -42,8 +45,4 @@ header nav {
       overflow: hidden;
     }
   }
-}
-
-.logo::after {
-  content: 'fp';
 }
