@@ -1,0 +1,53 @@
+.update-profile-pic {
+  cursor: pointer;
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  transition: all 250ms;
+  border: 1px solid rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0 ,0);
+  bottom: -27px;
+  padding-top: 12px;
+  padding: 12px 2px;
+  width: calc(100% - 6px);
+
+  img {
+    height: 16px;
+    width: 16px;
+    filter: invert(100%);
+    opacity: 0;
+  }
+
+  &::after {
+    content: "";
+    color: white;
+    opacity: 0;
+    font-size: 14px;
+    transition: all 250ms;
+  }
+
+  &.active {
+    background-color: rgba(0, 0, 0, 0.7);
+    bottom: 3px;
+    transition: all 250ms;
+
+    img { opacity: 0.7; }
+
+    &::after {
+      content: "Update Profile Pic";
+      opacity: 0.7;
+    }
+  }
+
+  &.super-active {
+    background-color: rgba(0, 0, 0, 1);
+
+    img { opacity: 1; }
+
+    &::after {
+      opacity: 1;
+      transition: all 250ms;
+    }
+  }
+}

@@ -177,6 +177,17 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+	def profile_pic=(image)
+		if (profile_pic)
+			profile_pic.update!(image: image)
+			pic = profile_pic
+		else
+			pic = Photo.create!(image: image)
+		end
+
+		super pic
+	end
+
 	####################
 	# AUTH
 	####################
@@ -214,7 +225,7 @@ class User < ApplicationRecord
 	end
 
 	def ensure_session_token_uniqueness
-		while User.find_by(session_token: self.session_token)
+		while User.where.not(id: id).find_by(session_token: session_token)
 			self.session_token = new_session_token
 		end
 	end

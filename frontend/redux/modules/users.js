@@ -2,40 +2,47 @@ import { combineReducers } from 'redux';
 import merge from 'lodash/merge';
 
 import { generateSyncActions } from './shared';
-// import { updateCurrentUserFriends } from './helpers';
+import { userSchema } from './schema';
 
 import { RECEIVE_PROFILE } from './profiles';
 import { RECEIVE_POSTS } from './posts';
-import { RECEIVE_CURRENT_USER } from './session';
+import { receiveCurrentUser, RECEIVE_CURRENT_USER } from './session';
 import { RECEIVE_SEARCH_RESULTS } from './search';
 
-// action types
-export const RECEIVE_SINGLE_USER = "RECEIVE_SINGLE_USER";
-
-// sync actions
-export const receiveUser = user => ({
-  type: RECEIVE_SINGLE_USER,
-  user
-});
-
 // async actions
-export const fetchUser = (id) => dispatch => (
-  api.fetchUser(id).then(user => dispatch(receiveUser(user)))
+export const updateUser = user => dispatch => (
+  api.updateUser(user).then(user => dispatch(receiveCurrentUser(user)))
+);
+
+export const updateProfilePic = user => dispatch => (
+  api.updateProfilePic(user).then(user => dispatch(receiveCurrentUser(user)))
 );
 
 const api = {
   fetchUser: (id) => $.ajax({
     url: `/api/users/${id}`,
-    method: 'GET'
+    method: 'GET',
+  }),
+
+  updateUser: user => $.ajax({
+    url: 'api/user/',
+    method: 'PATCH',
+    data: { user },
+  }),
+
+  updateProfilePic: formData => $.ajax({
+    url: '/api/user',
+    method: "PATCH",
+    dataType: "json",
+    contentType: false,
+    processData: false,
+    data: formData,
   })
 };
 
 // reducer
 const usersById = (oldState = {}, action) => {
   switch(action.type) {
-    case RECEIVE_SINGLE_USER:
-      return oldState; // TODO?
-
     case RECEIVE_PROFILE:
     case RECEIVE_POSTS:
     case RECEIVE_CURRENT_USER:

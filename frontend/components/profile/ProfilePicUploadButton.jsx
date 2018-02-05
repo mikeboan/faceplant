@@ -2,13 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import PhotoUpload from '../shared/PhotoUpload';
-import { updateCoverPhoto } from '../../redux/modules/profiles';
+import { updateProfilePic } from '../../redux/modules/users';
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  submit: data => dispatch(updateCoverPhoto(data))
+  submit: data => dispatch(updateProfilePic(data))
 })
 
-class CoverPhotoUploadButton extends React.Component {
+class ProfilePicUploadButton extends React.Component {
   constructor(props) {
     super(props)
 
@@ -27,9 +27,9 @@ class CoverPhotoUploadButton extends React.Component {
   }
 
   buttonClassName() {
-    if (this.state.hovered) return 'update-cover-photo active super-active';
-    else if (this.props.active) return 'update-cover-photo active';
-    else return 'update-cover-photo';
+    if (this.state.hovered) return 'update-profile-pic active super-active';
+    else if (this.props.active) return 'update-profile-pic active';
+    else return 'update-profile-pic';
   }
 
   render() {
@@ -42,8 +42,8 @@ class CoverPhotoUploadButton extends React.Component {
       >
         <PhotoUpload
           buttonClassName={ this.buttonClassName() }
-          resourceName='profile'
-          imageName='cover_photo'
+          resourceName='user'
+          imageName='profile_pic'
           src={ window.staticImages.bwCamera }
           submit={ submit }
           />
@@ -55,4 +55,4 @@ class CoverPhotoUploadButton extends React.Component {
 export default connect(
   null,
   mapDispatchToProps
-)(CoverPhotoUploadButton);
+)(ProfilePicUploadButton);

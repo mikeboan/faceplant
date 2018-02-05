@@ -3,26 +3,31 @@ import { NavLink } from 'react-router-dom';
 
 import HeaderButtons from './HeaderButtons';
 import CoverPhotoUploadButton from './CoverPhotoUploadButton';
+import ProfilePicUploadButton from './ProfilePicUploadButton';
 
 class ProfileHeader extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = { hovered: false };
-
-    this.handleMouseEnter = this.handleMouseEnter.bind(this);
-    this.handleMouseLeave = this.handleMouseLeave.bind(this);
+    this.state = {
+      coverPhotoHovered: false,
+      profilePicHovered: false,
+    };
   }
 
 
-  handleMouseEnter() {
-    if (this.props.user.id === this.props.currentUser.id)
-      this.setState({ hovered: true });
+  handleMouseEnter(field) {
+    return () => {
+      if (this.props.user.id === this.props.currentUser.id)
+        this.setState({ [`${field}Hovered`]: true });
+    }
   }
 
-  handleMouseLeave() {
-    if (this.props.user.id === this.props.currentUser.id)
-      this.setState({ hovered: false });
+  handleMouseLeave(field) {
+    return () => {
+      if (this.props.user.id === this.props.currentUser.id)
+        this.setState({ [`${field}Hovered`]: false });
+    }
   }
 
   render() {
@@ -32,18 +37,29 @@ class ProfileHeader extends React.Component {
       <div className='profile-header'>
         <div
           className='cover-photo-container'
-          onMouseEnter={ this.handleMouseEnter }
-          onMouseLeave={ this.handleMouseLeave }
+          onMouseEnter={ this.handleMouseEnter('coverPhoto') }
+          onMouseLeave={ this.handleMouseLeave('coverPhoto') }
           style={{ background: `no-repeat center/cover url(${profile.coverPhotoUrl})` }}
         >
-        {
-          user.id === currentUser.id ?
-            <CoverPhotoUploadButton active={ this.state.hovered }/> :
-            null
+          {
+            user.id === currentUser.id ?
+              <CoverPhotoUploadButton active={ this.state.coverPhotoHovered }/> :
+              null
           }
         </div>
-        <div className="profile-pic-container">
-          <img className='profile-pic' src={user.profilePicUrl} />
+        <div
+          className="profile-pic-container"
+          onMouseEnter={ this.handleMouseEnter('profilePic') }
+          onMouseLeave={ this.handleMouseLeave('profilePic') }
+          >
+          <div className='profile-pic-border'>
+            <img className='profile-pic' src={user.profilePicUrl} />
+            {
+              user.id === currentUser.id ?
+              <ProfilePicUploadButton active={ this.state.profilePicHovered } /> :
+                null
+            }
+          </div>
         </div>
         <div className='username'>
           { user.name }

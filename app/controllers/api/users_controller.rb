@@ -30,6 +30,12 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def update
+    @user = current_user
+    @user.update!(user_params)
+    render 'api/users/tiny_show'
+  end
+
   ###############
   # FRIENDSHIPS #
   ###############
@@ -67,7 +73,13 @@ class Api::UsersController < ApplicationController
 	private
 
 	def user_params
-		params.require(:user).permit(:email, :first_name, :last_name, :password)
+		params.require(:user).permit(
+      :email,
+      :first_name,
+      :last_name,
+      :password,
+      :profile_pic
+    )
 	end
 
   def friendship_params

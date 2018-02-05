@@ -1,4 +1,5 @@
 .update-cover-photo {
+  cursor: pointer;
   position: absolute;
   top: 25px;
   left: 25px;
@@ -46,10 +47,3 @@
     }
   }
 }
-
-// background-color: rgba(0, 0, 0, 0.5);
-// border: 1px solid white;
-// border-radius: 5px;
-// font-size: 14px;
-// color: white;
-// transition: all 0.5s;
