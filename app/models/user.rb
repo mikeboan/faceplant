@@ -181,6 +181,8 @@ class User < ApplicationRecord
 		if (profile_pic)
 			profile_pic.update!(image: image)
 			pic = profile_pic
+		elsif image.is_a? Photo
+			pic = image
 		else
 			pic = Photo.create!(image: image)
 		end
