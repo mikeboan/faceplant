@@ -5,12 +5,8 @@
   .newsfeed-left-bar, .newsfeed-right-bar {
     width: 20%;
     height: 500px;
-    background-color: pink;
+    background-color: transparent;
     margin: 20px 10px;
-
-    &:after {
-      content: "side bar";
-    }
   }
 
   .newsfeed-center {

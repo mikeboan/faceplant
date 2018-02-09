@@ -24,6 +24,7 @@ class Newsfeed extends React.Component {
   render() {
     return(
       <section className="newsfeed">
+        <LeftBar />
 
         <div className='newsfeed-center'>
           <PostForm />
@@ -35,6 +36,7 @@ class Newsfeed extends React.Component {
           </ul>
         </div>
 
+        <RightBar />
       </section>
     );
   }
