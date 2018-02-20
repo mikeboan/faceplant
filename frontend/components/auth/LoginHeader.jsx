@@ -25,6 +25,8 @@ class LogInHeader extends React.Component {
     };
     this.assignHandler = this.assignHandler.bind(this);
     this.redirectTo = this.redirectTo.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleGuestLogin = this.handleGuestLogin.bind(this);
   }
 
   assignHandler(field) {
@@ -37,13 +39,42 @@ class LogInHeader extends React.Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
+    e ? e.preventDefault() : null;
 
     this.props.clearAuthErrors();
 
     this.props.login(this.state)
       .then(() => this.redirectTo("/"))
       .fail(() => this.setState({ password: "" }));
+  }
+
+  handleGuestLogin(e) {
+    e.preventDefault();
+
+    this.props.clearAuthErrors();
+
+    const email = "michael@bluth.com";
+    const password = "starwars";
+    let idx = 0;
+    let time = 100;
+
+    const type = () => {
+      this.setState(
+        idx <= email.length ?
+          { email: email.slice(0, idx) } :
+          { password: password.slice(0, idx - email.length) },
+        () => {
+          if (idx++ <= email.length + password.length) {
+            setTimeout(type, time);
+            time -= 5;
+          } else {
+            this.handleSubmit();
+          }
+        }
+      );
+    };
+
+    type();
   }
 
   redirectTo(path) {
@@ -70,14 +101,21 @@ class LogInHeader extends React.Component {
         >
           { this.errorTooltip() }
           <label>Email
-            <input type="text" onChange={ this.assignHandler('email') } />
+            <input
+              type="text"
+              onChange={ this.assignHandler('email') }
+              value={ this.state.email }
+            />
           </label>
           <label>Password
             <input
               type="password"
-              onChange={ this.assignHandler('password') } />
+              onChange={ this.assignHandler('password') }
+              value={ this.state.password }
+            />
           </label>
           <input type="submit" value="Log In"></input>
+          <button onClick={ this.handleGuestLogin }>Guest</button>
         </form>
       </header>
     );
